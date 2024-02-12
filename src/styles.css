@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+
+
+/*couleur de fond degrader bleu*/
+body {
+    background: #2980b9;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #2c3e50, #2980b9);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #4d657e, #3891cc);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  }
+

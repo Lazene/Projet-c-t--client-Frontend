@@ -1,0 +1,23 @@
+<p>Table is just a mapping of objects to table rows with <code>ngFor</code></p>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th scope="col">Name</th>
+			<th scope="col">type</th>
+			<th scope="col">Description</th>
+			<th scope="col">Edit</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let course of courses">
+			<td>
+
+				{{ course.name }}
+			</td>
+			<td>{{ course.type }}</td>
+			<td>{{ course.description }}</td>
+			<td><button (click)="edit(course.name)">Edit</button></td>
+		</tr>
+	</tbody>
+</table>
