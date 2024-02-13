@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthentificationService } from '../shared/authentification.service';
+import { AuthentificationService } from '../services/authentification.service';
 import { Router } from '@angular/router';
 
 
@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   loginForm: FormGroup;
+
   
   constructor(private authService: AuthentificationService, private router: Router) {
     this.loginForm = new FormGroup({
@@ -29,6 +30,8 @@ export class LoginComponent {
     });
     
   }
+  
 }
+
 
 

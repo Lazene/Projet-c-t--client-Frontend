@@ -1,0 +1,51 @@
+<body>
+    <div id="login">
+        <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                <div id="login-column" class="col-md-6">
+                    <div id="login-box" class="col-md-12">
+                        <form [formGroup]="registerForm" (ngSubmit)="submit()">
+                            <h3 class="text-center text-info">Register</h3>
+                            <div class="form-group">
+                                <label for="userName">Username</label>
+                                <input type="text" formControlName="userName" class="form-control" name="userName" placeholder="Type your name"/>
+                                
+                                <div  *ngIf="registerForm.get('userName').invalid && 
+                                    registerForm.get('userName').errors &&
+                                    (registerForm.get('userName').dirty || registerForm.get('userName').touched)" 
+                                    class="block p-error">
+                                    <div *ngIf="registerForm.get('userName').errors?.['required']">Name is required.</div>
+                                    <div *ngIf="registerForm.get('userName').errors?.['pattern']">Enter a valid Name</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" formControlName="password" class="form-control" name="password" placeholder="Type your password"/>
+                                <small *ngIf="registerForm.get('password').invalid && 
+                                    registerForm.get('password').errors &&
+                                    (registerForm.get('password').dirty || registerForm.get('password').touched)">
+                                    <div *ngIf="registerForm.get('password').errors?.['required']">Password is required.</div>
+                                </small>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmPassword">Confirm Password</label>
+                                <input type="password" formControlName="confirmPassword" class="form-control" name="confirmPassword" placeholder="Confirm Password"/>
+                                <small *ngIf="registerForm.get('confirmPassword').invalid &&
+                                    registerForm.get('confirmPassword').errors &&
+                                    (registerForm.get('confirmPassword').dirty || registerForm.get('confirmPassword').touched)">
+                                    <div *ngIf="registerForm.get('confirmPassword').errors?.['required']">Confirm the password</div>
+                                </small>
+                                <div *ngIf="registerForm.get('confirmPassword').errors?.['required']"> Confirm the password </div>
+                                <small class="block p-error" *ngIf="registerForm.get('confirmPassword').errors?.['passwordMismatch'] && 
+                                    registerForm.get('confirmPassword').valid && registerForm.get('password').valid"> Password should match
+                                </small>
+                            </div>
+                            <button class="btn btn-primary" type="submit">Register</button>
+                            <div class="mt-2">Already a member? <a routerLink="/login">Login</a></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

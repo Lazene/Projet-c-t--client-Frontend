@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { CourseService } from '../shared/course.service';
+import { CourseService } from '../services/course.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Course } from '../shared/courseModel';
 

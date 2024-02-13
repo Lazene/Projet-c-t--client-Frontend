@@ -1,6 +1,6 @@
-import { HttpErrorResponse, HttpHandler, HttpInterceptor, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
+import { HttpErrorResponse, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AuthentificationService } from './authentification.service';
+import { AuthentificationService } from '../services/authentification.service';
 import { Observable, catchError, switchMap, throwError } from 'rxjs';
 
 @Injectable()
@@ -31,7 +31,7 @@ handleRefreshToken(request: any, next: HttpHandler): any {
       sessionStorage.setItem('jwt', response.token);
 
       const cloneRequest = request.clone({
-        setHeaders: { Authorization: `Bearer ${response.token}` }
+        setHeaders: { Authorization: `Bearer ${response.token}`}
       });
       return next.handle(cloneRequest);
     }),

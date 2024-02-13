@@ -4,6 +4,8 @@ import { CourseAddComponent } from './course-add/course-add.component';
 import { CourseTableComponent } from './course-table/course-table.component';
 import { LoginComponent } from './login/login.component';
 import { authGuard } from './shared/auth.guard';
+import { NavbarComponent } from './navbar/navbar.component';
+import { RegisterComponent } from './register/register.component';
 
 
 const routes: Routes = [
@@ -11,6 +13,8 @@ const routes: Routes = [
   {path:"course/:name", component: CourseAddComponent},
   {path:"course-table", component: CourseTableComponent, canActivate: [authGuard]},
   {path: "login", component: LoginComponent},
+  {path: "navbar", component :NavbarComponent},
+  {path:"register", component: RegisterComponent},
 ];
 
 @NgModule({
