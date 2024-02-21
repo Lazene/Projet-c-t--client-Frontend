@@ -10,7 +10,7 @@ import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   {path:"course", component: CourseAddComponent},
-  {path:"course/:name", component: CourseAddComponent},
+  {path:"course/:name", component: CourseAddComponent},// :name is a parameter
   {path:"course-table", component: CourseTableComponent, canActivate: [authGuard]},
   {path: "login", component: LoginComponent},
   {path: "navbar", component :NavbarComponent},

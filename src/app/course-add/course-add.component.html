@@ -1,1 +1,44 @@
-<p>course-add works!</p>
+<div id="add-course">
+    <div class="container">
+        <div id="add-course-row" class="row justify-content-center align-items-center">
+            <div id="add-course-column" class="col-md-6">
+                <div id="add-course-box" class="col-md-12">
+                    <form [formGroup]="courseForm" (ngSubmit)="save()">
+                        <h3 class="text-center text-info">Add Course</h3>
+                        <div class="form-group">
+                            <label for="courseName">Name</label>
+                            <input type="text" formControlName="name" class="form-control" name="courseName" placeholder="Enter Course Name"/>
+                            <div *ngIf="courseForm.get('name').invalid && 
+                                courseForm.get('name').errors &&
+                                (courseForm.get('name').dirty || courseForm.get('name').touched)" 
+                                class="block p-error">
+                                <div *ngIf="courseForm.get('name').errors?.['required']">Name is required.</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="courseDescription">Description</label>
+                            <textarea formControlName="description" class="form-control" name="courseDescription" rows="3" placeholder="Enter Course Description"></textarea>
+                            <div *ngIf="courseForm.get('description').invalid && 
+                                courseForm.get('description').errors &&
+                                (courseForm.get('description').dirty || courseForm.get('description').touched)" 
+                                class="block p-error">
+                                <div *ngIf="courseForm.get('description').errors?.['required']">Description is required.</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="courseType">Type</label>
+                            <input type="text" formControlName="type" class="form-control" name="courseType" placeholder="Enter Course Type"/>
+                            <div *ngIf="courseForm.get('type').invalid && 
+                                courseForm.get('type').errors &&
+                                (courseForm.get('type').dirty || courseForm.get('type').touched)" 
+                                class="block p-error">
+                                <div *ngIf="courseForm.get('type').errors?.['required']">Type is required.</div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" type="submit">Add Course</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

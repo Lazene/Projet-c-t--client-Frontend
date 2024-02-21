@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { CourseService } from '../services/course.service';
-import { Course } from '../shared/courseModel';
+
 import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-course-table',
@@ -13,14 +14,14 @@ export class CourseTableComponent {
 	courses: any;
 
   constructor(private courseService: CourseService, private router:Router){
-
+//objet router pour naviguer entre les pages
     courseService.Get().subscribe(x=> {
       this.courses=x
     })
   }
 
   edit(name:string){
-    this.router.navigate(['course', name])
+    this.router.navigate(['/course', name])
   }
 
 }

@@ -1,4 +1,4 @@
-<p>Table is just a mapping of objects to table rows with <code>ngFor</code></p>
+
 
 <table class="table table-striped">
 	<thead>
@@ -10,7 +10,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr *ngFor="let course of courses">
+		<tr *ngFor="let course of courses; index as i">
 			<td>
 
 				{{ course.name }}

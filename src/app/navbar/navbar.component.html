@@ -28,10 +28,11 @@
       </ul>
       <ul class="navbar-nav">
         <li class="navbar-nav ms-auto">
-          <a *ngIf="!isAuthentificated" class="nav-link" href="/login">Login</a>
-          <button *ngIf="isAuthentificated" class="btn btn-link nav-link" (click)="logout()">Logout</button>
+          <a *ngIf="!isAuthentificated" class="nav-link" href="/login" (click)="refreshAuthentication()">Login</a> 
+          <button *ngIf="isAuthentificated" class="btn btn-link nav-link" (click)="logout();refreshAuthentication()">Logout</button>
         </li>
       </ul>
+      
     </div>
   </div>
 </nav>

@@ -28,7 +28,7 @@ export class RegisterComponent {
       response => {
         console.log(response);
 
-        this.router.navigate(['login'])
+        this.router.navigate(['/login'])
       },
     );
   

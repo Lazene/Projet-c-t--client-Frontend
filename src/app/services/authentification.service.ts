@@ -26,7 +26,7 @@ export class AuthentificationService {
   // méthode refreshToken pour rafraichir le token
   refreshToken(){
     const token = sessionStorage.getItem("jwt");
-    return this.http.get(`https://localhost:7176/Authentication/RefreshToken?token=`+token);
+    return this.http.get(`http://localhost:5244/Authentication/RefreshToken?token=`+token);
   }
   // méthode pour enregistrer un utilisateur
   register(userName: string, password: string): Observable<any>{
