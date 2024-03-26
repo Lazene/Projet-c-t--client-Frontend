@@ -13,6 +13,9 @@ import { LoginComponent } from './login/login.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { jwtIntercept} from './shared/jwt.interceptor';
 import { RegisterComponent } from './register/register.component';
+import { CourseDetailsComponent } from './course-details/course-details.component';
+import { UserDetailsComponent } from './user-details/user-details.component';
+import { UserTableComponent } from './user-table/user-table.component';
 
 export function tokenGetter() {return sessionStorage.getItem("jwt");}
 
@@ -25,6 +28,9 @@ export function tokenGetter() {return sessionStorage.getItem("jwt");}
     CourseTableComponent,
     LoginComponent,
     RegisterComponent,
+    CourseDetailsComponent,
+    UserDetailsComponent,
+    UserTableComponent,
 
     
   ],

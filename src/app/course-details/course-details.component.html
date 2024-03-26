@@ -1,0 +1,22 @@
+<!-- course-details.component.html -->
+<div class="course-details">
+    <h2 class = "title">Détails du Cours</h2>
+    <p><b>ID du Cours :</b> {{courseDetails.courseId}}</p>
+    <p><b>Nom du Cours :</b> {{courseDetails.courseName}}</p>
+    <p><b>Description :</b> {{courseDetails.courseDescription}}</p>
+  
+    <div class="teachers">
+      <h3>Enseignants</h3>
+      <ul>
+        <li *ngFor="let teacher of teachers">{{teacher.teacherName}}</li>
+      </ul>
+    </div>
+  
+    <div class="students">
+      <h3>Élèves</h3>
+      <ul>
+        <li *ngFor="let student of courseDetails.students">{{student.name}}</li>
+      </ul>
+    </div>
+  </div>
+  

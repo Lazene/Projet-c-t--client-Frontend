@@ -1,0 +1,12 @@
+.role-student {
+    background-color: #357ab8; /* Couleur pour les étudiants */
+  }
+  
+  .role-teacher {
+    background-color: #ffebcd; /* Couleur pour les enseignants */
+  }
+  
+  .role-admin {
+    background-color: #ece1ff; /* Couleur pour les administrateurs */
+  }
+  

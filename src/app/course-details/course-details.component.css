@@ -1,0 +1,16 @@
+/* course-details.component.css */
+.course-details {
+    color: white; 
+  }
+  
+  /* Si .title est spécifiquement stylisé, assurez-vous qu'il est aussi défini à blanc */
+  .title {
+    color: white;
+  }
+  
+  /* Optionnellement, vous pouvez réappliquer explicitement la couleur pour les sous-composants */
+  .course-details h2, .course-details h3, .course-details p, .course-details li {
+    color: white;
+  }
+  
+  

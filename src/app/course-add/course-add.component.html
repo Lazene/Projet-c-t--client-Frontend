@@ -8,34 +8,30 @@
                         <div class="form-group">
                             <label for="courseName">Name</label>
                             <input type="text" formControlName="name" class="form-control" name="courseName" placeholder="Enter Course Name"/>
-                            <div *ngIf="courseForm.get('name').invalid && 
-                                courseForm.get('name').errors &&
-                                (courseForm.get('name').dirty || courseForm.get('name').touched)" 
-                                class="block p-error">
+                            <div *ngIf="courseForm.get('name').invalid && (courseForm.get('name').dirty || courseForm.get('name').touched)" class="block p-error">
                                 <div *ngIf="courseForm.get('name').errors?.['required']">Name is required.</div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="courseDescription">Description</label>
                             <textarea formControlName="description" class="form-control" name="courseDescription" rows="3" placeholder="Enter Course Description"></textarea>
-                            <div *ngIf="courseForm.get('description').invalid && 
-                                courseForm.get('description').errors &&
-                                (courseForm.get('description').dirty || courseForm.get('description').touched)" 
-                                class="block p-error">
+                            <div *ngIf="courseForm.get('description').invalid && (courseForm.get('description').dirty || courseForm.get('description').touched)" class="block p-error">
                                 <div *ngIf="courseForm.get('description').errors?.['required']">Description is required.</div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="courseType">Type</label>
-                            <input type="text" formControlName="type" class="form-control" name="courseType" placeholder="Enter Course Type"/>
-                            <div *ngIf="courseForm.get('type').invalid && 
-                                courseForm.get('type').errors &&
-                                (courseForm.get('type').dirty || courseForm.get('type').touched)" 
-                                class="block p-error">
-                                <div *ngIf="courseForm.get('type').errors?.['required']">Type is required.</div>
+                            <label for="teacher">Teacher</label>
+                            <!-- Remplacez le champ de texte par une liste déroulante pour sélectionner un enseignant -->
+                            <select formControlName="teacher" class="form-control">
+                                <option value="" disabled>Select Teacher</option>
+                                <option *ngFor="let teacher of teachers" [value]="teacher.teacherId">{{teacher.teacherName}}</option>
+                            </select>
+                            <div *ngIf="courseForm.get('teacher').invalid && (courseForm.get('teacher').dirty || courseForm.get('teacher').touched)" class="alert alert-danger">
+                                <div *ngIf="courseForm.get('teacher').errors?.['required']">Teacher selection is required.</div>
                             </div>
                         </div>
-                        <button class="btn btn-primary" type="submit">Add Course</button>
+                        <button type="submit" class="btn btn-primary" *ngIf="!isUpdate">Save Course</button>
+                        <button type="submit" class="btn btn-success" *ngIf="isUpdate && courseForm.valid">Update Course</button>
                     </form>
                 </div>
             </div>
