@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent  {
   loginForm: FormGroup;
 
   
@@ -25,13 +25,20 @@ export class LoginComponent {
       console.log(response);
       if(response.token){
         sessionStorage.setItem("jwt", response.token);
+        sessionStorage.setItem("username", response.username);
+        sessionStorage.setItem("role", response.role);
+        sessionStorage.setItem("id", response.id);
+      
+
         this.router.navigate(["/"]);
       }
     });
-    
+
+    }
+
   }
   
-}
+
 
 
 

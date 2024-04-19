@@ -9,19 +9,29 @@ import { RegisterComponent } from './register/register.component';
 import { CourseDetailsComponent } from './course-details/course-details.component';
 import { UserTableComponent } from './user-table/user-table.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
+import { UserAddComponent } from './user-add/user-add.component';
+import { StudentAddComponent } from './student-add/student-add.component';
+import { StudentTableComponent } from './student-table/student-table.component';
+import { StudentDetailsComponent } from './student-details/student-details.component';
 
 
 const routes: Routes = [
+
   {path:"course", component: CourseAddComponent},
   {path:"course/:name", component: CourseAddComponent},
-  {path:"course-table", component: CourseTableComponent, canActivate: [authGuard]},
+  {path:"course-table", component: CourseTableComponent,},
+  { path: 'course-add', component: CourseAddComponent },
   { path: 'course-add/:id', component: CourseAddComponent },
   { path: 'course-details/:id', component: CourseDetailsComponent },
   {path: "login", component: LoginComponent},
   {path: "navbar", component :NavbarComponent},
   {path:"register", component: RegisterComponent},
   {path:"user-table", component : UserTableComponent},
-  { path: "user-details/:id", component: UserDetailsComponent }
+  { path: "user-details/:id", component: UserDetailsComponent },
+  { path: 'user-add', component: UserAddComponent, canActivate: [authGuard]},
+  {path: 'student-add', component: StudentAddComponent},
+  {path :'student-table', component: StudentTableComponent},
+  {path : 'student-details/:id', component: StudentDetailsComponent}
 ];
 
 @NgModule({

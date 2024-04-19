@@ -11,11 +11,13 @@ import { Router } from '@angular/router';
 })
 export class UserTableComponent implements OnInit {
   users: User[] = [];
-
+  role : string = "";
 
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
+  this.role = sessionStorage.getItem("role");
+    console.log(this.role);
     this.loadUsers();
   }
 
@@ -58,6 +60,8 @@ export class UserTableComponent implements OnInit {
       return 0;
     });
   }
-  
+  createUser(): void {
+    this.router.navigate(['/user-add']); // Assurez-vous que le chemin est correct 
+}
   
 }

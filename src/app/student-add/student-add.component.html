@@ -1,0 +1,22 @@
+<div id = "Create-student">
+    <div class="container">
+      <div id="Create-User-row" class="row justify-content-center align-items-center">
+        <div id="Create-User-column" class="col-md-6">
+          <div id="Create-User-box" class="col-md-12">
+            <form [formGroup]="registerForm" (ngSubmit)="submit()">
+              <h3 class="text-center text-info">Create Student</h3>
+              <div class="form-group">
+                <label for="userName">Username</label>
+                <input type="text" id="userName" formControlName="userName" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" formControlName="password" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" formControlName="confirmPassword" class="form-control">
+              </div>
+      <button type="submit" class="btn btn-primary">Create User</button>
+  </form>
+ 

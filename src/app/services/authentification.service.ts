@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { User } from '../shared/DTO/UserDto';
 
 @Injectable({
   providedIn: 'root'
@@ -10,25 +11,31 @@ export class AuthentificationService {
   private isAuthentificatedSubject = new BehaviorSubject<boolean>(false);
   private usernameSubject = new BehaviorSubject<string>(sessionStorage.getItem("username") || '');
   private userRoleSubject = new BehaviorSubject<string>(sessionStorage.getItem("role") || '');
+  $user = new BehaviorSubject<User| undefined>(undefined);
+  
+  
 
   constructor(private http : HttpClient, public jwtHelper : JwtHelperService) {}
   
    // méthode pour logger un utilisateur
    login(userName: string, password: string): Observable<any> {
-    // Assurez-vous que les clés correspondent à celles attendues par le DTO côté backend
     const loginData = { Username: userName, Password: password };
-    return this.http.post(`https://localhost:7176/Authentification/Login`, loginData, {
-   }).pipe(
-        tap((response: any) => {
-            sessionStorage.setItem("jwt", response.Token); // Assurez-vous que la clé correspond à celle renvoyée par le backend
-            sessionStorage.setItem("username", userName); // Potentiellement adapter selon la réponse
-            sessionStorage.setItem("role", "VotreLogiquePourDéfinirLeRôle"); // Adapter selon la réponse ou votre logique d'application
+    return this.http.post<any>(`https://localhost:7176/Authentification/Login`, loginData)
+      .pipe(
+        tap(response => {
+          if (response && response.token) {
+            sessionStorage.setItem("jwt", response.token);
+            sessionStorage.setItem("username", response.username);
+            sessionStorage.setItem("role", response.role);
+            sessionStorage.setItem('expires', response.expires);
+            this.usernameSubject.next(response.username);
+            this.userRoleSubject.next(response.role);
             this.isAuthentificatedSubject.next(true);
-            this.usernameSubject.next(userName); // Adapter selon la réponse
-            this.userRoleSubject.next("VotreLogiquePourDéfinirLeRôle"); // Adapter selon la réponse
+          } // Met à jour le BehaviorSubject avec le rôle
         })
-    );
-}
+      );
+  }
+  
   
   
 
@@ -95,5 +102,29 @@ getUserName(): string {
 // méthode pour obtenir le role de l'utilisateur stocké dans le sessionStorage
 getUserRole(): string {
   return sessionStorage.getItem("role") || '';
+}
+getToken(): string | null {
+  return sessionStorage.getItem('jwt');
+}
+user(): Observable<User|undefined> {
+
+  return this.$user.asObservable();
+}
+setUser(user: User): void {
+ 
+  this.$user.next(user);
+  localStorage.setItem("user-id", user.id.toString());
+  localStorage.setItem('user-email', user.username);
+  localStorage.setItem('user-roles', user.role);
+
+}
+getUserId(): number {
+  const token = sessionStorage.getItem("jwt");
+  if (!token) {
+    return null;
+  }
+
+  const decodedToken = this.jwtHelper.decodeToken(token);
+  return +decodedToken.sub; // '+' est utilisé pour convertir la chaîne en nombre
 }
 }

@@ -43,23 +43,29 @@ export class CourseService {
 
   // Mettre à jour un cours existant
   updateCourse(courseId: string, course: { name: string; description: string; teacherName: string, teacherId: number }): Observable<any> {
-    // Construis le payload avec tous les champs attendus par ton API backend
     const payload = {
-      id: courseId, // Assure-toi que cet ID est correctement inclus si nécessaire par ton API
+      courseId: courseId,
       name: course.name,
       description: course.description,
-      teacherId: course.teacherId, // Inclus l'ID de l'enseignant si disponible
+      teacherId: course.teacherId,
       teacherName: course.teacherName,
     };
   
-    // Utilise l'ID du cours dans l'URL de la requête PUT
-    return this.http.put<Course>(`${this.baseUrl}/${courseId}`, payload);
+    return this.http.put<Course>(`${this.baseUrl}/${courseId}/update`, payload);
   }
+  addCourseWithTeacher(course: { name: string; description: string; teacherName: string}): Observable<any> {
+    const payload = {
+      courseName: course.name,
+      courseDescription: course.description,
+      teacherName: course.teacherName
+    };
   
+    return this.http.post(`${this.baseUrl}/AddWithTeacher`, payload);
+  }
 
   // Supprimer un cours
   deleteCourse(courseId: string): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${courseId}`);
+    return this.http.delete(`${this.baseUrl}/${courseId}/delete`);
   }
 
   // Ajouter un étudiant à un cours
@@ -88,6 +94,9 @@ export class CourseService {
     return this.http.get<TeacherDTO[]>(`${this.baseUrl}/${courseId}/teachers`);
   }
   
+  getStudents(courseId: number): Observable<StudentDTO[]> {
+    return this.http.get<StudentDTO[]>(`${this.baseUrl}/${courseId}/students`);
+  }
 
 }
 

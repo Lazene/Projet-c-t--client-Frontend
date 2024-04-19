@@ -1,0 +1,31 @@
+label{
+    color: white;
+}
+.form-group {
+    width: 50%;
+    margin: 0 auto;
+  }
+  .form-group input, .form-group select {
+    background-color: white;
+  }
+  
+  button[type="submit"] {
+    display: block;
+    margin: 0 auto;
+  
+    color: white;
+  }
+  .form-group input, .form-group select {
+    background-color: white;
+  }
+  
+  button[type="submit"] {
+    display: block;
+    margin: 0 auto;
+  
+    color: white;
+  }
+  label{
+      color: white;
+  }
+  /* Path: src/app/user-details/user-details.component.css */
