@@ -1,26 +1,37 @@
-
-<table class="table table-striped">
-	<thead>
-	  <tr>
-		<th scope="col">#</th>
-		<th scope="col">Course Name</th>
-		<th scope="col">Course Description</th>
-		<th scope="col">Teacher</th>
-		<th scope="col">Actions</th>
-	  </tr>
-	</thead>
-	<tbody>
-	  <tr *ngFor="let course of courses; let i = index">
-		<td>{{ i + 1 }}</td>
-		<td>{{ course.courseName }}</td>
-		<td>{{ course.courseDescription }}</td>
-		<td>{{ course.teacherName }}</td>
-		<td>
-		  <button (click)="edit(course.courseId)">Edit</button>
-		  <button (click)="viewCourseDetails(course.courseId)">Info</button>
-
-		<button (click)="delete(course.courseId, i)">Delete</button> 
-	  </tr>
-	</tbody>
-  </table>
+<section class="intro">
+	<div class="gradient-custom-1 h-100">
+	  <div class="mask d-flex align-items-center h-100">
+		<div class="container">
+		  <div class="row justify-content-center">
+			<div class="col-12">
+			  <table class="table table-striped">
+				<thead>
+				  <tr>
+					<th scope="col" class="col-number">#</th>
+					<th scope="col" class="col-course-name">Course Name</th>
+					<th scope="col" class="col-course-desc">Course Description</th>
+					<th scope="col" class="col-teacher">Teacher</th>
+					<th scope="col" class="col-actions">Actions</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <tr *ngFor="let course of courses; let i = index">
+					<td>{{ i + 1 }}</td>
+					<td>{{ course.courseName }}</td>
+					<td>{{ course.courseDescription }}</td>
+					<td>{{ course.teacherName }}</td>
+					<td>
+					  <button class="action-button" (click)="edit(course.courseId)">Edit</button>
+					  <button class="action-button" (click)="viewCourseDetails(course.courseId)">Info</button>
+					  <button class="action-button" (click)="delete(course.courseId, i)">Delete</button>
+					</td>
+				  </tr>
+				</tbody>
+			  </table>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+  </section>
   

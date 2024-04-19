@@ -9,4 +9,15 @@
   .role-admin {
     background-color: #ece1ff; /* Couleur pour les administrateurs */
   }
+  .action-button {
+    margin-right: 10px;
+    border-radius: 5px;
+    background-color: white;
+    border: 2px solid rgb(0, 0, 0);
+    color: rgb(0, 0, 0);
+    padding: 5px 10px;
+  }
   
+  table {
+    width: 100%;
+  }

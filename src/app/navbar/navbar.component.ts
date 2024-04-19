@@ -2,27 +2,40 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthentificationService } from '../services/authentification.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { User, UserDTO } from '../shared/DTO/UserDto';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit, OnDestroy {
-  isAuthentificated: boolean;
-  private authSubscription: Subscription;
+  isAuthentificated: boolean = false;
+  userRole?: string;
+  private authSubscription?: Subscription;
+  private roleSubscription?: Subscription;
 
 
   constructor(private authService: AuthentificationService, private router: Router) {}
 
   ngOnInit(): void {
-    // Initialiser l'état d'authentification
-    this.isAuthentificated = this.authService.isAuthentificated();
+    this.authSubscription = this.authService.isAuthenticated$.subscribe(isAuthentificated => {
+      this.isAuthentificated = isAuthentificated;
+    }
+    );
+    this.authService.userRole$.subscribe(role => {
+      this.userRole = role;
+    });
 
-  }
+    this.roleSubscription = this.authService.userRole$.subscribe(role => {
+      console.log("Role:", role); // Ajoutez cette ligne pour déboguer
+      this.userRole = role;
+    });
+}
 
-  ngOnDestroy(): void {
-    // Se désabonner lors de la destruction du composant pour éviter les fuites de mémoire
-    this.authSubscription.unsubscribe();
+  
+ngOnDestroy(): void {
+    this.authSubscription?.unsubscribe();
+    this.roleSubscription?.unsubscribe();
   }
 
   logout() {

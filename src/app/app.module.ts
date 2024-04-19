@@ -16,6 +16,10 @@ import { RegisterComponent } from './register/register.component';
 import { CourseDetailsComponent } from './course-details/course-details.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { UserTableComponent } from './user-table/user-table.component';
+import { UserAddComponent } from './user-add/user-add.component';
+import { StudentAddComponent } from './student-add/student-add.component';
+import { StudentTableComponent } from './student-table/student-table.component';
+import { StudentDetailsComponent } from './student-details/student-details.component';
 
 export function tokenGetter() {return sessionStorage.getItem("jwt");}
 
@@ -31,6 +35,10 @@ export function tokenGetter() {return sessionStorage.getItem("jwt");}
     CourseDetailsComponent,
     UserDetailsComponent,
     UserTableComponent,
+    UserAddComponent,
+    StudentAddComponent,
+    StudentTableComponent,
+    StudentDetailsComponent,
 
     
   ],

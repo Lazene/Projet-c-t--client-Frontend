@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CourseService } from '../services/course.service';
-import { TeacherDTO } from '../shared/DTO/CourseDto';
+import { Teacher, Student } from '../shared/DTO/UserDto';
+import { TeacherService } from '../services/teacher.service';
+import { StudentService } from '../services/student.service';
 
 @Component({
   selector: 'app-course-add',
@@ -11,12 +13,15 @@ import { TeacherDTO } from '../shared/DTO/CourseDto';
 })
 export class CourseAddComponent implements OnInit {
   courseForm: FormGroup;
-  teachers: TeacherDTO[] = [];
-  isUpdate: boolean = false; // Initialisez isUpdate comme faux
-  courseId: string | null = null; // courseId peut être null initialement
+  teachers: Teacher[] = [];
+  students: Student[] = [];
+  isUpdate: boolean = false; 
+  courseId: string | null = null; 
 
   constructor(
     private courseService: CourseService,
+    private teacherService: TeacherService,
+    private studentService: StudentService,
     private route: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder
@@ -24,19 +29,22 @@ export class CourseAddComponent implements OnInit {
     this.courseForm = this.formBuilder.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
-      teacher: [null, Validators.required]
+      teacherId: [null, Validators.required],
+      studentIds: [null, Validators.required]
     });
   }
 
   ngOnInit(): void {
+   
     this.route.paramMap.subscribe(params => {
-      this.courseId = params.get('id'); // Utilisez paramMap pour récupérer l'ID du cours
+      this.courseId = params.get('id'); 
       if (this.courseId) {
-        this.isUpdate = true; // Si courseId est présent, nous sommes en mode mise à jour
+        this.isUpdate = true; 
         this.loadCourseData(this.courseId);
       }
     });
     this.loadTeachers();
+    this.loadStudents();
   }
 
   loadCourseData(courseId: string): void {
@@ -48,39 +56,42 @@ export class CourseAddComponent implements OnInit {
           teacher: course.teachers && course.teachers.length > 0 ? course.teachers[0].teacherId : null
         });
       }
+
     });
   }
 
   loadTeachers(): void {
-    const courseIdNumber = +this.courseId;
-    if (!isNaN(courseIdNumber)) {
-      this.courseService.getTeachers(courseIdNumber).subscribe(teachers => {
-        this.teachers = teachers;
-      });
-    } else {
-      console.error('courseId is not a valid number');
-    }
+    this.teacherService.getTeachers().subscribe(teachers => {
+      console.log('Teachers', teachers);
+      this.teachers = teachers;
+    });
   }
-  
-
+  loadStudents(): void {
+    this.studentService.getAllStudents().subscribe(students => {
+      console.log('Students', students);
+      this.students = students;
+    });
+  }
   save(): void {
-    // Supposons que teacher est l'ID de l'enseignant sélectionné dans le formulaire
-    const selectedTeacherId = this.courseForm.value.teacher;
-  
-    // Trouvez l'objet enseignant correspondant à l'ID sélectionné
-    // Cela suppose que vous avez une liste complète `teachers` chargée quelque part dans votre composant
-    const selectedTeacher = this.teachers.find(teacher => teacher.teacherId === selectedTeacherId);
+    const selectedTeacherId = this.courseForm.value.teacherId; // Utilisez teacherId
+    const selectedTeacher = this.teachers.find(teacher => teacher.teacherId === +selectedTeacherId); // Convertissez selectedTeacherId en nombre
   
     if (selectedTeacher) {
-      const courseData = {
+      const courseDataForUpdate = {
         name: this.courseForm.value.name,
         description: this.courseForm.value.description,
-        teacherName: selectedTeacher.teacherName,
-        teacherId: +selectedTeacherId // Assurez-vous que c'est un nombre si votre API l'attend comme tel
+        teacherName: selectedTeacher.user.username,
+        teacherId: +selectedTeacherId 
+      };
+  
+      const courseDataForAdd = {
+        name: this.courseForm.value.name,
+        description: this.courseForm.value.description,
+        teacherName: selectedTeacher.user.username
       };
   
       if (this.isUpdate && this.courseId) {
-        this.courseService.updateCourse(this.courseId, courseData).subscribe({
+        this.courseService.updateCourse(this.courseId, courseDataForUpdate).subscribe({
           next: () => {
             console.log('Course updated successfully');
             this.router.navigate(['/course-table']);
@@ -90,7 +101,7 @@ export class CourseAddComponent implements OnInit {
           },
         });
       } else {
-        this.courseService.addCourse(courseData).subscribe({
+        this.courseService.addCourse(courseDataForAdd).subscribe({
           next: () => {
             console.log('Course added successfully');
             this.router.navigate(['/course-table']);
@@ -100,10 +111,7 @@ export class CourseAddComponent implements OnInit {
           },
         });
       }
-    } else {
-      console.error('Selected teacher not found');
     }
   }
-  
   
 }

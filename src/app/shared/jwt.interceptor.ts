@@ -13,8 +13,8 @@ export class jwtIntercept implements HttpInterceptor{
     console.log("interceptor");
     const token = sessionStorage.getItem('jwt');
     request = request.clone({
-      setHeaders: {Authorization: `Bearer`+ token }
-      })
+      setHeaders: {Authorization: `Bearer ${token}`}
+    })
     return next.handle(request).pipe(catchError(error => {
       if (error instanceof HttpErrorResponse && !request.url.includes('login')) {
        //return this.handleRefreshToken(request, next);

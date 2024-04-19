@@ -1,0 +1,45 @@
+<ng-container *ngIf="role !== '' && role === 'admin'">
+    <section class="intro">
+      <div class="gradient-custom-1 h-100">
+        <div class="mask d-flex align-items-center h-100">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-12">
+                <button class="action-button" (click)="createUser()">
+                  Create New User
+                </button>
+                <div class="table-responsive bg-white">
+                  <table class="table mb-0">
+                    <thead>
+                      <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        *ngFor="let user of student"                      >
+                        <td>{{ user.studentId }}</td>
+                        <td>{{ user.userName }}</td>
+                        <td>
+                          <button class="action-button" (click)="edit(user.studentId)">
+                            Edit
+                          </button>
+                          <button class="action-button" (click)="delete(user.studentId)">
+                            Delete
+                          </button>
+                          <button class="action-button" (click)="enrolled(user.studentId)">
+                            Registration for a course
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
