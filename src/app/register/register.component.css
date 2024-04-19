@@ -1,0 +1,50 @@
+/* register.component.css */
+#login {
+    padding-top: 50px;
+    padding-bottom: 100px;
+}
+
+#login-row {
+    margin-bottom: 15px;
+}
+
+#login-column {
+    max-width: 600px;
+    background: #FFF;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#login-box {
+    margin-top: 20px;
+}
+
+.text-info {
+    color: black; /* Change title color to black */
+}
+
+.btn-primary {
+    background-color: #8A2BE2; /* Mauve background */
+    border-color: #8A2BE2; /* Mauve border */
+    color: black; /* Black text */
+}
+
+.btn-primary:hover {
+    background-color: #7a23d2; /* A slightly darker mauve for hover */
+    border-color: #7a23d2;
+}
+
+form div.mt-2 a {
+    color: #8A2BE2; /* Style for the 'Already a member?' link */
+}
+
+form div.mt-2 a:hover {
+    color: #7a23d2; /* Darker mauve for hover */
+}
+
+/* Error message styles */
+.p-error {
+    color: #FF0000;
+    margin-top: 5px;
+}
