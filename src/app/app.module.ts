@@ -25,6 +25,8 @@ import { AboutUsComponent } from './about-us/about-us.component';
 import { HistoryComponent } from './history/history.component';
 import { Option1Component } from './option1/option1.component';
 import { Option2Component } from './option2/option2.component';
+import { LibraryComponent } from './library/library.component';
+import { RulesComponent } from './rules/rules.component';
 
 export function tokenGetter() {return sessionStorage.getItem("jwt");}
 
@@ -49,6 +51,8 @@ export function tokenGetter() {return sessionStorage.getItem("jwt");}
     HistoryComponent,
     Option1Component,
     Option2Component,
+    LibraryComponent,
+    RulesComponent,
 
     
   ],
