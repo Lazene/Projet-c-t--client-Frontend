@@ -23,6 +23,8 @@ import { StudentDetailsComponent } from './student-details/student-details.compo
 import { HomeComponent } from './home/home.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { HistoryComponent } from './history/history.component';
+import { Option1Component } from './option1/option1.component';
+import { Option2Component } from './option2/option2.component';
 
 export function tokenGetter() {return sessionStorage.getItem("jwt");}
 
@@ -45,6 +47,8 @@ export function tokenGetter() {return sessionStorage.getItem("jwt");}
     HomeComponent,
     AboutUsComponent,
     HistoryComponent,
+    Option1Component,
+    Option2Component,
 
     
   ],
