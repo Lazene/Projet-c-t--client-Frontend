@@ -1,0 +1,43 @@
+.home-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.home-container img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 20px;
+}
+
+.student-notice h2 {
+    color: #000000; /* Noir pour le titre */
+}
+ng serve
+
+.student-notice p {
+    font-size: 16px; /* Taille appropriée pour une bonne lisibilité */
+}
+
+.carousel-inner {
+    display: flex; /* Important pour le défilement horizontal */
+    flex-wrap: nowrap; /* Empêche les images de se positionner à la verticale */
+    overflow-x: auto; /* Permet le défilement horizontal si nécessaire */
+}
+
+.carousel-item {
+    width: auto; /* Largeur basée sur le contenu, qui est l'image ici */
+    flex-shrink: 0; /* Empêche le rétrécissement du contenu */
+}
+
+.carousel-item img {
+    display: block; /* Supprime les marges verticales autour des images */
+    max-height: 400px; /* Hauteur maximale pour toutes les images */
+    width: auto; /* Garde le ratio d'aspect original des images */
+    height: auto; /* Ajuste automatiquement la hauteur en fonction de max-height */
+}
+
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 1%; /* Ajustez la largeur si nécessaire */
+}

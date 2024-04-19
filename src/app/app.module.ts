@@ -20,6 +20,7 @@ import { UserAddComponent } from './user-add/user-add.component';
 import { StudentAddComponent } from './student-add/student-add.component';
 import { StudentTableComponent } from './student-table/student-table.component';
 import { StudentDetailsComponent } from './student-details/student-details.component';
+import { HomeComponent } from './home/home.component';
 
 export function tokenGetter() {return sessionStorage.getItem("jwt");}
 
@@ -39,6 +40,7 @@ export function tokenGetter() {return sessionStorage.getItem("jwt");}
     StudentAddComponent,
     StudentTableComponent,
     StudentDetailsComponent,
+    HomeComponent,
 
     
   ],
