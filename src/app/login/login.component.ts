@@ -28,6 +28,8 @@ export class LoginComponent  {
         sessionStorage.setItem("username", response.username);
         sessionStorage.setItem("role", response.role);
         sessionStorage.setItem("id", response.id);
+        const userId = this.authService.getUserId();
+console.log('Current User ID:', userId);
       
 
         this.router.navigate(["/"]);

@@ -20,6 +20,7 @@ import { Option1Component } from './option1/option1.component';
 import { Option2Component } from './option2/option2.component';
 import { LibraryComponent } from './library/library.component';
 import { RulesComponent } from './rules/rules.component';
+import { MyCourseComponent } from './my-course/my-course.component';
 
 
 const routes: Routes = [
@@ -30,6 +31,7 @@ const routes: Routes = [
   {path:"option2", component: Option2Component},
   {path:"library", component: LibraryComponent},
   {path:"rules", component: RulesComponent},
+  {path:"my-course", component: MyCourseComponent},
   {path:"course", component: CourseAddComponent},
   {path:"course/:name", component: CourseAddComponent},
   {path:"course-table", component: CourseTableComponent,},

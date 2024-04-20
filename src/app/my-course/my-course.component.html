@@ -1,1 +1,44 @@
-<p>my-course works!</p>
+
+  <!-- my-course.component.html -->
+<div class="container my-4">
+    <h2 class="text-center">My Courses</h2>
+    
+    <div *ngIf="isLoading" class="text-center">
+      <span>Loading courses...</span>
+    </div>
+    
+    <div *ngIf="!isLoading && myCourses.length === 0" class="text-center">
+      <span>You are not enrolled in any courses yet.</span>
+    </div>
+    
+    <div *ngIf="!isLoading && myCourses.length > 0">
+      <div class="list-group mb-4">
+        <a href="#" *ngFor="let course of myCourses" class="list-group-item list-group-item-action">
+          <h5 class="mb-1">{{ course.courseName }}</h5>
+          <p class="mb-1">{{ course.courseDescription }}</p>
+        </a>
+      </div>
+    </div>
+  
+    <h2 class="text-center">Available Courses</h2>
+  
+    <div *ngIf="isLoading" class="text-center">
+      <span>Loading available courses...</span>
+    </div>
+    
+    <div *ngIf="!isLoading && availableCourses.length === 0" class="text-center">
+      <span>No available courses at the moment.</span>
+    </div>
+    
+    <div *ngIf="!isLoading && availableCourses.length > 0">
+      <div class="list-group">
+        <a href="#" *ngFor="let course of availableCourses" class="list-group-item list-group-item-action"
+           (click)="enroll(course.courseId)"> <!-- Assurez-vous d'implémenter la méthode 'enroll' dans votre composant TS -->
+          <h5 class="mb-1">{{ course.courseName }}</h5>
+          <p class="mb-1">{{ course.courseDescription }}</p>
+          <small>Click to enroll</small>
+        </a>
+      </div>
+    </div>
+  </div>
+  

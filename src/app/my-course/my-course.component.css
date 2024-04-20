@@ -1,0 +1,25 @@
+/* my-course.component.css */
+.container {
+    max-width: 800px;
+    margin: auto;
+  }
+  
+  .course-list {
+    margin-top: 20px;
+  }
+  
+  .course-item {
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  h2 {
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  /* Vous pouvez ajouter plus de styles personnalisés ici */
+  

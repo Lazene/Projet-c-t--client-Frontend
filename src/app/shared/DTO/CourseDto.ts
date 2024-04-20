@@ -43,7 +43,7 @@ export interface StudentDTO {
     studentName: string;
     // Courses est optionnel, selon que vous avez besoin de cette information ici
   }
-  export interface TeacherDTO {
+export interface TeacherDTO {
     teacherId: string;
     teacherName: string;
   }

@@ -28,10 +28,11 @@ export class AuthentificationService {
             sessionStorage.setItem("username", response.username);
             sessionStorage.setItem("role", response.role);
             sessionStorage.setItem('expires', response.expires);
+            sessionStorage.setItem('userId', response.userId); // Stockez l'ID de l'utilisateur
             this.usernameSubject.next(response.username);
             this.userRoleSubject.next(response.role);
             this.isAuthentificatedSubject.next(true);
-          } // Met à jour le BehaviorSubject avec le rôle
+          }
         })
       );
   }
@@ -111,20 +112,26 @@ user(): Observable<User|undefined> {
   return this.$user.asObservable();
 }
 setUser(user: User): void {
- 
+  if (!user || !user.id) {
+    console.error('Invalid user:', user);
+    return;
+  }
+  console.log('Setting user:', user);
   this.$user.next(user);
   localStorage.setItem("user-id", user.id.toString());
   localStorage.setItem('user-email', user.username);
   localStorage.setItem('user-roles', user.role);
-
+  console.log('User ID in localStorage:', localStorage.getItem("user-id"));
 }
 getUserId(): number {
-  const token = sessionStorage.getItem("jwt");
-  if (!token) {
+  const userId = sessionStorage.getItem("userId");
+  if (!userId) {
+    console.error('No user ID found in sessionStorage');
     return null;
   }
 
-  const decodedToken = this.jwtHelper.decodeToken(token);
-  return +decodedToken.sub; // '+' est utilisé pour convertir la chaîne en nombre
+  return +userId;
 }
+
+
 }
