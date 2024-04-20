@@ -27,6 +27,7 @@ import { Option1Component } from './option1/option1.component';
 import { Option2Component } from './option2/option2.component';
 import { LibraryComponent } from './library/library.component';
 import { RulesComponent } from './rules/rules.component';
+import { MyCourseComponent } from './my-course/my-course.component';
 
 export function tokenGetter() {return sessionStorage.getItem("jwt");}
 
@@ -53,6 +54,7 @@ export function tokenGetter() {return sessionStorage.getItem("jwt");}
     Option2Component,
     LibraryComponent,
     RulesComponent,
+    MyCourseComponent,
 
     
   ],

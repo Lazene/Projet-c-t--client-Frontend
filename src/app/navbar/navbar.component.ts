@@ -18,21 +18,18 @@ export class NavbarComponent implements OnInit, OnDestroy {
   constructor(private authService: AuthentificationService, private router: Router) {}
 
   ngOnInit(): void {
-    this.authSubscription = this.authService.isAuthenticated$.subscribe(isAuthentificated => {
-      this.isAuthentificated = isAuthentificated;
-    }
+    this.authSubscription = this.authService.isAuthenticated$.subscribe(
+      (isAuthenticated: boolean) => {
+        this.isAuthentificated = isAuthenticated;
+        if (isAuthenticated) {
+          // Si l'utilisateur est authentifié, obtenez le rôle
+          this.authService.userRole$.subscribe((role: string) => {
+            this.userRole = role;
+          });
+        }
+      }
     );
-    this.authService.userRole$.subscribe(role => {
-      this.userRole = role;
-    });
-
-    this.roleSubscription = this.authService.userRole$.subscribe(role => {
-      console.log("Role:", role); // Ajoutez cette ligne pour déboguer
-      this.userRole = role;
-    });
-}
-
-  
+  }  
 ngOnDestroy(): void {
     this.authSubscription?.unsubscribe();
     this.roleSubscription?.unsubscribe();

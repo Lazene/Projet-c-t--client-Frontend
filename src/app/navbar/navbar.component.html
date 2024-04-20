@@ -118,7 +118,48 @@
             </ul>
           </li>
         </ng-container>
-
+        <ng-container *ngIf="isAuthentificated">
+         
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdownOption"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Option
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownOption">
+              <li><a class="dropdown-item" href="/option1">Game Development Track</a></li>
+              <li><a class="dropdown-item" href="/option2">Cybersecurity Essentials</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdownPracticeInfo"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Practice Info
+            </a>
+            <ul
+              class="dropdown-menu"
+              aria-labelledby="navbarDropdownPracticeInfo"
+            >
+              <li>
+                <a class="dropdown-item" href="/library">Library</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="/rules">Rules</a>
+              </li>
+            </ul>
+          </li>
+        </ng-container>
         <!-- Admin Dropdowns -->
         <ng-container *ngIf="userRole === 'admin'">
           <li class="nav-item dropdown">
@@ -206,8 +247,7 @@
 
         <!-- Student Links -->
         <ng-container *ngIf="userRole === 'student'">
-          <li class="nav-item">
-            <a class="nav-link" href="#">Home</a>
+      
           <li class="nav-item">
             <a class="nav-link" href="#">My Course</a>
           </li>
@@ -217,14 +257,9 @@
           <li class="nav-item">
             <a class="nav-link" href="#">My Profile</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">My Schedule</a>
         </ng-container>
       </ul>
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item" *ngIf="!isAuthentificated">
-          <a class="nav-link" href="/login">Login</a>
-        </li>
         <li class="nav-item" *ngIf="isAuthentificated">
           <a class="nav-link" href="#" (click)="logout()">Logout</a>
         </li>
