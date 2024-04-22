@@ -21,7 +21,7 @@
 
         <!-- Non-authenticated Dropdown Links -->
         <ng-container *ngIf="!isAuthentificated">
-          <a class="nav-link active" aria-current="page" href="/">Home</a>
+          <a class="nav-link active" aria-current="page" [routerLink]="['/']">Home</a>
           <li class="nav-item dropdown">
             <a
               class="nav-link dropdown-toggle"
@@ -34,9 +34,9 @@
               Our School
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownOurSchool">
-              <li><a class="dropdown-item" href="/about-us">About Us</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/about-us']">About Us</a></li>
               <li>
-                <a class="dropdown-item" href="/history">History</a>
+                <a class="dropdown-item" [routerLink]="['/history']">History</a>
               </li>
             </ul>
           </li>
@@ -52,9 +52,9 @@
               Register
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownRegister">
-              <li><a class="dropdown-item" href="/register">Sign Up</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/register']">Sign Up</a></li>
               <li>
-                <a class="dropdown-item" href="/register/info"
+                <a class="dropdown-item" [routerLink]="['/register-info']"
                   >How to Register</a
                 >
               </li>
@@ -72,8 +72,8 @@
               Option
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownOption">
-              <li><a class="dropdown-item" href="/option1">Game Development Track</a></li>
-              <li><a class="dropdown-item" href="/option2">Cybersecurity Essentials</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/option1']">Game Development Track</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/option2']">Cybersecurity Essentials</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown">
@@ -92,10 +92,10 @@
               aria-labelledby="navbarDropdownPracticeInfo"
             >
               <li>
-                <a class="dropdown-item" href="/library">Library</a>
+                <a class="dropdown-item" [routerLink]="['/library']">Library</a>
               </li>
               <li>
-                <a class="dropdown-item" href="/rules">Rules</a>
+                <a class="dropdown-item" [routerLink]="['/rules']">Rules</a>
               </li>
             </ul>
           </li>
@@ -111,9 +111,9 @@
               Intranet
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownIntranet">
-              <li><a class="dropdown-item" href="/login">Teacher</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/login']">Teacher</a></li>
               <li>
-                <a class="dropdown-item" href="/login">Student</a>
+                <a class="dropdown-item" [routerLink]="['/login']">Student</a>
               </li>
             </ul>
           </li>
@@ -132,8 +132,8 @@
               Option
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownOption">
-              <li><a class="dropdown-item" href="/option1">Game Development Track</a></li>
-              <li><a class="dropdown-item" href="/option2">Cybersecurity Essentials</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/option1']">Game Development Track</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/option2']">Cybersecurity Essentials</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown">
@@ -152,10 +152,10 @@
               aria-labelledby="navbarDropdownPracticeInfo"
             >
               <li>
-                <a class="dropdown-item" href="/library">Library</a>
+                <a class="dropdown-item"[routerLink]="['/library']">Library</a>
               </li>
               <li>
-                <a class="dropdown-item" href="/rules">Rules</a>
+                <a class="dropdown-item" [routerLink]="['/rules']">Rules</a>
               </li>
             </ul>
           </li>
@@ -174,8 +174,8 @@
               Users
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuUser">
-              <li><a class="dropdown-item" href="/user-add">Create</a></li>
-              <li><a class="dropdown-item" href="/user-table">Get</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/user-add']">Create</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/user-table']">Get</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown">
@@ -193,9 +193,9 @@
               class="dropdown-menu"
               aria-labelledby="navbarDropdownMenuCourse"
             >
-              <li><a class="dropdown-item" href="/course-add">Create</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/course-add']">Create</a></li>
               <li>
-                <a class="dropdown-item" href="/course-table">Courses List</a>
+                <a class="dropdown-item" [routerLink]="['/course-table']">Courses List</a>
               </li>
             </ul>
           </li>
@@ -214,8 +214,8 @@
               class="dropdown-menu"
               aria-labelledby="navbarDropdownMenuCourse"
             >
-              <li><a class="dropdown-item" href="/student-add">Create</a></li>
-              <li><a class="dropdown-item" href="/student-table">List</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/student-add']">Create</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/student-table']">List</a></li>
             </ul>
           </li>
         </ng-container>
@@ -237,9 +237,9 @@
               class="dropdown-menu"
               aria-labelledby="navbarDropdownMenuTeacher"
             >
-              <li><a class="dropdown-item" href="/my-course">My Course</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/my-course']">My Course</a></li>
               <li>
-                <a class="dropdown-item" href="/my-student">My Student</a>
+                <a class="dropdown-item" [routerLink]="['/my-student']">My Student</a>
               </li>
             </ul>
           </li>
@@ -249,13 +249,13 @@
         <ng-container *ngIf="userRole === 'student'">
       
           <li class="nav-item">
-            <a class="nav-link" href="/my-course">My Course</a>
+            <a class="nav-link"[routerLink]="['/my-course']">My Course</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">My Notes</a>
+            <a class="nav-link" [routerLink]="['/my-course']">My Notes</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">My Profile</a>
+            <a class="nav-link" [routerLink]="['/my-course']">My Profile</a>
           </li>
         </ng-container>
       </ul>

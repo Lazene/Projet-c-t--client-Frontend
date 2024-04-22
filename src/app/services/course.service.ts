@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Course, StudentDTO, TeacherDTO } from '../shared/DTO/CourseDto';
@@ -70,7 +70,18 @@ export class CourseService {
 
   // Ajouter un étudiant à un cours
   addStudentToCourse(courseId: number, studentId: number): Observable<any> {
-    return this.http.post(`${this.baseUrl}/${courseId}/addStudent/${studentId}`, {});
+    // Construction de l'URL avec les IDs du cours et de l'étudiant
+    const url = `${this.baseUrl}/${courseId}/addStudent/${studentId}`;
+
+    // Construction de l'en-tête d'autorisation avec le token JWT
+    const token = localStorage.getItem('accessToken');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+
+    // Envoi de la requête POST à l'URL spécifiée
+    return this.http.post(url, {}, { headers });
   }
   
   
