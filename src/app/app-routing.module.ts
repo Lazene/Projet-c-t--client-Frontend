@@ -16,10 +16,10 @@ import { StudentDetailsComponent } from './student-details/student-details.compo
 import { HomeComponent } from './home/home.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { HistoryComponent } from './history/history.component';
-import { Option1Component } from './option1/option1.component';
-import { Option2Component } from './option2/option2.component';
-import { LibraryComponent } from './library/library.component';
-import { RulesComponent } from './rules/rules.component';
+//import { Option1Component } from './option1/option1.component';
+//import { Option2Component } from './option2/option2.component';
+//import { LibraryComponent } from './library/library.component';
+//import { RulesComponent } from './rules/rules.component';
 import { MyCourseComponent } from './my-course/my-course.component';
 
 
@@ -27,10 +27,10 @@ const routes: Routes = [
   { path: '', component: HomeComponent }, // Route pour la page d'accueil à la racine
   {path:"about-us", component: AboutUsComponent},
   {path:"history", component: HistoryComponent},
-  {path:"option1", component: Option1Component},
-  {path:"option2", component: Option2Component},
-  {path:"library", component: LibraryComponent},
-  {path:"rules", component: RulesComponent},
+  //{path:"option1", component: Option1Component},
+  //{path:"option2", component: Option2Component},
+  //{path:"library", component: LibraryComponent},
+  //{path:"rules", component: RulesComponent},
   {path:"my-course", component: MyCourseComponent},
   {path:"course", component: CourseAddComponent},
   {path:"course/:name", component: CourseAddComponent},

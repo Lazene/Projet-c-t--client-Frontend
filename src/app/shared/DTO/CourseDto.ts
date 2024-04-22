@@ -11,7 +11,7 @@ interface Teacher {
   }
   
   class Course {
-    courseId: string | undefined;
+    courseId: number | undefined;
     courseName: string | undefined;
     courseDescription: string | undefined;
     teachers: Teacher[] = []; 

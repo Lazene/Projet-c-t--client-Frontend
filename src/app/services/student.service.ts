@@ -24,7 +24,7 @@ export class StudentService {
   }
 
   getCoursesByStudent(studentId: number): Observable<any> {
-    return this.courseService.getStudentsByCourse(studentId);
+    return this.http.get(`${this.API_URL}/${studentId}/courses`);
   }
   updateUser(userDto: UpdUserDTO): Observable<any> {
     return this.http.put(`https://localhost:7176/api/User/${userDto.id}`, userDto);

@@ -32,6 +32,7 @@ export class AuthentificationService {
             this.usernameSubject.next(response.username);
             this.userRoleSubject.next(response.role);
             this.isAuthentificatedSubject.next(true);
+            console.log("Storing token: ", response.token);
           }
         })
       );
@@ -43,7 +44,9 @@ export class AuthentificationService {
    // méthode isAuthentificated pour vérifier si un utilisateur est authentifié
    isAuthentificated(): boolean{
     const token = sessionStorage.getItem("jwt");
+    console.log("Retrieved token: ", token);
     return !this.jwtHelper.isTokenExpired(token);
+
   }
   // méthode refreshToken pour rafraichir le token
   refreshToken(){ 
@@ -119,7 +122,7 @@ setUser(user: User): void {
   console.log('Setting user:', user);
   this.$user.next(user);
   localStorage.setItem("user-id", user.id.toString());
-  localStorage.setItem('user-email', user.username);
+  localStorage.setItem('user-username', user.username);
   localStorage.setItem('user-roles', user.role);
   console.log('User ID in localStorage:', localStorage.getItem("user-id"));
 }

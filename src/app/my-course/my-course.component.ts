@@ -3,24 +3,33 @@ import { Course } from '../shared/DTO/CourseDto';
 import { CourseService } from '../services/course.service';
 import { StudentService } from '../services/student.service';
 import { AuthentificationService } from '../services/authentification.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-my-course',
   templateUrl: './my-course.component.html',
-  styleUrl: './my-course.component.css'
+  styleUrls: ['./my-course.component.css']
 })
-export class MyCourseComponent implements OnInit{
+export class MyCourseComponent implements OnInit {
   availableCourses: Course[] = [];
   myCourses: Course[] = [];
   isLoading: boolean = false;
- 
-  constructor(private courseService: CourseService, private studentService: StudentService, private authService : AuthentificationService) {}
+  enrollmentStatus: { [courseId: string]: boolean } = {};
+
+  constructor(
+    private courseService: CourseService,
+    private studentService: StudentService,
+    private authService: AuthentificationService,
+    private router: Router,
+  ) { }
 
   ngOnInit(): void {
+    console.log('Is authenticated: ', this.authService.isAuthentificated());
     this.isLoading = true;
     this.loadAvailableCourses();
     this.loadMyCourses();
   }
+
   loadAvailableCourses(): void {
     this.courseService.getAllCourses().subscribe(courses => {
       this.availableCourses = courses;
@@ -46,30 +55,49 @@ export class MyCourseComponent implements OnInit{
       this.isLoading = false;
     }
   }
-  enroll(courseId: string): void {
+
+  enroll(courseId: number): void {
+    console.log('Enrolling student...');
     const studentId = this.authService.getUserId();
-    console.log(`Attempting to enroll studentId: ${studentId} to courseId: ${courseId}`);
+   
   
     if (studentId) {
-      this.courseService.addStudentToCourse(courseId, String(studentId)).subscribe(
-        response => {
-          console.log('Enrollment successful:', response);
-          this.loadMyCourses(); // Recharge les cours pour mettre à jour l'interface utilisateur
+      console.log('Before calling addStudentToCourse');
+      console.log('Course ID:', courseId);
+      console.log('Student ID:', studentId);
+  
+      this.courseService.addStudentToCourse(courseId, studentId).subscribe({
+        next: (response) => {
+          if (response === undefined) {
+            console.log('Inscription réussie, pas de corps de réponse');
+            this.loadMyCourses(); // Recharge les cours pour mettre à jour l'interface utilisateur
+          } else {
+            console.log('Inscription réussie:', response);
+            this.loadMyCourses(); // Recharge les cours pour mettre à jour l'interface utilisateur
+          }
         },
-        error => {
-          console.error('Error enrolling student in course:', error);
-          // Gérer ici les erreurs spécifiques, par exemple une réponse 401/403 pourrait signifier que vous devez revalider l'authentification ou rafraîchir le token
-          if (error.status === 401 || error.status === 403) {
-            console.log('Authentication error detected, handling it...');
-            // Ajouter ici une logique pour rafraîchir le token ou rediriger vers la page de connexion
+        error: (error) => {
+          console.error('Une erreur est survenue:', error);
+          if (error.status === 401) {
+            console.error('L\'étudiant est déjà inscrit au cours');
+          } else {
+            // Gérez les autres erreurs comme vous le souhaitez
           }
         }
-      );
-    } else {
-      console.error('Student ID not found, unable to enroll');
+      });
     }
   }
   
 
+  isEnrolled(courseId: any): boolean {
+    return this.myCourses.some(course => course.courseId === courseId);
+  }
 
+  isCourseAddedSuccessfully(courseId: any): boolean {
+    return this.availableCourses.some(course => course.courseId === courseId) && !this.isEnrolled(courseId);
+  }
+
+  isEnrollmentFailed(courseId: any): boolean {
+    return this.enrollmentStatus[courseId] === false; // Retourne true si l'enrôlement a échoué pour ce courseId
+  }
 }
