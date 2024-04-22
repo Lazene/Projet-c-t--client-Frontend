@@ -69,9 +69,12 @@ export class CourseService {
   }
 
   // Ajouter un étudiant à un cours
-  addStudentToCourse(courseId: string, studentId: string): Observable<any> {
+  addStudentToCourse(courseId: number, studentId: number): Observable<any> {
     return this.http.post(`${this.baseUrl}/${courseId}/addStudent/${studentId}`, {});
   }
+  
+  
+  
 
   // Enlever un étudiant d'un cours
   removeStudentFromCourse(courseId: string, studentId: string): Observable<any> {
