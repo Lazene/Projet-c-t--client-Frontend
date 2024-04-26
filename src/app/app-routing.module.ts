@@ -21,6 +21,7 @@ import { Option2Component } from './option2/option2.component';
 import { LibraryComponent } from './library/library.component';
 import { RulesComponent } from './rules/rules.component';
 import { MyCourseComponent } from './my-course/my-course.component';
+import { EnrolledstudentComponent } from './enrolledstudent/enrolledstudent.component';
 
 
 const routes: Routes = [
@@ -35,9 +36,9 @@ const routes: Routes = [
   {path:"course", component: CourseAddComponent},
   {path:"course/:name", component: CourseAddComponent},
   {path:"course-table", component: CourseTableComponent,},
-  { path: 'course-add', component: CourseAddComponent },
-  { path: 'course-add/:id', component: CourseAddComponent },
-  { path: 'course-details/:id', component: CourseDetailsComponent },
+  {path: 'course-add', component: CourseAddComponent },
+  {path: 'course-add/:id', component: CourseAddComponent },
+  {path: 'course-details/:id', component: CourseDetailsComponent },
   {path: "login", component: LoginComponent},
   {path: "navbar", component :NavbarComponent},
   {path:"register", component: RegisterComponent},
@@ -46,7 +47,8 @@ const routes: Routes = [
   { path: 'user-add', component: UserAddComponent, canActivate: [authGuard]},
   {path: 'student-add', component: StudentAddComponent},
   {path :'student-table', component: StudentTableComponent},
-  {path : 'student-details/:id', component: StudentDetailsComponent}
+  {path : 'student-details/:id', component: StudentDetailsComponent},
+  {path :"enrolled-student/:id", component: EnrolledstudentComponent}
 ];
 
 @NgModule({
