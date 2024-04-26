@@ -64,8 +64,8 @@ export class StudentTableComponent {
   createUser(): void {
     this.router.navigate(['/student-add']); 
 }
-enrolled(arg0: number) {
-  throw new Error('Method not implemented.');
+enrolled(id: number) {
+ this.router.navigate(['/enrolled-student', id]);
   }
 
 }

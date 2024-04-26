@@ -17,7 +17,13 @@ interface Teacher {
     teachers: Teacher[] = []; 
     students: Student[] = []; 
   }
-
+class CourseDto {
+    courseId: string | undefined;
+    courseName: string | undefined;
+    courseDescription: string | undefined;
+    teachers: Teacher[] = [];
+    students: Student[] = [];
+  }
 class CourseStudent {
     courseId: string | undefined;
     studentId: string | undefined;

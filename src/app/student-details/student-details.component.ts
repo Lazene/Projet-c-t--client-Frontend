@@ -34,14 +34,15 @@ export class StudentDetailsComponent implements OnInit {
           console.log('Student loaded:', student);
           this.studentForm.patchValue({
             username: student.userName,
-            // Supprimez cette ligne si vos étudiants n'ont pas de propriété role
-            // role: student.role
-          });
-        },
-        error: (error) => console.error('Error loading the student:', error)
+      error: (error) => console.error('Error loading the student:', error)
       });
     }
-  }
+  })        // Supprimez cette ligne si vos étudiants n'ont pas de propriété role
+            // role: student.role
+
+        }
+      }
+  
   onSubmit(): void {
     if (this.studentForm.valid) {
       const updatedUser: UpdUserDTO = {
