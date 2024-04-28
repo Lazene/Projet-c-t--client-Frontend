@@ -29,4 +29,11 @@ export class StudentService {
   updateUser(userDto: UpdUserDTO): Observable<any> {
     return this.http.put(`https://localhost:7176/api/User/${userDto.id}`, userDto);
   }
+  getSubmissionsByStudentId(studentId: number): Observable<any> {
+    return this.http.get(`${this.API_URL}/submissions/${studentId}`);
+  }
+  
+  getAssignmentsByStudentId(studentId: number): Observable<any> {
+    return this.http.get(`${this.API_URL}/${studentId}/assignments`);
+  }
 }

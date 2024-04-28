@@ -102,7 +102,8 @@ export class CourseService {
     return this.http.delete(`${this.baseUrl}/${courseId}/removeTeacher/${teacherId}`);
   }
   getStudentsByCourse(courseId: number): Observable<StudentDTO[]> {
-    return this.http.get<StudentDTO[]>(`${this.baseUrl}/courses/${courseId}/students`);
+    return this.http.get<StudentDTO[]>(`${this.baseUrl}/${courseId}/students`);
+    console.log(this.getStudentsByCourse);
   }
   getTeachers(courseId : number): Observable<TeacherDTO[]> {
     return this.http.get<TeacherDTO[]>(`${this.baseUrl}/${courseId}/teachers`);
