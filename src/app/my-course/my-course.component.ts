@@ -4,7 +4,7 @@ import { CourseService } from '../services/course.service';
 import { StudentService } from '../services/student.service';
 import { AuthentificationService } from '../services/authentification.service';
 import { Router } from '@angular/router';
-import { EMPTY, Observable, catchError, finalize, map, switchMap, tap } from 'rxjs';
+import { EMPTY, Observable, catchError, finalize} from 'rxjs';
 
 @Component({
   selector: 'app-my-course',
@@ -18,6 +18,7 @@ export class MyCourseComponent implements OnInit {
   myCourses$?: Observable<Course[]>;
   isLoading: boolean = false;
   enrollmentStatus: { [courseId: string]: boolean } = {};
+  private enrolledCourseIds = new Set<number>();
 
   constructor(
     private courseService: CourseService,
@@ -34,43 +35,44 @@ export class MyCourseComponent implements OnInit {
     this.myCourses$=this.studentService.getCoursesByStudent(this.authService.getUserId());
     console.log('My courses:', this.myCourses$);
     console.log(this.authService.getUserId());
+    this.myCourses$.subscribe(courses => {
+      this.enrolledCourseIds.clear();
+      courses.forEach(course => this.enrolledCourseIds.add(course.courseId));
+    });
   }
 
 
-  isEnrolled(courseId: number): Observable<boolean> {
-    return this.myCourses$.pipe(
-      map(courses => courses.some(c => c.courseId === courseId))
-    );
+  isEnrolled(courseId: number): boolean {
+    return this.enrolledCourseIds.has(courseId);
   }
   enroll(courseId: number): void {
     const studentId = this.authService.getUserId();
-    if (!studentId) {
-      console.error('Student ID not found');
+    
+    // Vérifiez si l'étudiant est déjà inscrit au cours
+    if (this.isEnrolled(courseId)) {
+      console.error('Student is already enrolled in this course');
       return;
     }
   
-    this.isEnrolled(courseId).pipe(
-      tap(enrolled => {
-        if (enrolled) {
-          console.error('Student is already enrolled in this course');
-        } else {
-          this.isLoading = true;
-          this.courseService.addStudentToCourse(courseId, studentId).pipe(
-            catchError(error => {
-              console.error('Error enrolling student in course', error);
-              return EMPTY;
-            }),
-            finalize(() => {
-              this.isLoading = false;
-            })
-          ).subscribe(() => {
-            console.log('Enrollment successful');
-            this.myCourses$ = this.studentService.getCoursesByStudent(studentId);
-          });
-        }
+    // Si non inscrit, procéder à l'inscription
+    this.isLoading = true;
+    this.courseService.addStudentToCourse(courseId, studentId).pipe(
+      catchError(error => {
+        console.error('Error enrolling student in course', error);
+        return EMPTY;
+      }),
+      finalize(() => {
+        this.isLoading = false;
       })
-    ).subscribe();
+    ).subscribe(() => {
+      console.log('Enrollment successful');
+      // Rafraîchir la liste des cours auxquels l'étudiant est inscrit
+      this.myCourses$ = this.studentService.getCoursesByStudent(studentId);
+      // Ajoutez également l'ID du cours à l'ensemble des IDs de cours inscrits
+      this.enrolledCourseIds.add(courseId);
+    });
   }
+  
   
   
 }

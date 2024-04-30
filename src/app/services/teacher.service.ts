@@ -15,4 +15,7 @@ export class TeacherService {
   getTeachers(): Observable<Teacher[]> {
     return this.http.get<Teacher[]>(`${this.baseUrl}`);
   }
+  getCoursesByTeacher(teacherId: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/${teacherId}/courses`);
+  }
 }

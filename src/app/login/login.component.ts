@@ -30,10 +30,21 @@ export class LoginComponent  {
         sessionStorage.setItem("id", response.id);
         const userId = this.authService.getUserId();
 console.log('Current User ID:', userId);
-      
-
-        this.router.navigate(["/"]);
+switch (response.role) {
+  case 'teacher':
+    this.router.navigate(['/teacher-dashboard']); // Modifiez selon votre chemin de tableau de bord de l'enseignant
+    break;
+  case 'student':
+    this.router.navigate(['/student-dashboard']); // Modifiez selon votre chemin de tableau de bord de l'étudiant
+    break;
+  case 'admin':
+    this.router.navigate(['/admin-dashboard']); // Modifiez selon votre chemin de tableau de bord de l'administrateur
+    break;
+  default:
+    this.router.navigate(['/']); // Page d'accueil ou tableau de bord par défaut
+    break;
       }
+    }
     });
 
     }

@@ -222,6 +222,8 @@
 
         <!-- Teacher Dropdown -->
         <ng-container *ngIf="userRole === 'teacher'">
+          <!-- <a class="nav-link active" aria-current="page" [routerLink]="['/teacher-dashboard']">Dashboard</a> -->
+         
           <li class="nav-item dropdown">
             <a
               class="nav-link dropdown-toggle"
@@ -244,6 +246,7 @@
             </ul>
           </li>
         </ng-container>
+       
 
         <!-- Student Links -->
         <ng-container *ngIf="userRole === 'student'">

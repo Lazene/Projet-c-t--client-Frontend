@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,6 +30,11 @@ import { LibraryComponent } from './library/library.component';
 import { RulesComponent } from './rules/rules.component';
 import { MyCourseComponent } from './my-course/my-course.component';
 import { EnrolledstudentComponent } from './enrolledstudent/enrolledstudent.component';
+import { TeacherDashboardComponent } from './teacher-dashboard/teacher-dashboard.component';
+import { CoursesListTeacherComponent } from './courses-list-teacher/courses-list-teacher.component';
+import { StudentsListTeacherComponent } from './students-list-teacher/students-list-teacher.component';
+import { AssignmentGradeComponent } from './assignment-grade/assignment-grade.component';
+import { AssignmentCreateComponent } from './assignment-create/assignment-create.component';
 
 export function tokenGetter() {return sessionStorage.getItem("jwt");}
 
@@ -57,6 +63,11 @@ export function tokenGetter() {return sessionStorage.getItem("jwt");}
     RulesComponent,
     MyCourseComponent,
     EnrolledstudentComponent,
+    TeacherDashboardComponent,
+    CoursesListTeacherComponent,
+    StudentsListTeacherComponent,
+    AssignmentGradeComponent,
+    AssignmentCreateComponent,
 
     
   ],
@@ -64,6 +75,7 @@ export function tokenGetter() {return sessionStorage.getItem("jwt");}
     BrowserModule,
     AppRoutingModule, 
     ReactiveFormsModule,
+    FormsModule,
     HttpClientModule,
     NgbModule,
     JwtModule.forRoot({

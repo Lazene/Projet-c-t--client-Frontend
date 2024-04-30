@@ -1,0 +1,78 @@
+.assignment-container {
+    width: 50%;
+    margin: auto;
+    background-color: #f3f3f3;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2, h3 {
+    color: #333;
+    text-align: center;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .form-group input[type="text"],
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  .form-group textarea {
+    height: 100px;
+    resize: vertical;
+  }
+  
+  .btn-create {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #5c6bc0;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .btn-create:hover {
+    background-color: #3f51b5;
+  }
+  
+  .existing-assignments ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .existing-assignments li {
+    background-color: white;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  }
+  .btn-edit, .btn-delete {
+    padding: 5px 10px;
+    margin-left: 5px;
+    background-color: #5c6bc0;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right; /* Aligner les boutons à droite */
+}
+
+.btn-edit:hover, .btn-delete:hover {
+    background-color: #3f51b5;
+}

@@ -22,6 +22,11 @@ import { LibraryComponent } from './library/library.component';
 import { RulesComponent } from './rules/rules.component';
 import { MyCourseComponent } from './my-course/my-course.component';
 import { EnrolledstudentComponent } from './enrolledstudent/enrolledstudent.component';
+import { CoursesListTeacherComponent } from './courses-list-teacher/courses-list-teacher.component';
+import { StudentsListTeacherComponent } from './students-list-teacher/students-list-teacher.component';
+import { AssignmentCreateComponent } from './assignment-create/assignment-create.component';
+import { AssignmentGradeComponent } from './assignment-grade/assignment-grade.component';
+import { TeacherDashboardComponent } from './teacher-dashboard/teacher-dashboard.component';
 
 
 const routes: Routes = [
@@ -48,7 +53,12 @@ const routes: Routes = [
   {path: 'student-add', component: StudentAddComponent},
   {path :'student-table', component: StudentTableComponent},
   {path : 'student-details/:id', component: StudentDetailsComponent},
-  {path :"enrolled-student/:id", component: EnrolledstudentComponent}
+  {path :"enrolled-student/:id", component: EnrolledstudentComponent},
+  { path: 'teacher/:teacherId/courses', component: CoursesListTeacherComponent },
+  { path: 'students/:courseId', component: StudentsListTeacherComponent },
+  { path: 'create-assignment', component: AssignmentCreateComponent},
+  { path: 'grade-assignment', component: AssignmentGradeComponent }, 
+  { path: 'teacher-dashboard', component: TeacherDashboardComponent }
 ];
 
 @NgModule({

@@ -112,6 +112,15 @@ export class CourseService {
   getStudents(courseId: number): Observable<StudentDTO[]> {
     return this.http.get<StudentDTO[]>(`${this.baseUrl}/${courseId}/students`);
   }
+  getCoursesByTeacher(teacherId: number): Observable<Course[]> {
+    const token = localStorage.getItem('accessToken');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+  
+    return this.http.get<Course[]>(`${this.baseUrl}/Teacher/${teacherId}`, { headers });
+  }
 
 }
 
