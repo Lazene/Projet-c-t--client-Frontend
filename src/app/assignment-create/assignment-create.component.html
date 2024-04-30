@@ -1,0 +1,37 @@
+<div class="assignment-container">
+    <h2>Create Assignment</h2>
+    <form [formGroup]="assignmentForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="course">Select Course:</label>
+        <select formControlName="courseId" (change)="onSelectCourse($event)">
+            <option *ngFor="let course of courses$ | async" [value]="course.courseId">{{ course.courseName }}</option>
+        </select>
+        
+      </div>
+  
+      <div class="form-group">
+        <label for="title">Title:</label>
+        <input type="text" id="title" formControlName="title">
+      </div>
+  
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea id="description" formControlName="description"></textarea>
+      </div>
+  
+      <button type="submit" class="btn-create">{{ isEditing ? 'Update' : 'Create' }} Assignment</button>
+    </form>
+  
+    <div class="existing-assignments" *ngIf="(assignments$ | async)?.length > 0">
+        <h3>Existing Assignments for selected course</h3>
+        <ul>
+            <li *ngFor="let assignment of (assignments$ | async)">
+                <strong>{{ assignment.title }}</strong> - {{ assignment.description }}
+                <button (click)="onEdit(assignment)" class="btn-edit">Edit</button>
+                <button (click)="onDelete(assignment.assignmentId)" class="btn-delete">Delete</button>
+            </li>
+        </ul>
+    </div>
+    
+  </div>
+  

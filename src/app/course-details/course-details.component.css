@@ -1,16 +1,68 @@
 /* course-details.component.css */
 .course-details {
-    color: white; 
-  }
-  
-  /* Si .title est spécifiquement stylisé, assurez-vous qu'il est aussi défini à blanc */
-  .title {
-    color: white;
-  }
-  
-  /* Optionnellement, vous pouvez réappliquer explicitement la couleur pour les sous-composants */
-  .course-details h2, .course-details h3, .course-details p, .course-details li {
-    color: white;
-  }
-  
-  
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+
+.course-details h2.title {
+  text-align: center;
+  color: #333;
+}
+
+.course-details .table {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.course-details .table th,
+.course-details .table td {
+  padding: 8px;
+  text-align: left;
+  border-top: 1px solid #dee2e6;
+}
+
+.course-details .table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.course-details .teachers,
+.course-details .students {
+  margin-top: 20px;
+}
+
+.course-details .teachers table,
+.course-details .students table {
+  margin-top: 10px;
+}
+
+/* Classes for theming */
+.table-hover tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+.table-bordered {
+  border: 1px solid #dee2e6;
+}
+
+.table-bordered th,
+.table-bordered td {
+  border: 1px solid #dee2e6;
+}
+
+.thead-light th {
+  background-color: #e9ecef;
+  color: #495057;
+}
+
+.thead-dark th {
+  background-color: #343a40;
+  color: #fff;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.05);
+}

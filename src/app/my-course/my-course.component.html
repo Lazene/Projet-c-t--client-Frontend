@@ -1,45 +1,43 @@
-<div class="container my-4">
-  <h2 class="text-center">My Courses</h2>
+<div class="container my-5 p-3 rounded shadow-lg">
+  <h2 class="text-center my-courses-title mb-4">My Courses</h2>
   
   <div *ngIf="isLoading" class="text-center">
-    <span>Loading courses...</span>
+    <span class="loader"><i class="fas fa-circle-notch fa-spin"></i>Loading courses...</span>
   </div>
   
-  <ng-container *ngIf="(myCourses$ | async) as courses">
-    <div *ngIf="!isLoading && courses.length === 0" class="text-center">
-      <span>You are not enrolled in any courses yet.</span>
+  <ng-container *ngIf="(myCourses$ | async) as myCourses">
+    <div *ngIf="!isLoading && myCourses.length === 0" class="text-center no-courses">
+      <span><i class="far fa-folder-open"></i> No courses enrolled yet.</span>
     </div>
     
-    <div *ngIf="!isLoading && courses.length > 0">
-      <div class="list-group mb-4">
-        <a href="#" *ngFor="let course of courses" class="list-group-item list-group-item-action">
-          <h5 class="mb-1">{{ course.courseName }}</h5>
-          <p class="mb-1">{{ course.courseDescription }}</p>
-        </a>
+    <div class="courses-list">
+      <div *ngFor="let course of myCourses" class="course-item mb-3">
+        <div class="course-content p-3 rounded">
+          <h5 class="course-title">{{ course.courseName }}</h5>
+          <p class="course-description">{{ course.courseDescription }}</p>
+        </div>
       </div>
     </div>
   </ng-container>
 
-  <h2 class="text-center">Available Courses</h2>
+  <h2 class="text-center available-courses-title mt-5 mb-4">Available Courses</h2>
 
   <ng-container *ngIf="(courses$ | async) as courses">
-    <div *ngIf="isLoading">
-      <span>Loading available courses...</span>
+    <div *ngIf="!isLoading && courses.length === 0" class="text-center no-courses">
+      <span><i class="far fa-folder-open"></i> No available courses.</span>
     </div>
     
-    <div *ngIf="!isLoading && courses.length === 0">
-      <span>No available courses at the moment.</span>
-    </div>
-    
-    <div *ngIf="!isLoading && courses.length > 0">
-      <div class="list-group">
-        <div *ngFor="let course of courses" class="list-group-item list-group-item-action">
-          <button class="btn btn-light" (click)="enroll(course.courseId)">
-            <h5 class="mb-1">{{ course.courseName }}</h5>
-            <p class="mb-1">{{ course.courseDescription }}</p>
-            <small *ngIf="isEnrolled(course.courseId)">Already enrolled</small>
-            <small *ngIf="!isEnrolled(course.courseId)">Click to enroll</small>
-          </button>
+    <div class="courses-list">
+      <div *ngFor="let course of courses" class="col">
+        <div class="card h-100">
+        
+          <div class="card-body">
+            <h5 class="card-title">{{ course.courseName }}</h5>
+            <p class="card-text">{{ course.courseDescription }}</p>
+            <button class="btn enroll-button" [disabled]="isEnrolled(course.courseId)" (click)="enroll(course.courseId)">
+              <i class="fas fa-user-plus"></i> Enroll
+            </button>
+          </div>
         </div>
       </div>
     </div>

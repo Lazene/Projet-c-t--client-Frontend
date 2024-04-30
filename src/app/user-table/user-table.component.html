@@ -21,7 +21,7 @@
                   <tbody>
                     <tr
                       *ngFor="let user of users"
-                      [ngClass]="{
+                      ngClass="{
                         'role-student': user.role === 'student',
                         'role-teacher': user.role === 'teacher',
                         'role-admin': user.role === 'admin'

@@ -45,9 +45,9 @@ class CourseAdd {
     courseDescription: string | undefined;
 }
 export interface StudentDTO {
-    studentId: string; // Assurez-vous que cela correspond au type utilisé par votre API
-    studentName: string;
-    // Courses est optionnel, selon que vous avez besoin de cette information ici
+    studentId: string; 
+    userName: string;
+
   }
 export interface TeacherDTO {
     teacherId: string;

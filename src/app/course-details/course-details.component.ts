@@ -11,9 +11,9 @@ import { StudentDTO, TeacherDTO } from '../shared/DTO/CourseDto';
 export class CourseDetailsComponent implements OnInit {
   courseId: number;
   courseName: string;
-  courseDetails: any; // Typez correctement en fonction de votre modèle
+  courseDetails: any; 
   students: StudentDTO[] = [];
-  teachers: TeacherDTO[] = []; // Typez correctement en fonction de votre modèle
+  teachers: TeacherDTO[] = []; 
 
   constructor(
     private route: ActivatedRoute,
@@ -53,11 +53,16 @@ export class CourseDetailsComponent implements OnInit {
   
 
   loadStudents(): void {
-    if (this.courseId) {
-      this.courseService.getStudentsByCourse(this.courseId).subscribe(students => {
+      this.courseService.getStudentsByCourse(this.courseId).subscribe({
+       next : (students) => {
+        console.log("Students loaded:", students);
         this.students = students;
+      },
+      error: (error) => {
+        console.error('Failed to load students', error);
+      }
       });
-    }
+    
   }  
   
 }

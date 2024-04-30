@@ -34,4 +34,5 @@ export class AssignmentSubmissionService {
   getSubmissionsByAssignment(assignmentId: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/assignment/${assignmentId}`);
   }
+  
 }
