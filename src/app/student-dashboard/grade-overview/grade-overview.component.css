@@ -1,0 +1,28 @@
+.grade-container {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.grade-container h3 {
+    font-family: 'Poppins', sans-serif;
+    color: #4a56e2;
+}
+
+.grade-container ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.grade-container li {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+}
+
+.grade-container li:last-child {
+    border-bottom: none;
+}

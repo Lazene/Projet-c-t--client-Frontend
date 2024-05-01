@@ -26,11 +26,15 @@
         <h3>Existing Assignments for selected course</h3>
         <ul>
             <li *ngFor="let assignment of (assignments$ | async)">
-                <strong>{{ assignment.title }}</strong> - {{ assignment.description }}
-                <button (click)="onEdit(assignment)" class="btn-edit">Edit</button>
-                <button (click)="onDelete(assignment.assignmentId)" class="btn-delete">Delete</button>
+                <strong>{{ assignment.title }}</strong>
+                <span>{{ assignment.description }}</span> <!-- Conteneur pour la description -->
+                <div>
+                    <button (click)="onEdit(assignment)" class="btn-edit">Edit</button>
+                    <button (click)="onDelete(assignment.assignmentId)" class="btn-delete">Delete</button>
+                </div>
             </li>
         </ul>
+        
     </div>
     
   </div>

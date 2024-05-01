@@ -1,0 +1,12 @@
+<div class="dashboard-container">
+  <div class="dashboard-image">
+    <!-- Ici, vous pouvez mettre une image ou tout autre contenu que vous souhaitez afficher à gauche -->
+    <img src="assets/pictures/studentdash.png" alt="Dashboard Image">
+  </div>
+  <div class="dashboard-content">
+    <app-course-list [courses]="courses"></app-course-list>
+    <app-assignment-list [assignments]="assignments"></app-assignment-list>
+    <app-grade-overview [assignmentSubmissions]="assignmentSubmissions"></app-grade-overview>
+    <app-notifications-panel></app-notifications-panel>
+  </div>
+</div>

@@ -76,3 +76,27 @@
 .btn-edit:hover, .btn-delete:hover {
     background-color: #3f51b5;
 }
+.existing-assignments li {
+    display: flex;
+    justify-content: space-between; /* Assurez-vous que les éléments sont bien espacés */
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.existing-assignments li strong {
+    flex: 2; /* Donne plus d'espace au titre */
+    margin-right: 10px; /* Espacement entre le titre et la description */
+}
+
+.existing-assignments li span {
+    flex: 3; /* Espace alloué à la description */
+}
+
+.btn-edit, .btn-delete {
+    margin-left: 10px; /* Espacement entre les boutons */
+}
+

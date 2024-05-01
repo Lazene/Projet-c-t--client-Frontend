@@ -1,0 +1,17 @@
+<div class="assignments-container">
+  <h2>Assignments</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let assignment of assignments">
+        <td><strong>{{ assignment.title }}</strong></td>
+        <td>{{ assignment.description }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
