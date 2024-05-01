@@ -35,6 +35,11 @@ import { CoursesListTeacherComponent } from './courses-list-teacher/courses-list
 import { StudentsListTeacherComponent } from './students-list-teacher/students-list-teacher.component';
 import { AssignmentGradeComponent } from './assignment-grade/assignment-grade.component';
 import { AssignmentCreateComponent } from './assignment-create/assignment-create.component';
+import { StudentDashboardComponent } from './student-dashboard/student-dashboard.component';
+import { CourseListComponent } from './student-dashboard/course-list/course-list.component';
+import { AssignmentListComponent } from './student-dashboard/assignment-list/assignment-list.component';
+import { GradeOverviewComponent } from './student-dashboard/grade-overview/grade-overview.component';
+import { NotificationsPanelComponent } from './student-dashboard/notifications-panel/notifications-panel.component';
 
 export function tokenGetter() {return sessionStorage.getItem("jwt");}
 
@@ -68,6 +73,11 @@ export function tokenGetter() {return sessionStorage.getItem("jwt");}
     StudentsListTeacherComponent,
     AssignmentGradeComponent,
     AssignmentCreateComponent,
+    StudentDashboardComponent,
+    CourseListComponent,
+    AssignmentListComponent,
+    GradeOverviewComponent,
+    NotificationsPanelComponent,
 
     
   ],

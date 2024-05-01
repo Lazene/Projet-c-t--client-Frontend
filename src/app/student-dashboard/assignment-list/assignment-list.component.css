@@ -1,0 +1,34 @@
+.assignments-container {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+.assignments-container h2 {
+  font-family: 'Poppins', sans-serif;
+  color: #4a56e2;
+  margin-bottom: 10px;
+}
+
+.assignments-container table {
+  width: 100%;
+  border-collapse: collapse; /* Pour éliminer l'espace entre les cellules */
+}
+
+.assignments-container th, .assignments-container td {
+  text-align: left; /* Alignement à gauche pour tout le texte dans les cellules */
+  padding: 8px; /* Espacement dans les cellules */
+  border-bottom: 1px solid #eee; /* Ligne de séparation pour chaque élément */
+}
+
+.assignments-container th {
+  color: #666;
+  font-size: 16px;
+}
+
+.assignments-container td {
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+}

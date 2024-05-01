@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AddGradeDTO } from '../shared/DTO/gradeDto';
-import { UpdateGradeDTO } from '../shared/DTO/gradeDto';
+import { AddGradeDTO, UpdateGradeDTO } from '../shared/DTO/gradeDto';
 
 @Injectable({
   providedIn: 'root'
@@ -26,5 +25,13 @@ export class GradeService {
 
   updateGradeById(grade: UpdateGradeDTO): Observable<any> {
     return this.http.put(`${this.baseUrl}/update`, grade);
+  }
+
+  getAverageGradeByStudentId(studentId: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/average/student/${studentId}`);
+  }
+
+  getAverageGradeByStudentAndCourseId(studentId: number, courseId: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/average/student/${studentId}/course/${courseId}`);
   }
 }

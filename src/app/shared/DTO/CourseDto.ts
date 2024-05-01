@@ -26,11 +26,13 @@ class CourseDto {
   }
 class CourseStudent {
     courseId: string | undefined;
+    courseName: string | undefined;
     studentId: string | undefined;
     studentName: string | undefined;
 }
 class CourseTeacher {
     courseId: string | undefined;
+    courseName: string | undefined;
     teacherId: string | undefined;
     teachzerName: string | undefined;
 

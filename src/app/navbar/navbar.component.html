@@ -119,7 +119,9 @@
           </li>
         </ng-container>
         <ng-container *ngIf="isAuthentificated">
-         
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="userRole === 'admin' ? '/admin-dashboard' : userRole === 'teacher' ? '/teacher-dashboard' : '/student-dashboard'">Dashboard</a>
+          </li>
           <li class="nav-item dropdown">
             <a
               class="nav-link dropdown-toggle"
@@ -160,6 +162,7 @@
             </ul>
           </li>
         </ng-container>
+      
         <!-- Admin Dropdowns -->
         <ng-container *ngIf="userRole === 'admin'">
           <li class="nav-item dropdown">

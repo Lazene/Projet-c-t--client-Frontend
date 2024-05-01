@@ -12,3 +12,8 @@ export class AddGradeDTO {
     grade: number;
     // Ajoutez d'autres propriétés si nécessaire
   }
+  export interface Grade {
+    gradeId: number;
+    score: number;  // Hypothetical field
+    // Add other grade-related fields
+  }

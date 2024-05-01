@@ -27,42 +27,53 @@ import { StudentsListTeacherComponent } from './students-list-teacher/students-l
 import { AssignmentCreateComponent } from './assignment-create/assignment-create.component';
 import { AssignmentGradeComponent } from './assignment-grade/assignment-grade.component';
 import { TeacherDashboardComponent } from './teacher-dashboard/teacher-dashboard.component';
-
+import { StudentDashboardComponent } from './student-dashboard/student-dashboard.component';
+import { CourseListComponent } from './student-dashboard/course-list/course-list.component';
+import { AssignmentListComponent } from './student-dashboard/assignment-list/assignment-list.component';
+import { GradeOverviewComponent } from './student-dashboard/grade-overview/grade-overview.component';
+import { NotificationsPanelComponent } from './student-dashboard/notifications-panel/notifications-panel.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent }, // Route pour la page d'accueil à la racine
-  {path:"about-us", component: AboutUsComponent},
-  {path:"history", component: HistoryComponent},
-  {path:"option1", component: Option1Component},
-  {path:"option2", component: Option2Component},
-  {path:"library", component: LibraryComponent},
-  {path:"rules", component: RulesComponent},
-  {path:"my-course", component: MyCourseComponent},
-  {path:"course", component: CourseAddComponent},
-  {path:"course/:name", component: CourseAddComponent},
-  {path:"course-table", component: CourseTableComponent,},
-  {path: 'course-add', component: CourseAddComponent },
-  {path: 'course-add/:id', component: CourseAddComponent },
-  {path: 'course-details/:id', component: CourseDetailsComponent },
-  {path: "login", component: LoginComponent},
-  {path: "navbar", component :NavbarComponent},
-  {path:"register", component: RegisterComponent},
-  {path:"user-table", component : UserTableComponent},
-  { path: "user-details/:id", component: UserDetailsComponent },
-  { path: 'user-add', component: UserAddComponent, canActivate: [authGuard]},
-  {path: 'student-add', component: StudentAddComponent},
-  {path :'student-table', component: StudentTableComponent},
-  {path : 'student-details/:id', component: StudentDetailsComponent},
-  {path :"enrolled-student/:id", component: EnrolledstudentComponent},
-  { path: 'teacher/:teacherId/courses', component: CoursesListTeacherComponent },
+  { path: 'about-us', component: AboutUsComponent },
+  { path: 'history', component: HistoryComponent },
+  { path: 'option1', component: Option1Component },
+  { path: 'option2', component: Option2Component },
+  { path: 'library', component: LibraryComponent },
+  { path: 'rules', component: RulesComponent },
+  { path: 'my-course', component: MyCourseComponent },
+  { path: 'course', component: CourseAddComponent },
+  { path: 'course/:name', component: CourseAddComponent },
+  { path: 'course-table', component: CourseTableComponent },
+  { path: 'course-add', component: CourseAddComponent },
+  { path: 'course-add/:id', component: CourseAddComponent },
+  { path: 'course-details/:id', component: CourseDetailsComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'navbar', component: NavbarComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'user-table', component: UserTableComponent },
+  { path: 'user-details/:id', component: UserDetailsComponent },
+  { path: 'user-add', component: UserAddComponent, canActivate: [authGuard] },
+  { path: 'student-add', component: StudentAddComponent },
+  { path: 'student-table', component: StudentTableComponent },
+  { path: 'student-details/:id', component: StudentDetailsComponent },
+  { path: 'enrolled-student/:id', component: EnrolledstudentComponent },
+  { path: 'teacher/:teacherId/courses',component: CoursesListTeacherComponent},
   { path: 'students/:courseId', component: StudentsListTeacherComponent },
-  { path: 'create-assignment', component: AssignmentCreateComponent},
-  { path: 'grade-assignment', component: AssignmentGradeComponent }, 
-  { path: 'teacher-dashboard', component: TeacherDashboardComponent }
+  { path: 'create-assignment', component: AssignmentCreateComponent },
+  { path: 'grade-assignment', component: AssignmentGradeComponent },
+  { path: 'teacher-dashboard', component: TeacherDashboardComponent },
+  { path: 'student-dashboard', component: StudentDashboardComponent,children: [
+      { path: 'courses', component: CourseListComponent },
+      { path: 'assignments', component: AssignmentListComponent },
+      { path: 'grades', component: GradeOverviewComponent },
+      { path: 'notifications', component: NotificationsPanelComponent },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

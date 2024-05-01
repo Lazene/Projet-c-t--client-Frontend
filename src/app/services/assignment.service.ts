@@ -11,31 +11,28 @@ export class AssignmentService {
 
   constructor(private http: HttpClient) { }
 
-  getAllAssignments(): Observable<any> {
+  getAllAssignments(): Observable<AssignmentDTO[]> {
     return this.http.get<AssignmentDTO[]>(`${this.baseUrl}`);
   }
 
-  getAssignmentById(id: number): Observable<any> {
+  getAssignmentById(id: number): Observable<AssignmentDTO> {
     return this.http.get<AssignmentDTO>(`${this.baseUrl}/${id}`);
   }
 
-  getAssignmentsByCourseId(courseId: number): Observable<any> {
+  getAssignmentsByCourseId(courseId: number): Observable<AssignmentDTO[]> {
     return this.http.get<AssignmentDTO[]>(`${this.baseUrl}/course/${courseId}`);
   }
 
-  addAssignment(assignment: AddAssignmentDTO): Observable<any> {
-    return this.http.post(`${this.baseUrl}`, assignment);
+  addAssignment(assignment: AddAssignmentDTO): Observable<AssignmentDTO> {
+    return this.http.post<AssignmentDTO>(`${this.baseUrl}`, assignment);
   }
 
-  updateAssignment(id: number, assignment: UpdateAssignmentDTO): Observable<any> {
-    return this.http.put<AssignmentDTO>(`${this.baseUrl}/${id}`, assignment);
+  updateAssignment(id: number, assignment: UpdateAssignmentDTO): Observable<void> {
+    return this.http.put<void>(`${this.baseUrl}/${id}`, assignment);
   }
 
-  deleteAssignment(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${id}`);
+  deleteAssignment(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
 
-  getSubmissionsByStudentAndCourse(studentId: number, courseId: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/student/${studentId}/course/${courseId}`);
-  }
 }

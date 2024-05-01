@@ -1,0 +1,12 @@
+<div class="grade-container">
+    <h3>Grade Overview</h3>
+    <ul>
+      <ng-container *ngFor="let submission of assignmentSubmissions">
+        <!-- Seulement afficher si un grade est disponible -->
+        <li *ngIf="submission.grade">
+          {{ submission.assignment.title }}: {{ submission.grade.value }}
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+  
