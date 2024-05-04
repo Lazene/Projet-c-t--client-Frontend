@@ -40,6 +40,7 @@ import { CourseListComponent } from './student-dashboard/course-list/course-list
 import { AssignmentListComponent } from './student-dashboard/assignment-list/assignment-list.component';
 import { GradeOverviewComponent } from './student-dashboard/grade-overview/grade-overview.component';
 import { NotificationsPanelComponent } from './student-dashboard/notifications-panel/notifications-panel.component';
+import { MyAssignmentComponent } from './my-assignment/my-assignment.component';
 
 export function tokenGetter() {return sessionStorage.getItem("jwt");}
 
@@ -78,6 +79,7 @@ export function tokenGetter() {return sessionStorage.getItem("jwt");}
     AssignmentListComponent,
     GradeOverviewComponent,
     NotificationsPanelComponent,
+    MyAssignmentComponent,
 
     
   ],

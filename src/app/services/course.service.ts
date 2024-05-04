@@ -83,10 +83,6 @@ export class CourseService {
     // Envoi de la requête POST à l'URL spécifiée
     return this.http.post(url, {}, { headers });
   }
-  
-  
-  
-
   // Enlever un étudiant d'un cours
   removeStudentFromCourse(courseId: string, studentId: string): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${courseId}/removeStudent/${studentId}`);
@@ -101,10 +97,12 @@ export class CourseService {
   removeTeacherFromCourse(courseId: string, teacherId: string): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${courseId}/removeTeacher/${teacherId}`);
   }
+  // Récupérer les étudiants d'un cours
   getStudentsByCourse(courseId: number): Observable<StudentDTO[]> {
     return this.http.get<StudentDTO[]>(`${this.baseUrl}/${courseId}/students`);
     console.log(this.getStudentsByCourse);
   }
+  // Récupérer les enseignants d'un cours
   getTeachers(courseId : number): Observable<TeacherDTO[]> {
     return this.http.get<TeacherDTO[]>(`${this.baseUrl}/${courseId}/teachers`);
   }
