@@ -2,6 +2,7 @@ export class AssignmentSubmissionDTO {
     assignmentId: number;
     studentId: number;
     gradeId?: number;
+    assignment?: Assignment;
 
   }
   export interface AssignmentSubmission {
@@ -9,6 +10,7 @@ export class AssignmentSubmissionDTO {
     assignmentId: number;
     assigmmentTitle: string;
     assigmmentDescription: string;
+    isSubmitted: boolean;
     submissionDate: Date;
     studentId: number;
     gradeId: number;
@@ -26,8 +28,14 @@ export class AssignmentSubmissionDTO {
       gradeId: number;
       value: number;
     }
-    // Inclure d'autres champs selon les besoins
-  }
+  }export interface Assignment {
+      assignmentId: number;
+      title: string;
+      description: string;
+      courseId: number;
+    }
+    
+  
   
 
   

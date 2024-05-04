@@ -59,7 +59,7 @@ export class AuthentificationService {
       })
     );
   }
-  
+  // méthode pour enregistrer un utilisateur
   register(userName: string, password: string): Observable<any>{
     const body = { userName, password }; // Créez un objet avec les données d'inscription
     return this.http.post(`https://localhost:7176/Authentification/Register`, body).pipe(
@@ -75,7 +75,7 @@ export class AuthentificationService {
       })
     );
   }
-  
+  // méthode pour déconnecter un utilisateur
 logout(): void {
   sessionStorage.removeItem("jwt");
   sessionStorage.removeItem("username");
@@ -88,9 +88,11 @@ logout(): void {
 get isAuthenticated$(): Observable<boolean> {
   return this.isAuthentificatedSubject.asObservable();
 }
+// méthode pour retourner le nom de l'utilisateur
 get Name$(): Observable<string> {
   return this.usernameSubject.asObservable();
 }
+// méthode pour retourner le role de l'utilisateur
 get userRole$(): Observable<string> {
   return this.userRoleSubject.asObservable();
 }
@@ -107,9 +109,11 @@ getUserName(): string {
 getUserRole(): string {
   return sessionStorage.getItem("role") || '';
 }
+// méthode pour obtenir l'ID de l'utilisateur stocké dans le sessionStorage
 getToken(): string | null {
   return sessionStorage.getItem('jwt');
 }
+
 user(): Observable<User|undefined> {
 
   return this.$user.asObservable();
@@ -126,6 +130,7 @@ setUser(user: User): void {
   localStorage.setItem('user-roles', user.role);
   console.log('User ID in localStorage:', localStorage.getItem("user-id"));
 }
+// méthode pour obtenir l'ID de l'utilisateur stocké dans le sessionStorage
 getUserId(): number {
   const userId = sessionStorage.getItem("userId");
   if (!userId) {

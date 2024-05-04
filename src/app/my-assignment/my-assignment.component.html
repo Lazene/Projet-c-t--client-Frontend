@@ -1,0 +1,7 @@
+<h2>Mes Devoirs</h2>
+<div *ngFor="let submission of submissions" class="assignment-container">
+    <h3>{{ submission.assignment?.title }}</h3>
+    <p>{{ submission.assignment?.description }}</p>
+    <!-- Add a button to submit the assignment -->
+    <button (click)="submitAssignment(submission.assignmentSubmissionId)" [disabled]="submission.isSubmitted">Soumettre</button>
+</div>

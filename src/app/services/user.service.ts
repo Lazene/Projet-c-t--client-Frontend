@@ -35,6 +35,7 @@ export class UserService {
   deleteUser(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`);
   }
+  // Récupérer les rôles d'un utilisateur
   getRoles(id:number): Observable<string[]> {
     return this.http.get<string[]>(`${this.baseUrl}/role/${id}`);
   }
