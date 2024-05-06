@@ -47,7 +47,7 @@ class CourseAdd {
     courseDescription: string | undefined;
 }
 export interface StudentDTO {
-    studentId: string; 
+    studentId: number; 
     userName: string;
 
   }

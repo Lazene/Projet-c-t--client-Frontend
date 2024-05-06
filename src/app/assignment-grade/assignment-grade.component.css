@@ -1,0 +1,93 @@
+.course {
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.course-title {
+    color: #333;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.submission {
+    padding: 10px;
+    border-left: 3px solid #007BFF;
+    margin-bottom: 10px;
+    background-color: #fff;
+}
+
+.submission-title {
+    font-size: 1.2em;
+    color: #0056b3;
+}
+
+.submission-details {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.submitted {
+    color: green;
+}
+
+.not-submitted {
+    color: red;
+}
+
+.grade {
+    font-weight: bold;
+}
+
+.actions {
+    margin-top: 10px;
+}
+
+.grade-input {
+    padding: 5px;
+    width: 120px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.btn {
+    padding: 5px 10px;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.add-grade {
+    background-color: #28a745;
+}
+
+.update-grade {
+    background-color: #007bff;
+}
+
+.btn:hover {
+    opacity: 0.8;
+}
+
+.course-title {
+    display: flex;
+    justify-content: space-between; /* Aligner le titre et l'icône aux extrémités opposées */
+    align-items: center; /* Centrer verticalement le titre et l'icône */
+    cursor: pointer;
+    user-select: none;
+}
+
+.toggle-icon {
+    font-size: 0.8em;
+}
+
+.submissions-container {
+    padding-left: 20px;
+    border-left: 2px solid #ddd;
+}
+

@@ -7,7 +7,7 @@ import { AddGradeDTO, UpdateGradeDTO } from '../shared/DTO/gradeDto';
   providedIn: 'root'
 })
 export class GradeService {
-  private baseUrl = 'http://localhost:7176/api/grade'; // Remplacez par l'URL de votre API
+  private baseUrl = 'https://localhost:7176/api/grade'; // Remplacez par l'URL de votre API
 
   constructor(private http: HttpClient) { }
 // recupere tous les notes d'un étudiant

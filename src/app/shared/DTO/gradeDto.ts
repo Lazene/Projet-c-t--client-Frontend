@@ -6,10 +6,8 @@ export class AddGradeDTO {
   }
   
   export class UpdateGradeDTO {
-    gradeId: number;
-    studentId: number;
-    courseId: number;
-    grade: number;
+    assignmentSubmissionId: number;
+    gradeValue: number;
     // Ajoutez d'autres propriétés si nécessaire
   }
   export interface Grade {
