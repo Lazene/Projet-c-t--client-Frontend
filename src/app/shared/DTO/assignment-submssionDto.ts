@@ -3,6 +3,7 @@ export class AssignmentSubmissionDTO {
     studentId: number;
     gradeId?: number;
     assignment?: Assignment;
+    studentName?: string;
 
   }
   export interface AssignmentSubmission {
@@ -23,6 +24,7 @@ export class AssignmentSubmissionDTO {
     },
     student: {
       studentId: number;
+      studentName: string;
     },
     grade: {
       gradeId: number;

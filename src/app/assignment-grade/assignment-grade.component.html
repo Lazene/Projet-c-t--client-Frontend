@@ -1,1 +1,18 @@
-<p>assignment-grade works!</p>
+<div *ngFor="let course of courses" class="course">
+  <h2 class="course-title" (click)="toggleCourse(course)">
+    {{ course.courseName }} <span class="toggle-icon">{{ course.isOpen ? '-' : '+' }}</span>
+</h2>
+<div *ngIf="course.isOpen" class="submissions-container">
+  <div *ngFor="let submission of course.submissions" class="submission">
+      <h4 class="submission-title">{{ submission.assignmentTitle }} - {{ submission.studentName }}</h4>
+      <p class="submission-details">
+        Submitted: <span class="{{ submission.isSubmitted ? 'submitted' : 'not-submitted' }}">{{ submission.isSubmitted ? 'Yes' : 'No' }}</span> -
+        Current Grade: <span class="grade">{{ submission.gradeValue || 'Not graded' }}</span>
+      </p>
+      <div class="actions">
+          <input *ngIf="submission.isSubmitted" type="number" [(ngModel)]="submission.gradeValue" placeholder="Enter grade" min="0" max="100" class="grade-input">
+          <button *ngIf="submission.isSubmitted && submission.gradeValue === null" (click)="addGrade(submission.assignmentSubmissionId, submission.gradeValue)" class="btn add-grade">Add Grade</button>
+          <button *ngIf="submission.isSubmitted && submission.gradeValue !== null" (click)="updateGrade(submission.assignmentSubmissionId, submission.gradeValue)" class="btn update-grade">Update Grade</button>
+      </div>
+  </div>
+</div>
