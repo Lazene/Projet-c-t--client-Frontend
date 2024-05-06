@@ -44,6 +44,7 @@ import { MyAssignmentComponent } from './my-assignment/my-assignment.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MynoteComponent } from './mynote/mynote.component';
 
 export function tokenGetter() {return sessionStorage.getItem("jwt");}
 
@@ -83,6 +84,7 @@ export function tokenGetter() {return sessionStorage.getItem("jwt");}
     GradeOverviewComponent,
     NotificationsPanelComponent,
     MyAssignmentComponent,
+    MynoteComponent,
  
 
     

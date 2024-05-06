@@ -1,0 +1,23 @@
+<div class="container mt-4">
+    <h2 class="my-courses-title">My Courses and Grades</h2>
+    <div class="courses-list">
+      <div *ngFor="let course of courses" class="course-item mb-3 p-3">
+        <h4 class="course-title">{{ course.courseName }}</h4>
+        <p class="course-description">Average Grade: {{ courseAverage.get(course.courseId) | number:'1.0-2' }}</p>
+      </div>
+    </div>
+  
+    <h3 class="available-courses-title">Assignments Overview</h3>
+    <div *ngFor="let submission of detailedSubmissions" class="course-item mb-3 p-3">
+      <p><strong>{{ submission.assignmentTitle }}</strong> - {{ submission.assignmentDescription }}</p>
+      <p>Status: <span [ngClass]="{'text-success': submission.isSubmitted, 'text-danger': !submission.isSubmitted}">
+        {{ submission.isSubmitted ? 'Submitted' : 'Not Submitted' }}
+      </span></p>
+      <p *ngIf="submission.isSubmitted">Grade: {{ submission.gradeValue }} / {{ submission.gradeValueMax }}</p>
+    </div>
+  
+    <div class="overall-average p-3">
+      <h4>Overall Average Grade: {{ overallAverage | number:'1.0-2' }}</h4>
+    </div>
+  </div>
+  

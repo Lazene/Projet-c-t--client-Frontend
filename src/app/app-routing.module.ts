@@ -33,6 +33,7 @@ import { AssignmentListComponent } from './student-dashboard/assignment-list/ass
 import { GradeOverviewComponent } from './student-dashboard/grade-overview/grade-overview.component';
 import { NotificationsPanelComponent } from './student-dashboard/notifications-panel/notifications-panel.component';
 import { MyAssignmentComponent } from './my-assignment/my-assignment.component';
+import { MynoteComponent } from './mynote/mynote.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent }, // Route pour la page d'accueil à la racine
@@ -71,7 +72,8 @@ const routes: Routes = [
       { path: 'notifications', component: NotificationsPanelComponent },
     ],
   },
-  { path: 'my-assignment', component : MyAssignmentComponent }
+  { path: 'my-assignment', component : MyAssignmentComponent },
+  { path: 'mynote', component: MynoteComponent }
 ];
 
 @NgModule({

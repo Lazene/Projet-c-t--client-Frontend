@@ -1,0 +1,33 @@
+/* Reuse your existing styles for consistency */
+.container {
+    background: #f3f4f6;
+  }
+  
+  .my-courses-title, .available-courses-title {
+    color: #5f3f71;
+  }
+  
+  .course-item {
+    background: #fff;
+    box-shadow: 0 4px 6px rgba(0,0,0,.1);
+    transition: transform .3s ease-in-out;
+  }
+  
+  .course-item:hover {
+    transform: translateY(-3px);
+  }
+  
+  .text-success {
+    color: #28a745; /* Bootstrap success color */
+  }
+  
+  .text-danger {
+    color: #dc3545; /* Bootstrap danger color */
+  }
+  
+  .overall-average {
+    background: #fff;
+    text-align: center;
+    font-size: 1.2em;
+  }
+  
