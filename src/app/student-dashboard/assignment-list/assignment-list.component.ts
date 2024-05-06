@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { AssignmentDTO } from '../../shared/DTO/assignmentDto';
+import { AssignmentDTO } from '../../shared/DTO/AssignmentDTO';
   // Assurez-vous que le chemin d'importation est correct
 
 @Component({

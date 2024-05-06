@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthentificationService } from '../services/authentification.service';
 import { TeacherService } from '../services/teacher.service';
-import { CourseService } from '../services/course.service';
 import { AssignmentSubmissionService } from '../services/assignment-submission.service';
-import { forkJoin, map, of } from 'rxjs';
-import { GradeService } from '../services/grade.service';
+import { map} from 'rxjs';
 import { GradeAssignmentDTO } from '../shared/DTO/GradeAssignmentDTO';
-import { UpdateGradeDTO } from '../shared/DTO/gradeDto';
-import { StudentService } from '../services/student.service';
 import { SubmissionDTO } from '../shared/DTO/SubmissionDTO';
+import { DetailedSubmissionDTO } from '../shared/DTO/DetailedSubmissionDTO';
 
 
 @Component({
@@ -26,9 +23,9 @@ export class AssignmentGradeComponent implements OnInit {
   constructor(
     private authService: AuthentificationService,
     private teacherService: TeacherService,
-    private studentService: StudentService,
+ 
     private assignmentSubmissionService: AssignmentSubmissionService, 
-    private gradeService: GradeService
+   
   ) {}
   ngOnInit(): void {
   this.teacherId = this.authService.getUserId();
@@ -54,17 +51,41 @@ export class AssignmentGradeComponent implements OnInit {
   }
   
   loadSubmissionsForAllCourses(): void {
+    const today = new Date();
     this.courses.forEach(course => {
       this.assignmentSubmissionService.getSubmittedAssignmentsAllByCourse(course.courseId)
+        .pipe(
+          map(submissions => submissions.map(submission => {
+            if (new Date(submission.deadline) < today && !submission.isSubmitted) {
+             this.assignmentSubmissionService.gradeAssignment({ submissionId: submission.assignmentSubmissionId, gradeValue: 0 }).subscribe({ 
+                next: () => {
+                  console.log('Grade added successfully');
+                },
+                error: (error) => {
+                  console.error('Failed to add grade', error);
+                }
+              });
+              this.assignmentSubmissionService.submitAssignmentBySubmissionId(submission.assignmentSubmissionId).subscribe({
+                next: () => {
+                  console.log('Assignment submitted successfully');
+                },
+                error: (error) => {
+                  console.error('Failed to submit assignment', error);
+                }
+              });
+            }
+            return submission;
+          }))
+        )
         .subscribe({
-          next: (data: SubmissionDTO[]) => {
-            course.submissions = data;
-            console.log(`Submissions loaded for course ${course.courseId}:`, data);
+          next: (submissions: DetailedSubmissionDTO[]) => {
+            course.submissions = submissions;
           },
           error: (error) => console.error(`Failed to load submissions for course ${course.courseId}:`, error)
         });
     });
   }
+
   
   
   
@@ -97,16 +118,7 @@ export class AssignmentGradeComponent implements OnInit {
       }
     });
   }
-  checkSubmissionStatus(submission): void {
-    this.assignmentSubmissionService.getAssignementStatus(submission.assignmentSubmissionId).subscribe({
-      next: (status) => {
-        if (status.isSubmitted) {
-          this.submissions.push(submission);
-        }
-      },
-      error: (error) => console.error('Error fetching submission status:', error)
-    });
-  }
+
   toggleCourse(course: any): void {
     course.isOpen = !course.isOpen;  // This will toggle the course view
   }

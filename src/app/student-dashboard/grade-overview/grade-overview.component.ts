@@ -1,7 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AssignmentSubmission } from '../../shared/DTO/assignment-submssionDto';
-import { GradeService } from '../../services/grade.service';
-import { AssignmentSubmissionService } from '../../services/assignment-submission.service';
+
 
 
 @Component({
@@ -10,7 +8,7 @@ import { AssignmentSubmissionService } from '../../services/assignment-submissio
   styleUrls: ['./grade-overview.component.css']
 })
 export class GradeOverviewComponent implements OnInit {
-  @Input() assignmentSubmissions: AssignmentSubmission[];
+  @Input() average: number; 
 
   constructor(
   ) { }

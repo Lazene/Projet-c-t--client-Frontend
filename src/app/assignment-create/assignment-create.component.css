@@ -1,3 +1,5 @@
+
+
 .assignment-container {
     width: 50%;
     margin: auto;
@@ -12,10 +14,7 @@
     text-align: center;
   }
   
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
+
   .form-group label {
     display: block;
     margin-bottom: 5px;
@@ -99,4 +98,33 @@
 .btn-edit, .btn-delete {
     margin-left: 10px; /* Espacement entre les boutons */
 }
+
+/* Styles globaux pour le DatePicker */
+.bs-datepicker {
+  display: block;
+  background-color: white;
+  border: 1px solid #ccc;
+}
+
+.bs-datepicker table {
+  width: 100%;
+}
+
+.bs-datepicker table td,
+.bs-datepicker table th {
+  text-align: center;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.bs-datepicker table td.selected {
+  background-color: hsl(263, 100%, 50%);
+  color: white;
+}
+
+.bs-datepicker table th {
+  color: #666;
+}
+
+
 
