@@ -41,6 +41,9 @@ import { AssignmentListComponent } from './student-dashboard/assignment-list/ass
 import { GradeOverviewComponent } from './student-dashboard/grade-overview/grade-overview.component';
 import { NotificationsPanelComponent } from './student-dashboard/notifications-panel/notifications-panel.component';
 import { MyAssignmentComponent } from './my-assignment/my-assignment.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export function tokenGetter() {return sessionStorage.getItem("jwt");}
 
@@ -80,16 +83,20 @@ export function tokenGetter() {return sessionStorage.getItem("jwt");}
     GradeOverviewComponent,
     NotificationsPanelComponent,
     MyAssignmentComponent,
+ 
 
     
   ],
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule, 
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
     NgbModule,
+    BsDatepickerModule.forRoot(),
+    TooltipModule.forRoot(),
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CourseStudent } from '../shared/DTO/CourseDto';
-import { AssignmentDTO } from '../shared/DTO/assignmentDto';
+import { AssignmentDTO } from '../shared/DTO/AssignmentDTO';
 import { StudentService } from '../services/student.service';
 import { CourseService } from '../services/course.service';
 import { AuthentificationService } from '../services/authentification.service';
-import { AssignmentSubmission } from '../shared/DTO/assignment-submssionDto';
 import { AssignmentSubmissionService } from '../services/assignment-submission.service';
+import { DetailedSubmissionDTO } from '../shared/DTO/DetailedSubmissionDTO';
 
 @Component({
   selector: 'app-student-dashboard',
@@ -16,13 +16,13 @@ export class StudentDashboardComponent implements OnInit {
   courses: CourseStudent[] = [];
   assignments: AssignmentDTO[] = [];
   studentId: number;
-  assignmentSubmissions: AssignmentSubmission[] = [];
-  
+  assignmentSubmissions: DetailedSubmissionDTO[] = [];
+  overallAverage: number;
 
   constructor(
     private studentService: StudentService, 
     private assignmentSubmissionService: AssignmentSubmissionService,
-    private courseService: CourseService, 
+   
     private authService: AuthentificationService
   ) {}
 
@@ -30,7 +30,7 @@ export class StudentDashboardComponent implements OnInit {
     this.studentId = this.authService.getUserId();  // It's good to fetch user data on init
     this.loadStudentCourses();
     this.loadStudentAssignments();
-    this.loadStudentAssignmentSubmissions();
+    this.loadOverallAverageGrade();
   }
 
   loadStudentCourses() {
@@ -50,13 +50,16 @@ export class StudentDashboardComponent implements OnInit {
       });
     }
   }
-  loadStudentAssignmentSubmissions() {
-    if(this.studentId) {
-      this.assignmentSubmissionService.getAssignmentsForStudent(this.studentId).subscribe({
-        next: (submissions) => this.assignmentSubmissions = submissions,
-        error: (err) => console.error('Failed to load assignment submissions', err)
+  loadOverallAverageGrade() {
+    if (this.studentId) {
+      this.assignmentSubmissionService.getOverallAverageGrade(this.studentId).subscribe({
+        next: (grade) => {
+          this.overallAverage = grade;  // Make sure you are setting it here
+          console.log('Overall grade:', grade);
+        },
+        error: (err) => console.error('Failed to load overall grade:', err)
       });
     }
   }
+  
 }
-

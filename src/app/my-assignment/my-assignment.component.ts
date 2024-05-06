@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthentificationService } from '../services/authentification.service';
 import { AssignmentSubmissionService } from '../services/assignment-submission.service';
-import { AssignmentService } from '../services/assignment.service';  // Assurez-vous d'avoir un service pour les Assignments
-import {  Assignment, AssignmentSubmission } from '../shared/DTO/assignment-submssionDto';
+import { DetailedSubmissionDTO } from '../shared/DTO/DetailedSubmissionDTO';
 
 @Component({
   selector: 'app-my-assignment',
@@ -10,50 +9,39 @@ import {  Assignment, AssignmentSubmission } from '../shared/DTO/assignment-subm
   styleUrls: ['./my-assignment.component.css']
 })
 export class MyAssignmentComponent implements OnInit {
-  submissions: AssignmentSubmission[] = [];
-  isSubmitted?: boolean;
+  submissions: DetailedSubmissionDTO[] = [];
   studentId?: number;
 
   constructor(
     private authService: AuthentificationService,
-    private assignmentService: AssignmentService,
     private submissionService: AssignmentSubmissionService
   ) {}
 
   ngOnInit(): void {
     this.studentId = this.authService.getUserId();
     this.loadStudentAssignments();
-    
   }
 
   loadStudentAssignments(): void {
- 
-    if (this.studentId) {
-      this.submissionService.getAssignmentsForStudent(this.studentId).subscribe({
-        next: (submissions: AssignmentSubmission[]) => {
-          this.submissions = submissions;
-          // Enrich each submission with assignment data
-          this.submissions.forEach(submission => {
-            this.assignmentService.getAssignmentById(submission.assignmentId).subscribe({
-              next: (assignment: Assignment) => {
-                submission.assignment = assignment;
-                this.submissionService.getAssignementStatus(submission.assignmentSubmissionId).subscribe({
-                  next: (status: boolean) => {
-                    submission.isSubmitted = status;
-                  },
-                  error: (error) => console.error('Error fetching assignment status:', error)
-                });
-              },
-              error: (error) => console.error('Error fetching assignment details:', error)
-            });
-          });
-        },
-        error: (error) => console.error('Error fetching submissions:', error)
-      });
-    } else {
-      console.error('Student ID is not available.');
+    if (!this.studentId) {
+      console.error('ID étudiant non disponible.');
+      return;
     }
+
+    this.submissionService.getAssignmentsForStudent(this.studentId).subscribe({
+      next: (submissions: DetailedSubmissionDTO[]) => {
+        this.submissions = submissions.map(submission => {
+          // Vous pouvez ici traiter les données si nécessaire, par exemple:
+          // conversion des dates de format string à Date object, etc.
+          submission.submissionDate = submission.submissionDate ? new Date(submission.submissionDate) : undefined;
+          return submission;
+        });
+        console.log('Soumissions chargées:', this.submissions);
+      },
+      error: (error) => console.error('Erreur lors de la récupération des soumissions:', error)
+    });
   }
+
   submitAssignment(assignmentSubmissionId: number): void {
     this.submissionService.submitAssignmentBySubmissionId(assignmentSubmissionId).subscribe({
       next: () => {

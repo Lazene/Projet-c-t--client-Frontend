@@ -18,7 +18,22 @@
         <label for="description">Description:</label>
         <textarea id="description" formControlName="description"></textarea>
       </div>
-  
+      <div class="form-group">
+        <label for="ValueMax">Value Max:</label>
+        <input type="number" id="ValueMax" formControlName="ValueMax">
+      </div>
+      <div class="form-group">
+        <label for="deadline">Deadline:</label>
+        <input type="text"
+       class="form-control"
+       bsDatepicker
+       formControlName="deadline"
+       [bsConfig]="{ dateInputFormat: 'DD MMMM YYYY' }"
+       placeholder="Select a deadline">
+
+      </div>
+      
+      
       <button type="submit" class="btn-create">{{ isEditing ? 'Update' : 'Create' }} Assignment</button>
     </form>
   

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CourseStudent } from '../../shared/DTO/CourseDto';
-  // Assurez-vous que le chemin d'importation est correct
+ 
 
 @Component({
   selector: 'app-course-list',
@@ -12,5 +12,5 @@ export class CourseListComponent {
 
   constructor() { }
 
-  // Vous pouvez ajouter d'autres méthodes pour la logique spécifique aux cours ici
+  
 }

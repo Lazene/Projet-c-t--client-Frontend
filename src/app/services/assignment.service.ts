@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AddAssignmentDTO, AssignmentDTO, UpdateAssignmentDTO } from '../shared/DTO/assignmentDto';
+import { AssignmentDTO } from '../shared/DTO/AssignmentDTO';
+import { UpdateAssignmentDTO } from '../shared/DTO/UpdateSubmissionDTO';
+import { AddAssignmentDTO } from '../shared/DTO/AddAssignmentDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +15,6 @@ export class AssignmentService {
 // recupere tous les devoirs
   getAllAssignments(): Observable<AssignmentDTO[]> {
     return this.http.get<AssignmentDTO[]>(`${this.baseUrl}`);
-  }
-// recupere un devoir par son ID
-  getAssignmentById(id: number): Observable<AssignmentDTO> {
-    return this.http.get<AssignmentDTO>(`${this.baseUrl}/${id}`);
   }
 // recupere les devoirs attribués à un cours
   getAssignmentsByCourseId(courseId: number): Observable<AssignmentDTO[]> {

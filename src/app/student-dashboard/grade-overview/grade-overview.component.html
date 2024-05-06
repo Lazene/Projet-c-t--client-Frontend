@@ -1,12 +1,5 @@
+<!-- grade-overview.component.html -->
 <div class="grade-container">
-    <h3>Grade Overview</h3>
-    <ul>
-      <ng-container *ngFor="let submission of assignmentSubmissions">
-        <!-- Seulement afficher si un grade est disponible -->
-        <li *ngIf="submission">
-          {{ submission.assignment.title }}: {{ submission.grade.value }}
-        </li>
-      </ng-container>
-    </ul>
-  </div>
-  
+  <h3>Grade Overview</h3>
+  <p>Your average grade is: {{ average }}</p> <!-- Simplified for clarity -->
+</div>

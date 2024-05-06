@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Course } from '../shared/DTO/CourseDto';
-import { AssignmentDTO, AddAssignmentDTO, UpdateAssignmentDTO } from '../shared/DTO/assignmentDto';
 import { AuthentificationService } from '../services/authentification.service';
 import { TeacherService } from '../services/teacher.service';
 import { AssignmentService } from '../services/assignment.service';
+import { UpdateAssignmentDTO } from '../shared/DTO/UpdateSubmissionDTO';
+import { AddAssignmentDTO } from '../shared/DTO/AddAssignmentDTO';
+import { AssignmentDTO } from '../shared/DTO/AssignmentDTO';
 
 @Component({
   selector: 'app-assignment-create',
@@ -31,15 +33,21 @@ export class AssignmentCreateComponent implements OnInit {
   ngOnInit() {
     this.initializeForm();
     this.loadCourses();
+    this.assignmentForm.patchValue({
+      deadline: new Date()});
   }
 
   initializeForm() {
     this.assignmentForm = this.fb.group({
       courseId: ['', Validators.required],
       title: ['', Validators.required],
-      description: ['', Validators.required]
+      description: ['', Validators.required],
+      deadline: ['', Validators.required],
+      ValueMax: ['', [Validators.required, Validators.pattern(/^[0-9]+$/)]]
     });
   }
+  
+  
   
   loadCourses() {
     const teacherId = this.authService.getUserId();
@@ -83,31 +91,34 @@ onEdit(assignment: AssignmentDTO) {
 }
 
 
-  onSubmit() {
-    if (!this.assignmentForm.valid) {
-      alert('Please fill all required fields.');
-      return;
-    }
-  
-    const formValue = this.assignmentForm.value;
-    
-    if (this.isEditing && this.currentAssignmentId) {
-      const updatedAssignment: UpdateAssignmentDTO = {
-        assignmentId: this.currentAssignmentId,
-        title: formValue.title,
-        description: formValue.description,
-        courseId: this.selectedCourseId
-      };
-      this.updateAssignment(updatedAssignment);
-      console.log('Updating assignment:', updatedAssignment);
-    } else {
-      const newAssignment: AddAssignmentDTO = {
-        ...formValue, // Utilisez directement les valeurs du formulaire
-        courseId: this.selectedCourseId // Assurez-vous que courseId est défini
-      };
-      this.addAssignment(newAssignment);
-    }
+onSubmit() {
+  if (!this.assignmentForm.valid) {
+    alert('Please fill all required fields.');
+    return;
   }
+
+  const formValue = this.assignmentForm.value;
+
+  if (this.isEditing && this.currentAssignmentId) {
+    const updatedAssignment: UpdateAssignmentDTO = {
+      assignmentId: this.currentAssignmentId,
+      title: formValue.title,
+      description: formValue.description,
+      courseId: formValue.courseId,
+      deadline: new Date(formValue.deadline)  // Convertissez la date si nécessaire
+    };
+    this.updateAssignment(updatedAssignment);
+  } else {
+    const newAssignment: AddAssignmentDTO = {
+      title: formValue.title,
+      description: formValue.description,
+      courseId: formValue.courseId,
+      deadline: new Date(formValue.deadline), // Convertissez la date si nécessaire
+      gradeValueMax: formValue.gradeValueMax // Assurez-vous que cette valeur est gérée
+    };
+    this.addAssignment(newAssignment);
+  }
+}
   
 
   addAssignment(assignment: AddAssignmentDTO) {

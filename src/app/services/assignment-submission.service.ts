@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AssignmentSubmissionDTO } from '../shared/DTO/assignment-submssionDto';
 import { GradeAssignmentDTO } from '../shared/DTO/GradeAssignmentDTO';
-import { SubmissionDTO } from '../shared/DTO/SubmissionDTO';
+import { DetailedSubmissionDTO } from '../shared/DTO/DetailedSubmissionDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -13,28 +12,30 @@ export class AssignmentSubmissionService {
 
   constructor(private http: HttpClient) { }
 // recupere les devoirs attribués à un étudiant
-  getAssignmentsForStudent(studentId: number): Observable<any> {
-    return this.http.get<AssignmentSubmissionDTO[]>(`${this.baseUrl}/${studentId}`);
-  }
- 
-  getSubmissionsByStudentAndCourse(studentId: number, courseId: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/student/${studentId}/course/${courseId}`);
-  }
-  getSubmittedAssignmentsAllByCourse(courseId: number): Observable<SubmissionDTO[]> {
-    return this.http.get<SubmissionDTO[]>(`${this.baseUrl}/All-submitted-by-course/${courseId}`);
-  }
-  getAssignementStatus(assignmentSubmissionId : number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/submission-status/${assignmentSubmissionId}`);
-  }
-
-
-  gradeAssignment(gradeDto: GradeAssignmentDTO): Observable<any> {
-    return this.http.post(`${this.baseUrl}/grade`, gradeDto, { responseType: 'text' });
-  }
-  submitAssignmentBySubmissionId(submissionId: number): Observable<any> {
-    return this.http.post(`${this.baseUrl}/submit/by-submission-id/${submissionId}`, {}, {
-      responseType: 'text'  // Ajoutez ou ajustez cette option si la réponse est du texte
-    });
-  }
-  
+getAssignmentsForStudent(studentId: number): Observable<DetailedSubmissionDTO[]> {
+  return this.http.get<DetailedSubmissionDTO[]>(`${this.baseUrl}/${studentId}`);
 }
+getSubmissionsByStudentAndCourse(studentId: number, courseId: number): Observable<DetailedSubmissionDTO[]> {
+  return this.http.get<DetailedSubmissionDTO[]>(`${this.baseUrl}/student/${studentId}/course/${courseId}`);
+}
+getSubmittedAssignmentsAllByCourse(courseId: number): Observable<DetailedSubmissionDTO[]> {
+  return this.http.get<DetailedSubmissionDTO[]>(`${this.baseUrl}/All-submitted-by-course/${courseId}`);
+}
+getAssignmentStatus(assignmentSubmissionId: number): Observable<boolean> {
+  return this.http.get<boolean>(`${this.baseUrl}/submission-status/${assignmentSubmissionId}`);
+}
+gradeAssignment(gradeDto: GradeAssignmentDTO): Observable<string> {
+  return this.http.post(`${this.baseUrl}/grade`, gradeDto, { responseType: 'text' });
+}
+submitAssignmentBySubmissionId(submissionId: number): Observable<string> {
+  return this.http.post(`${this.baseUrl}/submit/by-submission-id/${submissionId}`, {}, { responseType: 'text' });
+}
+getOverallAverageGrade(studentId: number): Observable<number> {
+  return this.http.get<number>(`${this.baseUrl}/overall-average/${studentId}`);
+}
+getCourseAverageGrade(studentId: number, courseId: number): Observable<number> {
+  return this.http.get<number>(`${this.baseUrl}/course-average/${studentId}/${courseId}`);
+}
+
+}
+
