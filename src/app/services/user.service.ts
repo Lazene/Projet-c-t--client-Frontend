@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { User, UpdUserDTO, NewUserDTO } from '../shared/DTO/UserDto'
+import { User, UpdUserDTO, NewUserDTO, AddUserDTO } from '../shared/DTO/UserDto'
 
 @Injectable({
   providedIn: 'root'
@@ -22,13 +22,13 @@ export class UserService {
   }
 
   // Créer un nouvel utilisateur
-  createUser(newUser: NewUserDTO): Observable<any> {
-    return this.http.post(`${this.baseUrl}/Register`, newUser, { responseType: 'text' });
+  createUser(newUser: NewUserDTO): Observable<AddUserDTO> {
+    return this.http.post<AddUserDTO>(`https://localhost:7176/Authentification/Register`, newUser);
   }
 
  // Mettre à jour un utilisateur
- updateUser(userDto: UpdUserDTO): Observable<any> {
-  return this.http.put(`${this.baseUrl}/${userDto.id}`, userDto);
+ updateUser(userDto: UpdUserDTO): Observable<UpdUserDTO> {
+  return this.http.put<UpdUserDTO>(`${this.baseUrl}/${userDto.id}`, userDto);
 }
 
   // Supprimer un utilisateur
@@ -36,8 +36,8 @@ export class UserService {
     return this.http.delete(`${this.baseUrl}/${id}`);
   }
   // Récupérer les rôles d'un utilisateur
-  getRoles(id:number): Observable<string[]> {
-    return this.http.get<string[]>(`${this.baseUrl}/role/${id}`);
+  getRoles(id:number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/role/${id}`,{ responseType: 'text' });
   }
   
 }

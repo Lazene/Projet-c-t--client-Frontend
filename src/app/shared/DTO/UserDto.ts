@@ -10,7 +10,7 @@ export { User };
 
 export interface UpdUserDTO {
     id: number;
-    userName: string;
+    username: string;
     role: string;
   }
 
@@ -44,4 +44,8 @@ export interface UserDTO {
     userName: string;
     user: User;
     courses: any;
+  }
+  export interface AddUserDTO {
+    id: number;
+    username: string;
   }
