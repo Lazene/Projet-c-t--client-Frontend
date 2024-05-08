@@ -50,7 +50,7 @@ export class UserDetailsComponent implements OnInit {
     if (this.userForm.valid) {
       const updatedUser: UpdUserDTO = {
       id: +this.userId,
-        userName: this.userForm.value.username,
+        username: this.userForm.value.username,
         role: this.userForm.value.role
       };
   

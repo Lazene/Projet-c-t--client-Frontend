@@ -42,8 +42,12 @@
                             </div>
                             <div class="form-group">
                                 <button [disabled]="loginForm.invalid" type="submit" class="btn btn-primary">Submit</button>
+                                <div *ngIf="mustChangePassword" class="alert alert-warning mt-2">
+                                  You need to change your password before proceeding.
+                                </div>
                                 <div class="mt-2">Not a member? <a routerLink="/register">Register</a></div>
-                            </div>
+                                <div class="mt-2">Forgot password? <a routerLink="/forgot-password">Reset</a></div>
+                              </div>
                         </form>
                     </div>
                 </div>

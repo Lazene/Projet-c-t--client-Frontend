@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
-import { NewUserDTO } from '../shared/DTO/UserDto';
+import { NewUserDTO, UpdUserDTO } from '../shared/DTO/UserDto';
 import { AuthentificationService } from '../services/authentification.service';
 @Component({
   selector: 'app-user-add',
@@ -11,7 +11,7 @@ import { AuthentificationService } from '../services/authentification.service';
 })
 export class UserAddComponent implements OnInit {
   registerForm: FormGroup;
-  roles: string[] = ['Admin', 'User', 'student']; 
+  roles: string[] = ['admin', 'teacher', 'student']; 
   userId: number; // Add the userId property
 
   constructor(private fb: FormBuilder, private userService: UserService, private router: Router, private authService: AuthentificationService) {
@@ -49,24 +49,31 @@ export class UserAddComponent implements OnInit {
   }
   submit(): void {
     if (this.registerForm.valid) {
- 
       const newUser: NewUserDTO = {
         username: this.registerForm.value.userName,
         password: this.registerForm.value.password,
-    
-        role: this.registerForm.value.role
+        role: this.registerForm.value.role  // Assurez-vous que le rôle est bien inclus ici.
       };
   
-      // Appelez la méthode createUser de votre UserService
       console.log('Creating new user:', newUser);
       this.userService.createUser(newUser).subscribe({
-        
-        next: () => {
-          // Redirection vers la liste des utilisateurs ou affichage d'un message de succès
-          this.router.navigate(['/user-table']);
+        next: (response) => {
+          // Ici, 'response' devrait être de type AddUserDTO, contenant id et username.
+          const updateDto: UpdUserDTO = {
+            id: response.id,
+            username: response.username,
+            role: this.registerForm.value.role  // Utilisez le rôle spécifié dans le formulaire
+          };
+  
+          this.userService.updateUser(updateDto).subscribe({
+            next: () => {
+              console.log('User updated successfully with role');
+              this.router.navigate(['/user-table']);  // Redirection après succès
+            },
+            error: (error) => console.error('Error updating the user role:', error)
+          });
         },
         error: (error) => {
-          // Affichage d'un message d'erreur
           console.error('Error creating the user:', error);
         }
       });
@@ -74,8 +81,5 @@ export class UserAddComponent implements OnInit {
   }
   
 
- 
-  
-  
 
 }

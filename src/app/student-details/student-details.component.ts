@@ -47,7 +47,7 @@ export class StudentDetailsComponent implements OnInit {
     if (this.studentForm.valid) {
       const updatedUser: UpdUserDTO = {
       id: +this.studentId,
-      userName: this.studentForm.value.username,
+      username: this.studentForm.value.username,
       role: this.studentForm.value.role
       };
   

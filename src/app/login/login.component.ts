@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent  {
   loginForm: FormGroup;
-
+  mustChangePassword: boolean = false; 
   
   constructor(private authService: AuthentificationService, private router: Router) {
     this.loginForm = new FormGroup({
@@ -19,37 +19,48 @@ export class LoginComponent  {
       password: new FormControl('', Validators.required)
     });
   }
-  login(){
+  login() {
     this.authService.login(this.loginForm.value.userName, this.loginForm.value.password)
-    .subscribe(response => {
-      console.log(response);
-      if(response.token){
-        sessionStorage.setItem("jwt", response.token);
-        sessionStorage.setItem("username", response.username);
-        sessionStorage.setItem("role", response.role);
-        sessionStorage.setItem("id", response.id);
-        const userId = this.authService.getUserId();
-console.log('Current User ID:', userId);
-switch (response.role) {
-  case 'teacher':
-    this.router.navigate(['/teacher-dashboard']); // Modifiez selon votre chemin de tableau de bord de l'enseignant
-    break;
-  case 'student':
-    this.router.navigate(['/student-dashboard']); // Modifiez selon votre chemin de tableau de bord de l'étudiant
-    break;
-  case 'admin':
-    this.router.navigate(['/admin-dashboard']); // Modifiez selon votre chemin de tableau de bord de l'administrateur
-    break;
-  default:
-    this.router.navigate(['/']); // Page d'accueil ou tableau de bord par défaut
-    break;
+    .subscribe({
+      next: (response) => {
+        console.log(response);
+        if (response.token) {
+          // Stockage des informations de l'utilisateur
+          this.authService.setUser(response); 
+          // Mettre à jour l'état du changement de mot de passe
+          this.mustChangePassword = response.mustChangePassword;
+          this.handleNavigation(response);
+        }
+      },
+      error: (error) => {
+        console.error('Login failed:', error);
+      }
+    });
+  }
+
+  handleNavigation(user) {
+    if (this.mustChangePassword) {
+      this.router.navigate(['/change-password']);
+    } else {
+      // Redirection basée sur le rôle
+      switch (user.role) {
+        case 'teacher':
+          this.router.navigate(['/teacher-dashboard']);
+          break;
+        case 'student':
+          this.router.navigate(['/student-dashboard']);
+          break;
+        case 'admin':
+          this.router.navigate(['/admin-dashboard']);
+          break;
+        default:
+          this.router.navigate(['/']); // Redirection par défaut
+          break;
       }
     }
-    });
-
-    }
-
   }
+}
+  
   
 
 

@@ -1,14 +1,16 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, tap, throwError } from 'rxjs';
 import { User } from '../shared/DTO/UserDto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthentificationService {
+  private baseUrl = 'https://localhost:7176/Authentification';
   private isAuthentificatedSubject = new BehaviorSubject<boolean>(false);
+  private mustChangePasswordSubject = new BehaviorSubject<boolean>(false);
   private usernameSubject = new BehaviorSubject<string>(sessionStorage.getItem("username") || '');
   private userRoleSubject = new BehaviorSubject<string>(sessionStorage.getItem("role") || '');
   $user = new BehaviorSubject<User| undefined>(undefined);
@@ -19,8 +21,7 @@ export class AuthentificationService {
   
    // méthode pour logger un utilisateur
    login(userName: string, password: string): Observable<any> {
-    const loginData = { Username: userName, Password: password };
-    return this.http.post<any>(`https://localhost:7176/Authentification/Login`, loginData)
+    return this.http.post<any>(`${this.baseUrl}/Login`, { userName, password })
       .pipe(
         tap(response => {
           if (response && response.token) {
@@ -28,19 +29,17 @@ export class AuthentificationService {
             sessionStorage.setItem("username", response.username);
             sessionStorage.setItem("role", response.role);
             sessionStorage.setItem('expires', response.expires);
+            sessionStorage.setItem('mustChangePassword', response.mustChangePassword);
             sessionStorage.setItem('userId', response.userId); // Stockez l'ID de l'utilisateur
             this.usernameSubject.next(response.username);
             this.userRoleSubject.next(response.role);
             this.isAuthentificatedSubject.next(true);
+            this.mustChangePasswordSubject.next(response.mustChangePassword);
             console.log("Storing token: ", response.token);
           }
         })
       );
   }
-  
-  
-  
-
    // méthode isAuthentificated pour vérifier si un utilisateur est authentifié
    isAuthentificated(): boolean{
     const token = sessionStorage.getItem("jwt");
@@ -48,10 +47,13 @@ export class AuthentificationService {
     return !this.jwtHelper.isTokenExpired(token);
 
   }
+  mustUserChangePassword(): Observable<boolean> {
+    return this.mustChangePasswordSubject.asObservable();
+  }
   // méthode refreshToken pour rafraichir le token
   refreshToken(){ 
     const token = sessionStorage.getItem("jwt");
-    return this.http.get<any>(`https://localhost:7176/Authentication/RefreshToken?token=`+token).pipe(
+    return this.http.get<any>(`${this.baseUrl}/RefreshToken?token=`+token).pipe(
       tap(response => {
         if(response && response.token){
           sessionStorage.setItem("jwt", response.token);
@@ -62,7 +64,7 @@ export class AuthentificationService {
   // méthode pour enregistrer un utilisateur
   register(userName: string, password: string): Observable<any>{
     const body = { userName, password }; // Créez un objet avec les données d'inscription
-    return this.http.post(`https://localhost:7176/Authentification/Register`, body).pipe(
+    return this.http.post(`${this.baseUrl}/Register`, body).pipe(
       tap(response => {
         if(response && response.token){
           sessionStorage.setItem("jwt", response.token);
@@ -72,6 +74,18 @@ export class AuthentificationService {
           this.userRoleSubject.next(response.role);
           this.isAuthentificatedSubject.next(true);
         }
+      })
+    );
+  }
+  changePassword(userId: number, oldPassword: string, newPassword: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}/change-password`, { userId, oldPassword, newPassword }).pipe(
+      tap(() => {
+        sessionStorage.setItem('mustChangePassword', 'false');
+        this.mustChangePasswordSubject.next(false);
+      }),
+      catchError(error => {
+        console.error('Change password failed:', error);
+        return throwError(() => new Error('Change password failed'));
       })
     );
   }
