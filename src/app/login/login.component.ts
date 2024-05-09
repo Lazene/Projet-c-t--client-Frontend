@@ -29,7 +29,11 @@ export class LoginComponent  {
           this.authService.setUser(response); 
           // Mettre à jour l'état du changement de mot de passe
           this.mustChangePassword = response.mustChangePassword;
-          this.handleNavigation(response);
+          if (this.mustChangePassword) {
+            this.promptPasswordChange();
+          } else {
+            this.handleNavigation(response);
+          }
         }
       },
       error: (error) => {
@@ -37,12 +41,15 @@ export class LoginComponent  {
       }
     });
   }
+  promptPasswordChange() {
+    const confirmChange = window.confirm("You need to change your password. Click OK to proceed to the password change page.");
+    if (confirmChange) {
+      this.router.navigate(['/change-password']);
+    }
+  }
 
   handleNavigation(user) {
-    if (this.mustChangePassword) {
-      this.router.navigate(['/change-password']);
-    } else {
-      // Redirection basée sur le rôle
+    if (!this.mustChangePassword) {
       switch (user.role) {
         case 'teacher':
           this.router.navigate(['/teacher-dashboard']);
@@ -54,7 +61,7 @@ export class LoginComponent  {
           this.router.navigate(['/admin-dashboard']);
           break;
         default:
-          this.router.navigate(['/']); // Redirection par défaut
+          this.router.navigate(['/']);
           break;
       }
     }

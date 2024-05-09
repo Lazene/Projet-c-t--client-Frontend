@@ -1,17 +1,27 @@
+/* user-details.component.css */
 .form-group {
-    width: 50%;
-    margin: 0 auto;
-  }
-  .form-group input, .form-group select {
-    background-color: white;
-  }
-  
-  button[type="submit"] {
-    display: block;
-    margin: 0 auto;
-  
-    color: white;
-  }
-label{
-    color: white;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.form-group input, .form-group select, .form-group button {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+button[type="submit"], button[type="button"] {
+  background-color: #7a23d2;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover, button[type="button"]:hover {
+  background-color: #8A2BE2;
+}
+
+h3 {
+  color: black;
 }

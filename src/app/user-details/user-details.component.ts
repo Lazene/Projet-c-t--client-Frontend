@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../services/user.service';
-import { User, UpdUserDTO } from '../shared/DTO/UserDto';
+import {  UpdUserDTO } from '../shared/DTO/UserDto';
+import { AuthentificationService } from '../services/authentification.service';
+
 
 @Component({
   selector: 'app-user-details',
@@ -13,28 +15,32 @@ import { User, UpdUserDTO } from '../shared/DTO/UserDto';
 export class UserDetailsComponent implements OnInit {
   userForm: FormGroup;
   userId: string;
+  resetPasswordForm: FormGroup;
+  isResetMode = false;
 
   constructor(
     private route: ActivatedRoute,
     private userService: UserService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private authService: AuthentificationService
   ) {
     this.userForm = this.fb.group({
       username: ['', Validators.required],
       role: ['', Validators.required]
     });
+    this.resetPasswordForm = this.fb.group({
+      newPassword: ['', Validators.required],
+      confirmPassword: ['', Validators.required]
+    });
+    this.resetPasswordForm.setValidators(this.passwordMatchValidator());
   }
 
   ngOnInit(): void {
-    // Assurez-vous que l'ID est converti en number si votre API s'attend à un number
     this.userId = this.route.snapshot.paramMap.get('id');
     if (this.userId) {
-      // Conversion de string à number si nécessaire
-      const idNum = +this.userId;
-      this.userService.getUserById(idNum).subscribe({
+      this.userService.getUserById(+this.userId).subscribe({
         next: (user) => {
-          console.log('User loaded:', user);
           this.userForm.patchValue({
             username: user.username,
             role: user.role
@@ -43,8 +49,7 @@ export class UserDetailsComponent implements OnInit {
         error: (error) => console.error('Error loading the user:', error)
       });
     }
-  }
-  
+  }  
 
   onSubmit(): void {
     if (this.userForm.valid) {
@@ -57,10 +62,31 @@ export class UserDetailsComponent implements OnInit {
       this.userService.updateUser(updatedUser).subscribe({
         next: () => {
           console.log('User updated successfully');
-          this.router.navigate(['/user-table']); // Redirigez vers la page appropriée après la mise à jour
+          this.router.navigate(['/user-table']); 
         },
         error: (error) => console.error('Error updating the user:', error)
       });
     }
+  }
+  resetPassword(): void {
+    if (this.resetPasswordForm.valid && this.resetPasswordForm.value.newPassword === this.resetPasswordForm.value.confirmPassword) {
+      this.authService.resetPassword(+this.userId, this.resetPasswordForm.value.newPassword).subscribe({
+        next: () => this.router.navigate(['/user-table']),
+        error: (error) => console.error('Reset password failed:', error)
+      });
+    } else {
+      alert('Passwords do not match');
+    }
+  }
+  toggleResetMode(): void {
+    this.isResetMode = !this.isResetMode;
+  }
+
+  passwordMatchValidator(): ValidatorFn {
+    return (group: AbstractControl): { [key: string]: any } | null => {
+      let pass = group.get('newPassword').value;
+      let confirmPass = group.get('confirmPassword').value
+      return pass === confirmPass ? null : { notSame: true }
+    };
   }
 }
