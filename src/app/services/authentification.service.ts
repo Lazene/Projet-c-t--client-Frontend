@@ -1,8 +1,9 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject, Observable, catchError, tap, throwError } from 'rxjs';
 import { User } from '../shared/DTO/UserDto';
+import { LoginReponseDto } from '../shared/DTO/LoginReponseDto';
 
 @Injectable({
   providedIn: 'root'
@@ -20,11 +21,12 @@ export class AuthentificationService {
   constructor(private http : HttpClient, public jwtHelper : JwtHelperService) {}
   
    // méthode pour logger un utilisateur
-   login(userName: string, password: string): Observable<any> {
+   login(userName: string, password: string): Observable<LoginReponseDto> {
     return this.http.post<any>(`${this.baseUrl}/Login`, { userName, password })
       .pipe(
         tap(response => {
           if (response && response.token) {
+            console.log('Login successful:', response);
             sessionStorage.setItem("jwt", response.token);
             sessionStorage.setItem("username", response.username);
             sessionStorage.setItem("role", response.role);
@@ -36,31 +38,48 @@ export class AuthentificationService {
             this.isAuthentificatedSubject.next(true);
             this.mustChangePasswordSubject.next(response.mustChangePassword);
             console.log("Storing token: ", response.token);
+            
           }
         })
       );
   }
    // méthode isAuthentificated pour vérifier si un utilisateur est authentifié
-   isAuthentificated(): boolean{
+   isAuthentificated(): boolean {
     const token = sessionStorage.getItem("jwt");
-    console.log("Retrieved token: ", token);
-    return !this.jwtHelper.isTokenExpired(token);
-
+    if (token) {
+      // Vérifiez si le token est expiré
+      const isExpired = this.jwtHelper.isTokenExpired(token);
+      console.log("Token expired:", isExpired);
+      return !isExpired;
+    }
+    return false;
   }
+  
   mustUserChangePassword(): Observable<boolean> {
     return this.mustChangePasswordSubject.asObservable();
   }
   // méthode refreshToken pour rafraichir le token
-  refreshToken(){ 
-    const token = sessionStorage.getItem("jwt");
-    return this.http.get<any>(`${this.baseUrl}/RefreshToken?token=`+token).pipe(
+// Assurez-vous que l'URL est correctement écrite et correspond à celle testée dans Swagger/cURL
+refreshToken() {
+  const headers = new HttpHeaders({
+      'Authorization': `Bearer ${sessionStorage.getItem("jwt")}`
+  });
+  return this.http.get<any>(`${this.baseUrl}/refresh-token`, { headers: headers })
+  .pipe(
       tap(response => {
-        if(response && response.token){
           sessionStorage.setItem("jwt", response.token);
-        }
+      }),
+      catchError(error => {
+          console.error('Refresh token failed:', error);
+          return throwError(() => new Error('Refresh token failed'));
       })
-    );
-  }
+  );
+}
+
+
+
+
+
   // méthode pour enregistrer un utilisateur
   register(userName: string, password: string): Observable<any>{
     const body = { userName, password }; // Créez un objet avec les données d'inscription
@@ -78,17 +97,30 @@ export class AuthentificationService {
     );
   }
   changePassword(userId: number, oldPassword: string, newPassword: string): Observable<any> {
-    return this.http.post(`${this.baseUrl}/change-password`, { userId, oldPassword, newPassword }).pipe(
-      tap(() => {
-        sessionStorage.setItem('mustChangePassword', 'false');
-        this.mustChangePasswordSubject.next(false);
-      }),
+    return this.http.post(`${this.baseUrl}/change-password`, { userId, oldPassword, newPassword }, { responseType: 'text' })
+    .pipe(
+        tap(() => {
+            sessionStorage.setItem('mustChangePassword', 'false');
+            this.mustChangePasswordSubject.next(false);
+        }),
+        catchError(error => {
+            console.error('Change password failed:', error);
+            return throwError(() => new Error('Change password failed'));
+        })
+    );
+}
+resetPassword(userId: number, newPassword: string): Observable<any> {
+   return this.http.post(`${this.baseUrl}/ResetPassword`, { userId, newPassword }, { responseType: 'text' })
+    .pipe(
+      tap(() => console.log('Password reset successful')),
       catchError(error => {
-        console.error('Change password failed:', error);
-        return throwError(() => new Error('Change password failed'));
+          console.error('Reset password failed:', error);
+          return throwError(() => new Error(`Reset password failed: ${error.message}`));
       })
     );
-  }
+}
+
+
   // méthode pour déconnecter un utilisateur
 logout(): void {
   sessionStorage.removeItem("jwt");
@@ -132,18 +164,26 @@ user(): Observable<User|undefined> {
 
   return this.$user.asObservable();
 }
-setUser(user: User): void {
-  if (!user || !user.id) {
-    console.error('Invalid user:', user);
+setUser(response: LoginReponseDto): void {
+  // Vous pouvez créer un objet User ici si nécessaire, par exemple:
+  if (!response || !response.userId) {
+    console.error('Invalid login response:', response);
     return;
   }
-  console.log('Setting user:', user);
+  console.log('Setting user response:', response);
+  const user: User = {
+    id: response.userId,
+    username: response.username,
+    role: response.role,
+    // Définissez les autres propriétés nécessaires, avec des valeurs par défaut ou des valeurs issues de response
+  };
   this.$user.next(user);
-  localStorage.setItem("user-id", user.id.toString());
-  localStorage.setItem('user-username', user.username);
-  localStorage.setItem('user-roles', user.role);
-  console.log('User ID in localStorage:', localStorage.getItem("user-id"));
+  sessionStorage.setItem("user-id", user.id.toString());
+  sessionStorage.setItem('user-username', user.username);
+  sessionStorage.setItem('user-roles', user.role);
+  console.log('User ID in sessionStorage:', sessionStorage.getItem("user-id"));
 }
+
 // méthode pour obtenir l'ID de l'utilisateur stocké dans le sessionStorage
 getUserId(): number {
   const userId = sessionStorage.getItem("userId");

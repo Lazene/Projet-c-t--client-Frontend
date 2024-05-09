@@ -45,6 +45,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MynoteComponent } from './mynote/mynote.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 export function tokenGetter() {return sessionStorage.getItem("jwt");}
 
@@ -85,6 +86,7 @@ export function tokenGetter() {return sessionStorage.getItem("jwt");}
     NotificationsPanelComponent,
     MyAssignmentComponent,
     MynoteComponent,
+    ChangePasswordComponent,
  
 
     
