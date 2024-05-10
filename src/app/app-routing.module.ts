@@ -75,7 +75,8 @@ const routes: Routes = [
   },
   { path: 'my-assignment', component : MyAssignmentComponent },
   { path: 'mynote', component: MynoteComponent },
-  {path:'change-password',component:ChangePasswordComponent}
+  {path:'change-password',component:ChangePasswordComponent},
+  {path:'student-listTeacher',component:StudentsListTeacherComponent},
 ];
 
 @NgModule({

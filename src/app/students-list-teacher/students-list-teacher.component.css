@@ -1,0 +1,74 @@
+/* Styles globaux pour le dashboard */
+.teacher-dashboard {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+  }
+  
+  h2 {
+    color: #4A4A4A;
+    font-weight: 600;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #EAEAEA;
+    margin-bottom: 20px;
+  }
+  
+  /* Styles pour les tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 40px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+  th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #DDD;
+  }
+  
+  th {
+    background-color: #F9F9F9;
+    color: #333;
+  }
+  
+  tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* Boutons dans le tableau */
+  .action-button {
+    padding: 8px 16px;
+    text-align: center;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    background-color: #4CAF50;
+    cursor: pointer;
+    margin-right: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .action-button:hover {
+    background-color: #45a049;
+  }
+  
+  .action-button.info {
+    background-color: #2196F3;
+  }
+  
+  .action-button.info:hover {
+    background-color: #0b7dda;
+  }
+  
+  .action-button.delete {
+    background-color: #f44336;
+  }
+  
+  .action-button.delete:hover {
+    background-color: #da190b;
+  }
+  
