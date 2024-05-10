@@ -62,6 +62,20 @@ export class CourseTableComponent {
     console.log(courseId); 
     this.router.navigate(['/course-details', courseId]);
 }
+sort(property: 'courseName' | 'teacherName') {
+  console.log('Sorting by: ', property);
+  console.log('Before sort:', this.courses);
+  this.courses = [...this.courses].sort((a, b) => {
+    const valueA = a[property].toLowerCase();
+    const valueB = b[property].toLowerCase();
+
+    if (valueA < valueB) return -1;
+    if (valueA > valueB) return 1;
+    return 0;
+  });
+  
+}
+
 
   
 

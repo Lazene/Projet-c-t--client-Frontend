@@ -1,23 +1,21 @@
 <div class="container mt-4">
-    <h2>Enroll Student in Courses</h2>
-    <form [formGroup]="enrolledForm" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="username">Student Name:</label>
-        <input type="text" id="username" class="form-control" formControlName="username" readonly>
-        {{ enrolledForm.get('username').value }}
+  <h2>Enroll Student in Courses</h2>
+  <form [formGroup]="enrolledForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="username">Student Name:</label>
+      <input type="text" id="username" class="form-control" formControlName="username" readonly>
+    </div>
+    
+    <h3 class="mt-3">Select Courses:</h3>
+    <div formGroupName="courses">
+      <div *ngFor="let course of courses$ | async" class="form-check">
+        <input class="form-check-input" type="checkbox" [id]="'course_' + course.courseId" [formControlName]="'course_' + course.courseId">
+        <label class="form-check-label" [for]="'course_' + course.courseId">
+          {{ course.courseName }}
+        </label>
       </div>
-      
-      <h3 class="mt-3">Select Courses:</h3>
-      <div formGroupName="courses">
-        <div *ngFor="let course of courses" class="form-check">
-          <input class="form-check-input" type="checkbox" [id]="'course_' + course.courseId" [formControlName]="'course_' + course.courseId">
-          <label class="form-check-label" [for]="'course_' + course.courseId">
-            {{ course.courseName }}
-          </label>
-        </div>
-      </div>
-  
-      <button type="submit" class="btn btn-primary mt-3">Enroll in Selected Courses</button>
-    </form>
-  </div>
-  
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Enroll in Selected Courses</button>
+  </form>
+</div>

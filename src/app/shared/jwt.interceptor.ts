@@ -8,13 +8,12 @@ export class jwtIntercept implements HttpInterceptor{
 
   constructor(private authentificationService : AuthentificationService) {}
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = sessionStorage.getItem('jwt');
-    if (token) {
-        request = request.clone({
-            setHeaders: {
-                Authorization: `Bearer ${token}`
-            }
-        });
+    const jwtToken = localStorage.getItem('jwt');
+    if (jwtToken) {
+      const cloned = request.clone({
+        headers: request.headers.set("Authorization", "Bearer " + jwtToken)
+      });
+      return next.handle(cloned);
     }
 
     return next.handle(request).pipe(
@@ -27,21 +26,25 @@ export class jwtIntercept implements HttpInterceptor{
     );
 }
   
-  handleRefreshToken(request: HttpRequest<any>, next: HttpHandler) {
-    return this.authentificationService.refreshToken().pipe(
-      switchMap((token: any) => {
-        // Stocker le nouveau token et rejouer la requête originale
-        sessionStorage.setItem('jwt', token);
-        const clonedRequest = request.clone({ setHeaders: { Authorization: `Bearer ${token}` } });
-        return next.handle(clonedRequest);
-      }),
-      catchError((error) => {
-        // Gestion de l'échec du rafraîchissement du token
-        console.error('Refresh token failed:', error);
-        return throwError(() => new Error('Session expired, please log in again'));
-      })
-    );
-  }
+handleRefreshToken(request: HttpRequest<any>, next: HttpHandler) {
+  return this.authentificationService.refreshToken().pipe(
+    switchMap((response: any) => {
+      const newToken = response.token;
+      sessionStorage.setItem('jwt', newToken);
+      // Cloner la requête avec le nouveau jeton
+      const clonedRequest = request.clone({ 
+        setHeaders: { Authorization: `Bearer ${newToken}` }
+      });
+      return next.handle(clonedRequest);
+    }),
+    catchError((error) => {
+      console.error('Refresh token failed:', error);
+      this.authentificationService.logout();  // Déconnecter l'utilisateur si le rafraîchissement échoue
+      return throwError(() => new Error('Session expired, please log in again'));
+    })
+  );
+}
+
   
   
 }

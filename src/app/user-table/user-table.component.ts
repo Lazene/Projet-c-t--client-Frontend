@@ -12,6 +12,10 @@ import { Router } from '@angular/router';
 export class UserTableComponent implements OnInit {
   users: User[] = [];
   role : string = "";
+  filteredUsers: User[] = [];
+  filterId: string = '';
+  filterName: string = '';
+  filterRole: string = '';
 
   constructor(private userService: UserService, private router: Router) { }
 
@@ -24,15 +28,20 @@ export class UserTableComponent implements OnInit {
   loadUsers(): void {
     this.userService.getUsers().subscribe({
       next: (data) => {
-        // Appliquer le tri ici avant d'assigner les données à `this.users`
-        this.users = this.sortUsers(data);
+        this.users = this.filteredUsers = data; // Stockez et initialisez les utilisateurs filtrés
+        this.filterUsers(); // Appliquer les filtres initiaux s'ils existent
       },
-      error: (error) => {
-        console.error('There was an error!', error);
-      }
+      error: (error) => console.error('There was an error!', error)
     });
   }
 
+  filterUsers(): void {
+    this.filteredUsers = this.users.filter(user => {
+      return (this.filterId ? user.id.toString().includes(this.filterId) : true) &&
+             (this.filterName ? user.username.toLowerCase().includes(this.filterName.toLowerCase()) : true) &&
+             (this.filterRole ? user.role.toLowerCase().includes(this.filterRole.toLowerCase()) : true);
+    });
+  }
   delete(id: number): void {
     this.userService.deleteUser(id).subscribe({
       next: () => {

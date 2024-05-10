@@ -1,18 +1,33 @@
-.col-course-desc {
-    max-width: 10%; /* Limiting the width of the course description */
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-  }
-  
-  .action-button {
-    margin-right: 10px !important;
-    border-radius: 5px !important;
-    background-color: white !important;
-    border: 2px solid rgb(0, 0, 0) !important;
-    color: rgb(0, 0, 0) !important;
-    padding: 5px 10px !important;
-  }
-  
- 
-  
+
+
+.table th button {
+  background: none;
+  border: none;
+  color: #7a23d2;
+  cursor: pointer;
+  margin-left: 5px; /* Ensures a small gap between the text and the button */
+}
+
+.table th button:hover {
+  text-decoration: underline;
+}
+
+/* Column specific adjustments for better alignment and overflow management */
+.col-course-name, .col-teacher {
+  flex-grow: 1;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.action-button {
+  background-color: #7a23d2;
+  color: white;
+  border: white solid 1px;
+  padding: 5px 8px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.action-button:hover {
+  background-color: #7a23d2;
+}
