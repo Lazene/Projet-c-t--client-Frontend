@@ -6,6 +6,8 @@ import { CourseService } from '../services/course.service';
 import { AuthentificationService } from '../services/authentification.service';
 import { AssignmentSubmissionService } from '../services/assignment-submission.service';
 import { DetailedSubmissionDTO } from '../shared/DTO/DetailedSubmissionDTO';
+import { NotificationService } from '../services/notification.service';
+import { NotificationDto } from '../shared/DTO/NotificationDto';
 
 @Component({
   selector: 'app-student-dashboard',
@@ -18,11 +20,12 @@ export class StudentDashboardComponent implements OnInit {
   studentId: number;
   assignmentSubmissions: DetailedSubmissionDTO[] = [];
   overallAverage: number;
+  notification: NotificationDto[] = [];
 
   constructor(
     private studentService: StudentService, 
     private assignmentSubmissionService: AssignmentSubmissionService,
-   
+   private readonly notificationService: NotificationService,
     private authService: AuthentificationService
   ) {}
 
@@ -31,6 +34,7 @@ export class StudentDashboardComponent implements OnInit {
     this.loadStudentCourses();
     this.loadStudentAssignments();
     this.loadOverallAverageGrade();
+    this.loadNotifications();
   }
 
   loadStudentCourses() {
@@ -60,6 +64,16 @@ export class StudentDashboardComponent implements OnInit {
         error: (err) => console.error('Failed to load overall grade:', err)
       });
     }
+  }
+  loadNotifications() {
+    this.notificationService.getRecentNotifications().subscribe({
+      next: (data) => {
+        this.notification = data;
+        console.log('Notifications:', data);
+      },
+      error: (error) => console.error('Failed to load notifications', error)
+      
+    });
   }
   
 }

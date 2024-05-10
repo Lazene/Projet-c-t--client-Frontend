@@ -46,6 +46,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MynoteComponent } from './mynote/mynote.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { NotificationComponent } from './notification/notification.component';
 
 export function tokenGetter() {return sessionStorage.getItem("jwt");}
 
@@ -87,6 +88,7 @@ export function tokenGetter() {return sessionStorage.getItem("jwt");}
     MyAssignmentComponent,
     MynoteComponent,
     ChangePasswordComponent,
+    NotificationComponent,
  
 
     

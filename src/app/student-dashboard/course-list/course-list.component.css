@@ -1,5 +1,6 @@
 .courses-container {
-  background: #ffffff;
+  background-color: #ffffff;
+    border-left: 5px solid #5f3f71;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
@@ -8,7 +9,7 @@
 
 .courses-container h3 {
   font-family: 'Poppins', sans-serif;
-  color: #4a56e2;
+  color: #5f3f71;
 }
 
 .courses-container ul {

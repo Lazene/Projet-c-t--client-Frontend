@@ -1,0 +1,41 @@
+<div class="container">
+    <h2>Manage Notifications</h2>
+    <form [formGroup]="notificationForm" (ngSubmit)="addOrUpdateNotification()">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" id="title" class="form-control" formControlName="title">
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" class="form-control" formControlName="description"></textarea>
+      </div>
+      <button type="submit" class="btn btn-success">{{ editing ? 'Update' : 'Add' }} Notification</button>
+      <button type="button" class="btn btn-secondary" (click)="resetForm()">Cancel</button>
+    </form>
+  
+    <div *ngIf="notifications.length > 0">
+      <h3>Current Notifications</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let notification of notifications">
+            <td>{{ notification.title }}</td>
+            <td>{{ notification.description }}</td>
+            <td>
+              <button class="btn btn-edit" (click)="setForEdit(notification)">Edit</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="notifications.length === 0">
+      <p>No notifications found.</p>
+    </div>
+  </div>
+  
