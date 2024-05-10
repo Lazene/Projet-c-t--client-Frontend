@@ -30,6 +30,7 @@ export class UserTableComponent implements OnInit {
       next: (data) => {
         this.users = this.filteredUsers = data; // Stockez et initialisez les utilisateurs filtrés
         this.filterUsers(); // Appliquer les filtres initiaux s'ils existent
+        console.log(this.users);
       },
       error: (error) => console.error('There was an error!', error)
     });

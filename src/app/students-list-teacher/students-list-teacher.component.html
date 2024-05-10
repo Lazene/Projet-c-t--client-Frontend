@@ -1,1 +1,21 @@
-<p>students-list-teacher works!</p>
+<div *ngFor="let course of courses">
+  <h2>{{ course.courseName }}</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Total Assignments</th>
+        <th>Submitted</th>
+        <th>Average</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let student of course.studentsDetails">
+        <td>{{ student.username }}</td>
+        <td>{{ student.totalAssignments }}</td>
+        <td>{{ student.submittedAssignments }}</td>
+        <td>{{ student.averageGrade | number:'1.0-2' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
