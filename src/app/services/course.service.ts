@@ -84,7 +84,7 @@ export class CourseService {
     return this.http.post(url, {}, { headers });
   }
   // Enlever un étudiant d'un cours
-  removeStudentFromCourse(courseId: string, studentId: string): Observable<any> {
+  removeStudentFromCourse(courseId: number, studentId: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${courseId}/removeStudent/${studentId}`);
   }
 
@@ -94,7 +94,7 @@ export class CourseService {
   }
 
   // Enlever un enseignant d'un cours
-  removeTeacherFromCourse(courseId: string, teacherId: string): Observable<any> {
+  removeTeacherFromCourse(courseId: number, teacherId: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${courseId}/removeTeacher/${teacherId}`);
   }
   // Récupérer les étudiants d'un cours

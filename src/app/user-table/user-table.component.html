@@ -5,43 +5,36 @@
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-12">
-              <button class="action-button" (click)="createUser()">
-                Create New User
-              </button>
               <div class="table-responsive bg-white">
                 <table class="table mb-0">
                   <thead>
                     <tr>
-                      <th scope="col">Id</th>
-                      <th scope="col">Name</th>
-                      <th scope="col">Role</th>
+                      <th scope="col">
+                        <input placeholder="Filter by ID" [(ngModel)]="filterId" (keyup)="filterUsers()" />
+                      </th>
+                      <th scope="col">
+                        <input placeholder="Filter by Name" [(ngModel)]="filterName" (keyup)="filterUsers()" />
+                      </th>
+                      <th scope="col">
+                        <input placeholder="Filter by Role" [(ngModel)]="filterRole" (keyup)="filterUsers()" />
+                      </th>
                       <th scope="col">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr
-                      *ngFor="let user of users"
-                      ngClass="{
-                        'role-student': user.role === 'student',
-                        'role-teacher': user.role === 'teacher',
-                        'role-admin': user.role === 'admin'
-                      }"
-                    >
+                    <tr *ngFor="let user of filteredUsers">
                       <td>{{ user.id }}</td>
                       <td>{{ user.username }}</td>
                       <td>{{ user.role }}</td>
                       <td>
-                        <button class="action-button" (click)="edit(user.id)">
-                          Edit
-                        </button>
-                        <button class="action-button" (click)="delete(user.id)">
-                          Delete
-                        </button>
+                        <button class="action-button" (click)="edit(user.id)">Edit</button>
+                        <button class="action-button" (click)="delete(user.id)">Delete</button>
                       </td>
                     </tr>
                   </tbody>
                 </table>
               </div>
+              
             </div>
           </div>
         </div>

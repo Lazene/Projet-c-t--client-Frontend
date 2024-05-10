@@ -1,37 +1,39 @@
 .teacher-dashboard {
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .teacher-dashboard h1 {
-    color: #333;
-    text-align: center;
-    margin-bottom: 30px;
-  }
-  
-  .teacher-dashboard ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .teacher-dashboard li {
-    margin-bottom: 10px;
-  }
-  
-  .teacher-dashboard a {
-    display: block;
-    padding: 10px;
-    background-color: #5cb85c;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 4px;
-    transition: background-color 0.3s;
-  }
-  
-  .teacher-dashboard a:hover {
-    background-color: #4cae4c;
-  }
-  
+  background-color: #f8f8f8; /* Soft grey background */
+  max-width: 600px; /* Restrict the maximum width for a better look */
+  margin: 50px auto; /* Centering the dashboard */
+  padding: 20px;
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+}
+
+.teacher-dashboard h1 {
+  text-align: center;
+  color: #333;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.teacher-dashboard ul {
+  list-style-type: none; /* Removes default list styling */
+  padding: 0;
+}
+
+.teacher-dashboard li {
+  padding: 10px;
+  margin-top: 8px;
+  background-color: #fff; /* White background for the items */
+  border-radius: 5px; /* Slightly rounded corners for each item */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Smaller shadow for each list item */
+}
+
+.teacher-dashboard a {
+  display: block; /* Makes the entire list item area clickable */
+  text-decoration: none; /* No underline */
+  color: #666; /* Soft black color for text */
+  font-weight: bold;
+  text-align: center;
+}
+
+.teacher-dashboard a:hover {
+  color: #5a5a5a; /* Darker color on hover for feedback */
+}

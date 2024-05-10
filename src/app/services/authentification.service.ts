@@ -12,8 +12,8 @@ export class AuthentificationService {
   private baseUrl = 'https://localhost:7176/Authentification';
   private isAuthentificatedSubject = new BehaviorSubject<boolean>(false);
   private mustChangePasswordSubject = new BehaviorSubject<boolean>(false);
-  private usernameSubject = new BehaviorSubject<string>(sessionStorage.getItem("username") || '');
-  private userRoleSubject = new BehaviorSubject<string>(sessionStorage.getItem("role") || '');
+  private usernameSubject = new BehaviorSubject<string>(localStorage.getItem("username") || '');
+  private userRoleSubject = new BehaviorSubject<string>(localStorage.getItem("role") || '');
   $user = new BehaviorSubject<User| undefined>(undefined);
   
   
@@ -27,12 +27,12 @@ export class AuthentificationService {
         tap(response => {
           if (response && response.token) {
             console.log('Login successful:', response);
-            sessionStorage.setItem("jwt", response.token);
-            sessionStorage.setItem("username", response.username);
-            sessionStorage.setItem("role", response.role);
-            sessionStorage.setItem('expires', response.expires);
-            sessionStorage.setItem('mustChangePassword', response.mustChangePassword);
-            sessionStorage.setItem('userId', response.userId); // Stockez l'ID de l'utilisateur
+            localStorage.setItem("jwt", response.token);
+            localStorage.setItem("username", response.username);
+            localStorage.setItem("role", response.role);
+            localStorage.setItem('expires', response.expires);
+            localStorage.setItem('mustChangePassword', response.mustChangePassword);
+            localStorage.setItem('userId', response.userId); // Stockez l'ID de l'utilisateur
             this.usernameSubject.next(response.username);
             this.userRoleSubject.next(response.role);
             this.isAuthentificatedSubject.next(true);
@@ -45,7 +45,7 @@ export class AuthentificationService {
   }
    // méthode isAuthentificated pour vérifier si un utilisateur est authentifié
    isAuthentificated(): boolean {
-    const token = sessionStorage.getItem("jwt");
+    const token = localStorage.getItem("jwt");
     if (token) {
       // Vérifiez si le token est expiré
       const isExpired = this.jwtHelper.isTokenExpired(token);
@@ -62,12 +62,12 @@ export class AuthentificationService {
 // Assurez-vous que l'URL est correctement écrite et correspond à celle testée dans Swagger/cURL
 refreshToken() {
   const headers = new HttpHeaders({
-      'Authorization': `Bearer ${sessionStorage.getItem("jwt")}`
+      'Authorization': `Bearer ${localStorage.getItem("jwt")}`
   });
   return this.http.get<any>(`${this.baseUrl}/refresh-token`, { headers: headers })
   .pipe(
       tap(response => {
-          sessionStorage.setItem("jwt", response.token);
+          localStorage.setItem("jwt", response.token);
       }),
       catchError(error => {
           console.error('Refresh token failed:', error);
@@ -86,9 +86,9 @@ refreshToken() {
     return this.http.post(`${this.baseUrl}/Register`, body).pipe(
       tap(response => {
         if(response && response.token){
-          sessionStorage.setItem("jwt", response.token);
-          sessionStorage.setItem("username", response.userName);
-          sessionStorage.setItem("role", response.role);
+          localStorage.setItem("jwt", response.token);
+          localStorage.setItem("username", response.userName);
+          localStorage.setItem("role", response.role);
           this.usernameSubject.next(response.userName);
           this.userRoleSubject.next(response.role);
           this.isAuthentificatedSubject.next(true);
@@ -100,7 +100,7 @@ refreshToken() {
     return this.http.post(`${this.baseUrl}/change-password`, { userId, oldPassword, newPassword }, { responseType: 'text' })
     .pipe(
         tap(() => {
-            sessionStorage.setItem('mustChangePassword', 'false');
+            localStorage.setItem('mustChangePassword', 'false');
             this.mustChangePasswordSubject.next(false);
         }),
         catchError(error => {
@@ -123,9 +123,9 @@ resetPassword(userId: number, newPassword: string): Observable<any> {
 
   // méthode pour déconnecter un utilisateur
 logout(): void {
-  sessionStorage.removeItem("jwt");
-  sessionStorage.removeItem("username");
-  sessionStorage.removeItem("role");
+  localStorage.removeItem("jwt");
+  localStorage.removeItem("username");
+  localStorage.removeItem("role");
   this.isAuthentificatedSubject.next(false);
   this.usernameSubject.next('');
   this.userRoleSubject.next('');
@@ -147,17 +147,17 @@ get userRole$(): Observable<string> {
 updateAuthenticationState(isAuthenticated: boolean): void {
   this.isAuthentificatedSubject.next(isAuthenticated);
 }
-// méthode pour obtenir le nom de l'utilisateur stocké dans le sessionStorage
+// méthode pour obtenir le nom de l'utilisateur stocké dans le localStorage
 getUserName(): string {
-  return sessionStorage.getItem("username") || '';
+  return localStorage.getItem("username") || '';
 }
-// méthode pour obtenir le role de l'utilisateur stocké dans le sessionStorage
+// méthode pour obtenir le role de l'utilisateur stocké dans le localStorage
 getUserRole(): string {
-  return sessionStorage.getItem("role") || '';
+  return localStorage.getItem("role") || '';
 }
-// méthode pour obtenir l'ID de l'utilisateur stocké dans le sessionStorage
+// méthode pour obtenir l'ID de l'utilisateur stocké dans le localStorage
 getToken(): string | null {
-  return sessionStorage.getItem('jwt');
+  return localStorage.getItem('jwt');
 }
 
 user(): Observable<User|undefined> {
@@ -178,17 +178,17 @@ setUser(response: LoginReponseDto): void {
     // Définissez les autres propriétés nécessaires, avec des valeurs par défaut ou des valeurs issues de response
   };
   this.$user.next(user);
-  sessionStorage.setItem("user-id", user.id.toString());
-  sessionStorage.setItem('user-username', user.username);
-  sessionStorage.setItem('user-roles', user.role);
-  console.log('User ID in sessionStorage:', sessionStorage.getItem("user-id"));
+  localStorage.setItem("user-id", user.id.toString());
+  localStorage.setItem('user-username', user.username);
+  localStorage.setItem('user-roles', user.role);
+  console.log('User ID in localStorage:', localStorage.getItem("user-id"));
 }
 
-// méthode pour obtenir l'ID de l'utilisateur stocké dans le sessionStorage
+// méthode pour obtenir l'ID de l'utilisateur stocké dans le localStorage
 getUserId(): number {
-  const userId = sessionStorage.getItem("userId");
+  const userId = localStorage.getItem("userId");
   if (!userId) {
-    console.error('No user ID found in sessionStorage');
+    console.error('No user ID found in localStorage');
     return null;
   }
 

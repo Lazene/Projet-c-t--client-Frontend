@@ -6,14 +6,20 @@
 			<div class="col-12">
 			  <table class="table table-striped">
 				<thead>
-				  <tr>
-					<th scope="col" class="col-number">#</th>
-					<th scope="col" class="col-course-name">Course Name</th>
-					<th scope="col" class="col-course-desc">Course Description</th>
-					<th scope="col" class="col-teacher">Teacher</th>
-					<th scope="col" class="col-actions">Actions</th>
-				  </tr>
-				</thead>
+					<tr>
+					  <th scope="col">#</th>
+					  <th scope="col">Course Name
+						<button (click)="sort('courseName')">Sort</button>
+					  </th>
+					  <th scope="col">Description</th>
+					  <th scope="col">
+						Teacher <span>
+						<button (click)="sort('teacherName')">Sort</button></span>
+					  </th>
+					  <th scope="col">Actions</th>
+					</tr>
+				  </thead>
+				 
 				<tbody>
 				  <tr *ngFor="let course of courses; let i = index">
 					<td>{{ i + 1 }}</td>
