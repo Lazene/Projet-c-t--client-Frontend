@@ -1,0 +1,16 @@
+<!-- src/app/admin-dashboard/admin-dashboard.component.html -->
+<div class="admin-dashboard">
+    <div class="stat-panel">
+      <h2>Login Statistics</h2>
+      <p>Total Logins: {{ loginStats?.totalLogins }}</p>
+      <p>Student Logins: {{ loginStats?.studentLogins }}</p>
+      <p>Teacher Logins: {{ loginStats?.teacherLogins }}</p>
+    </div>
+    <div class="notification-panel">
+      <h2>Recent Notification</h2>
+      <p>Title: {{ recentNotification?.title }}</p>
+      <p>Description: {{ recentNotification?.description }}</p>
+      <p>Date: {{ recentNotification?.createdDate | date:'medium' }}</p>
+    </div>
+  </div>
+  

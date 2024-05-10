@@ -47,6 +47,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MynoteComponent } from './mynote/mynote.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { NotificationComponent } from './notification/notification.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 
 export function tokenGetter() {return sessionStorage.getItem("jwt");}
 
@@ -89,6 +90,7 @@ export function tokenGetter() {return sessionStorage.getItem("jwt");}
     MynoteComponent,
     ChangePasswordComponent,
     NotificationComponent,
+    AdminDashboardComponent,
  
 
     
