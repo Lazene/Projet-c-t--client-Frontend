@@ -1,0 +1,18 @@
+.notification-panel {
+
+    background-color: #ffffff;
+    border-left: 5px solid #5f3f71; /* Purple accent */
+    padding: 10px 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  .notification-panel h4 {
+    color: #5f3f71;
+  }
+  .notification-panel p {
+    color: #333;
+  }
+  .notification-panel small {
+    color: #666;
+  }
+  
