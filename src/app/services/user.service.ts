@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User, UpdUserDTO, NewUserDTO, AddUserDTO } from '../shared/DTO/UserDto'
+import { LoginStatisticsDto } from '../shared/DTO/LoginStatisticsDto';
 
 @Injectable({
   providedIn: 'root'
@@ -39,5 +40,7 @@ export class UserService {
   getRoles(id:number): Observable<any> {
     return this.http.get(`${this.baseUrl}/role/${id}`,{ responseType: 'text' });
   }
-  
+  getLoginStatistics(): Observable<LoginStatisticsDto> {
+    return this.http.get<LoginStatisticsDto>(`${this.baseUrl}/login-statistics`);
+  }
 }
