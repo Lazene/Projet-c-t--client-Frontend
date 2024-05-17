@@ -4,7 +4,7 @@
             <div id="add-course-column" class="col-md-6">
                 <div id="add-course-box" class="col-md-12">
                     <form [formGroup]="courseForm" (ngSubmit)="save()">
-                        <h3 class="text-center text-info">Add Course</h3>
+                        <h3 class="text-center ">Add Course</h3>
                         <div class="form-group">
                             <label for="courseName">Name</label>
                             <input type="text" formControlName="name" class="form-control" name="courseName" placeholder="Enter Course Name"/>
@@ -25,13 +25,7 @@
                              <option *ngFor="let teacher of teachers" [value]="teacher.teacherId">{{ teacher.user.username }}</option>
                         </select>
                           </div>
-                        <div class="form-group">
-                            <label for = "students">Students</label>
-                            <select class="form-control" id="students" formControlName="studentIds">
-                                <option *ngFor="let student of students" [value]="student.studentId">{{ student?.user?.username }}</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary" *ngIf="!isUpdate">Save Course</button>
+                        <button type="submit" class="btn btn-success" *ngIf="!isUpdate">Save Course</button>
                         <button type="submit" class="btn btn-success" *ngIf="isUpdate && courseForm.valid">Update Course</button>
                     </form>
                 </div>

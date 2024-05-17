@@ -54,7 +54,7 @@ export class ChangePasswordComponent {
         this.changePasswordForm.value.newPassword
       ).subscribe({
         next: () => {
-          console.log('Password changed successfully');
+          alert('Password changed successfully');
           this.router.navigate(['/login']);
         },
         error: (error) => {

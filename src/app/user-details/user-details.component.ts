@@ -61,7 +61,7 @@ export class UserDetailsComponent implements OnInit {
   
       this.userService.updateUser(updatedUser).subscribe({
         next: () => {
-          console.log('User updated successfully');
+          alert('User updated successfully');
           this.router.navigate(['/user-table']); 
         },
         error: (error) => console.error('Error updating the user:', error)

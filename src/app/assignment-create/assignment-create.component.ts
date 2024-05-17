@@ -53,7 +53,6 @@ export class AssignmentCreateComponent implements OnInit {
     const teacherId = this.authService.getUserId();
     if (teacherId) {
       this.courses$ = this.teacherService.getCoursesByTeacher(teacherId);
-      this.courses$.subscribe(courses => console.log("Courses loaded:", courses));
     }
 }
 
@@ -152,8 +151,9 @@ onSubmit() {
   onDelete(assignmentId: number) {
     this.assignmentService.deleteAssignment(assignmentId).subscribe({
       next: () => {
+        alert('Assignment deleted successfully');
         const updatedAssignments = this.assignmentsSubject.value.filter(a => a.assignmentId !== assignmentId);
-        this.assignmentsSubject.next(updatedAssignments); // Mettez à jour localement
+        this.assignmentsSubject.next(updatedAssignments);
       },
       error: (err) => console.error('Failed to delete assignment', err)
     });

@@ -67,7 +67,7 @@ export class EnrolledstudentComponent implements OnInit {
 
       if (enrolled && !initiallyEnrolled) {
         this.courseService.addStudentToCourse(courseId, +this.studentId).subscribe({
-          next: response => console.log(`Enrolled in course ID ${courseId}:`, response),
+          next: response => alert(`Enrolled in course ID ${courseId}:`),
           error: error => console.error(`Error enrolling in course ID ${courseId}:`, error)
         });
       } else if (!enrolled && initiallyEnrolled) {

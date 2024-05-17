@@ -35,8 +35,6 @@ export class StudentAddComponent implements OnInit {
         password: this.registerForm.value.password,
         role: 'student'
       };
-
-      console.log('Creating new student:', newStudent);
       this.userService.createUser(newStudent).subscribe({
         next: () => {
           this.router.navigate(['/student-table']);

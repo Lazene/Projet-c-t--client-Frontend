@@ -23,7 +23,6 @@ export class CourseDetailsComponent implements OnInit {
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     this.courseId = +id;
-    console.log(this.courseId); // Vérifiez la sortie dans la console du navigateur
     this.loadCourseDetails();
     this.loadStudents();
     this.loadTeachers();
@@ -32,7 +31,6 @@ export class CourseDetailsComponent implements OnInit {
 
   loadCourseDetails(): void {
     this.courseService.getCourseById(this.courseId).subscribe(course => {
-      console.log(course); // Pour déboguer et voir les données reçues
       this.courseDetails = course;
     });
   }
@@ -41,7 +39,6 @@ export class CourseDetailsComponent implements OnInit {
   loadTeachers(): void {
     this.courseService.getTeachers(this.courseId).subscribe({
       next: (teachers) => {
-        console.log("Teachers loaded:", teachers);
         this.teachers = teachers;
       },
       error: (error) => {
@@ -55,7 +52,6 @@ export class CourseDetailsComponent implements OnInit {
   loadStudents(): void {
       this.courseService.getStudentsByCourse(this.courseId).subscribe({
        next : (students) => {
-        console.log("Students loaded:", students);
         this.students = students;
       },
       error: (error) => {

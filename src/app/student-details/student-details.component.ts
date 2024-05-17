@@ -31,14 +31,12 @@ export class StudentDetailsComponent implements OnInit {
       const idNum = +this.studentId;
       this.studentService.getStudentById(idNum).subscribe({
         next: (student) => {
-          console.log('Student loaded:', student);
           this.studentForm.patchValue({
             username: student.userName,
       error: (error) => console.error('Error loading the student:', error)
       });
     }
-  })        // Supprimez cette ligne si vos étudiants n'ont pas de propriété role
-            // role: student.role
+  })     
 
         }
       }
@@ -53,8 +51,8 @@ export class StudentDetailsComponent implements OnInit {
   
       this.studentService.updateUser(updatedUser).subscribe({
         next: () => {
-          console.log('User updated successfully');
-          this.router.navigate(['/user-table']); // Redirigez vers la page appropriée après la mise à jour
+          alert('User updated successfully');
+          this.router.navigate(['/user-table']); 
         },
         error: (error) => console.error('Error updating the user:', error)
       });

@@ -20,14 +20,10 @@ export class RegisterComponent {
     });}
 
   submit() {
-   
-    console.log(this.registerForm.value);
     const postData = { ...this.registerForm.value };
     delete postData.confirmPassword;
     this.authService.register(this.registerForm.value.userName, this.registerForm.value.password).subscribe(
       response => {
-        console.log(response);
-
         this.router.navigate(['/login'])
       },
     );

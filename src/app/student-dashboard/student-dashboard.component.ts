@@ -40,7 +40,7 @@ export class StudentDashboardComponent implements OnInit {
   loadStudentCourses() {
     if(this.studentId) {
       this.studentService.getCoursesByStudent(this.studentId).subscribe({
-        next: (courses) => this.courses = courses,
+        next: (reponse) => this.courses = reponse,
         error: (err) => console.error('Failed to load courses', err)
       });
     }
@@ -58,8 +58,7 @@ export class StudentDashboardComponent implements OnInit {
     if (this.studentId) {
       this.assignmentSubmissionService.getOverallAverageGrade(this.studentId).subscribe({
         next: (grade) => {
-          this.overallAverage = grade;  // Make sure you are setting it here
-          console.log('Overall grade:', grade);
+          this.overallAverage = grade;  
         },
         error: (err) => console.error('Failed to load overall grade:', err)
       });
@@ -69,7 +68,6 @@ export class StudentDashboardComponent implements OnInit {
     this.notificationService.getRecentNotifications().subscribe({
       next: (data) => {
         this.notification = data;
-        console.log('Notifications:', data);
       },
       error: (error) => console.error('Failed to load notifications', error)
       

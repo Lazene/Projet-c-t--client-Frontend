@@ -62,3 +62,4 @@ export { CourseTeacher};
 export { CourseStudent };
 export { Course };
 export { CourseAdd };
+export { CourseDto };

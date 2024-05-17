@@ -10,12 +10,12 @@
     background-color: #ece1ff; /* Couleur pour les administrateurs */
   }
   .action-button {
-    margin-right: 10px;
-    border-radius: 5px;
-    background-color: white;
-    border: 2px solid rgb(0, 0, 0);
-    color: rgb(0, 0, 0);
-    padding: 5px 10px;
+    margin-right: 10px !important;
+    border: none;
+    background-color: #5c6bc0 !important;
+    border-radius: 4px;
+    color: white;
+    padding: 5px 10px !important;
   }
   
   table {

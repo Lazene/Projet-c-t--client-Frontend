@@ -21,7 +21,6 @@ export class CourseAddComponent implements OnInit {
   constructor(
     private courseService: CourseService,
     private teacherService: TeacherService,
-    private studentService: StudentService,
     private route: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder
@@ -29,8 +28,7 @@ export class CourseAddComponent implements OnInit {
     this.courseForm = this.formBuilder.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
-      teacherId: [null, Validators.required],
-      studentIds: [null, Validators.required]
+      teacherId: [null, Validators.required]
     });
   }
 
@@ -44,7 +42,7 @@ export class CourseAddComponent implements OnInit {
       }
     });
     this.loadTeachers();
-    this.loadStudents();
+
   }
 
   loadCourseData(courseId: string): void {
@@ -62,19 +60,13 @@ export class CourseAddComponent implements OnInit {
 
   loadTeachers(): void {
     this.teacherService.getTeachers().subscribe(teachers => {
-      console.log('Teachers', teachers);
       this.teachers = teachers;
     });
   }
-  loadStudents(): void {
-    this.studentService.getAllStudents().subscribe(students => {
-      console.log('Students', students);
-      this.students = students;
-    });
-  }
+
   save(): void {
-    const selectedTeacherId = this.courseForm.value.teacherId; // Utilisez teacherId
-    const selectedTeacher = this.teachers.find(teacher => teacher.teacherId === +selectedTeacherId); // Convertissez selectedTeacherId en nombre
+    const selectedTeacherId = this.courseForm.value.teacherId;
+    const selectedTeacher = this.teachers.find(teacher => teacher.teacherId === +selectedTeacherId); 
   
     if (selectedTeacher) {
       const courseDataForUpdate = {
@@ -93,7 +85,7 @@ export class CourseAddComponent implements OnInit {
       if (this.isUpdate && this.courseId) {
         this.courseService.updateCourse(this.courseId, courseDataForUpdate).subscribe({
           next: () => {
-            console.log('Course updated successfully');
+            alert('Course updated successfully');
             this.router.navigate(['/course-table']);
           },
           error: (error) => {
@@ -103,7 +95,7 @@ export class CourseAddComponent implements OnInit {
       } else {
         this.courseService.addCourse(courseDataForAdd).subscribe({
           next: () => {
-            console.log('Course added successfully');
+            alert('Course added successfully');
             this.router.navigate(['/course-table']);
           },
           error: (error) => {

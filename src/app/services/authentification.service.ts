@@ -26,7 +26,6 @@ export class AuthentificationService {
       .pipe(
         tap(response => {
           if (response && response.token) {
-            console.log('Login successful:', response);
             localStorage.setItem("jwt", response.token);
             localStorage.setItem("username", response.username);
             localStorage.setItem("role", response.role);
@@ -37,7 +36,6 @@ export class AuthentificationService {
             this.userRoleSubject.next(response.role);
             this.isAuthentificatedSubject.next(true);
             this.mustChangePasswordSubject.next(response.mustChangePassword);
-            console.log("Storing token: ", response.token);
             
           }
         })
@@ -47,9 +45,7 @@ export class AuthentificationService {
    isAuthentificated(): boolean {
     const token = localStorage.getItem("jwt");
     if (token) {
-      // Vérifiez si le token est expiré
-      const isExpired = this.jwtHelper.isTokenExpired(token);
-      console.log("Token expired:", isExpired);
+           const isExpired = this.jwtHelper.isTokenExpired(token);
       return !isExpired;
     }
     return false;
@@ -58,8 +54,7 @@ export class AuthentificationService {
   mustUserChangePassword(): Observable<boolean> {
     return this.mustChangePasswordSubject.asObservable();
   }
-  // méthode refreshToken pour rafraichir le token
-// Assurez-vous que l'URL est correctement écrite et correspond à celle testée dans Swagger/cURL
+
 refreshToken() {
   const headers = new HttpHeaders({
       'Authorization': `Bearer ${localStorage.getItem("jwt")}`
@@ -112,7 +107,7 @@ refreshToken() {
 resetPassword(userId: number, newPassword: string): Observable<any> {
    return this.http.post(`${this.baseUrl}/ResetPassword`, { userId, newPassword }, { responseType: 'text' })
     .pipe(
-      tap(() => console.log('Password reset successful')),
+      tap(() => alert('Password reset successful')),
       catchError(error => {
           console.error('Reset password failed:', error);
           return throwError(() => new Error(`Reset password failed: ${error.message}`));
@@ -165,23 +160,21 @@ user(): Observable<User|undefined> {
   return this.$user.asObservable();
 }
 setUser(response: LoginReponseDto): void {
-  // Vous pouvez créer un objet User ici si nécessaire, par exemple:
+
   if (!response || !response.userId) {
     console.error('Invalid login response:', response);
     return;
   }
-  console.log('Setting user response:', response);
   const user: User = {
     id: response.userId,
     username: response.username,
     role: response.role,
-    // Définissez les autres propriétés nécessaires, avec des valeurs par défaut ou des valeurs issues de response
+    
   };
   this.$user.next(user);
   localStorage.setItem("user-id", user.id.toString());
   localStorage.setItem('user-username', user.username);
   localStorage.setItem('user-roles', user.role);
-  console.log('User ID in localStorage:', localStorage.getItem("user-id"));
 }
 
 // méthode pour obtenir l'ID de l'utilisateur stocké dans le localStorage

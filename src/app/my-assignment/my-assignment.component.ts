@@ -31,12 +31,9 @@ export class MyAssignmentComponent implements OnInit {
     this.submissionService.getAssignmentsForStudent(this.studentId).subscribe({
       next: (submissions: DetailedSubmissionDTO[]) => {
         this.submissions = submissions.map(submission => {
-          // Vous pouvez ici traiter les données si nécessaire, par exemple:
-          // conversion des dates de format string à Date object, etc.
           submission.submissionDate = submission.submissionDate ? new Date(submission.submissionDate) : undefined;
           return submission;
         });
-        console.log('Soumissions chargées:', this.submissions);
       },
       error: (error) => console.error('Erreur lors de la récupération des soumissions:', error)
     });
@@ -45,7 +42,7 @@ export class MyAssignmentComponent implements OnInit {
   submitAssignment(assignmentSubmissionId: number): void {
     this.submissionService.submitAssignmentBySubmissionId(assignmentSubmissionId).subscribe({
       next: () => {
-        alert('Devoir soumis avec succès.');
+        alert('Assignment submitted successfully.');
         this.loadStudentAssignments();  // Pour rafraîchir les données affichées
       },
       error: (error) => {

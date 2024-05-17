@@ -23,7 +23,6 @@ export class LoginComponent  {
     this.authService.login(this.loginForm.value.userName, this.loginForm.value.password)
     .subscribe({
       next: (response) => {
-        console.log(response);
         if (response.token) {
           // Stockage des informations de l'utilisateur
           this.authService.setUser(response); 
