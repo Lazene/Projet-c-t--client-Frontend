@@ -100,7 +100,7 @@ export class CourseService {
   // Récupérer les étudiants d'un cours
   getStudentsByCourse(courseId: number): Observable<StudentDTO[]> {
     return this.http.get<StudentDTO[]>(`${this.baseUrl}/${courseId}/students`);
-    console.log(this.getStudentsByCourse);
+  
   }
   // Récupérer les enseignants d'un cours
   getTeachers(courseId : number): Observable<TeacherDTO[]> {

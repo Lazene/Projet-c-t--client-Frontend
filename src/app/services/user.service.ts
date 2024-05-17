@@ -14,7 +14,6 @@ export class UserService {
 
   // Récupérer tous les utilisateurs
   getUsers(): Observable<User[]> {
-    console.log(User)
     return this.http.get<User[]>(`${this.baseUrl}`);
   }
 

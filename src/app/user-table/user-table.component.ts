@@ -21,16 +21,14 @@ export class UserTableComponent implements OnInit {
 
   ngOnInit(): void {
   this.role = sessionStorage.getItem("role");
-    console.log(this.role);
     this.loadUsers();
   }
 
   loadUsers(): void {
     this.userService.getUsers().subscribe({
       next: (data) => {
-        this.users = this.filteredUsers = data; // Stockez et initialisez les utilisateurs filtrés
+        this.users = this.filteredUsers = data; 
         this.filterUsers(); // Appliquer les filtres initiaux s'ils existent
-        console.log(this.users);
       },
       error: (error) => console.error('There was an error!', error)
     });
@@ -46,7 +44,7 @@ export class UserTableComponent implements OnInit {
   delete(id: number): void {
     this.userService.deleteUser(id).subscribe({
       next: () => {
-        this.loadUsers(); // Recharger la liste des utilisateurs après suppression
+        this.loadUsers(); 
       },
       error: (error) => {
         console.error('Error deleting the user', error);
@@ -71,7 +69,7 @@ export class UserTableComponent implements OnInit {
     });
   }
   createUser(): void {
-    this.router.navigate(['/user-add']); // Assurez-vous que le chemin est correct 
+    this.router.navigate(['/user-add']); 
 }
   
 }

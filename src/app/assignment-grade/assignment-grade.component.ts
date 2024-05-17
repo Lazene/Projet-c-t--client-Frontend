@@ -29,21 +29,18 @@ export class AssignmentGradeComponent implements OnInit {
   ) {}
   ngOnInit(): void {
   this.teacherId = this.authService.getUserId();
-   console.log(this.teacherId);
     this.loadTeacherCourses();
   }
   
   loadTeacherCourses(): void {
     const teacherId = this.teacherId;
-    console.log('Teacher ID:', teacherId);
     this.teacherService.getCoursesByTeacher(teacherId).subscribe({
       next: (courses) => {
         this.courses = courses;
-        console.log('Courses loaded:', this.courses);
         if (this.courses.length > 0) {
           this.loadSubmissionsForAllCourses();
         } else {
-          console.log('No courses found for teacher');
+          alert('No courses found for teacher');
         }
       },
       error: (error) => console.error('Failed to load courses:', error)
@@ -59,7 +56,7 @@ export class AssignmentGradeComponent implements OnInit {
             if (new Date(submission.deadline) < today && !submission.isSubmitted) {
              this.assignmentSubmissionService.gradeAssignment({ submissionId: submission.assignmentSubmissionId, gradeValue: 0 }).subscribe({ 
                 next: () => {
-                  console.log('Grade added successfully');
+                  alert('Grade added successfully');
                 },
                 error: (error) => {
                   console.error('Failed to add grade', error);
@@ -67,10 +64,10 @@ export class AssignmentGradeComponent implements OnInit {
               });
               this.assignmentSubmissionService.submitAssignmentBySubmissionId(submission.assignmentSubmissionId).subscribe({
                 next: () => {
-                  console.log('Assignment submitted successfully');
+                  alert('Assignment submitted successfully');
                 },
                 error: (error) => {
-                  console.error('Failed to submit assignment', error);
+                  alert('Failed to submit assignment');
                 }
               });
             }
@@ -94,11 +91,10 @@ export class AssignmentGradeComponent implements OnInit {
     const gradeDto: GradeAssignmentDTO = { submissionId, gradeValue };
     this.assignmentSubmissionService.gradeAssignment(gradeDto).subscribe({
       next: () => {
-        console.log('Grade added successfully');
         this.processing = false;  // Arrêt du traitement
       },
       error: (error) => {
-        console.error('Failed to add grade', error);
+      
         this.processing = false;  // Arrêt du traitement même en cas d'erreur
       }
     });
@@ -109,11 +105,10 @@ export class AssignmentGradeComponent implements OnInit {
     const updateDto: GradeAssignmentDTO = { submissionId, gradeValue };
     this.assignmentSubmissionService.gradeAssignment(updateDto).subscribe({
       next: () => {
-        console.log('Grade updated successfully');
+        alert('Grade updated successfully');
         this.processing = false;  // Arrêt du traitement
       },
       error: (error) => {
-        console.error('Failed to update grade', error);
         this.processing = false;  // Arrêt du traitement même en cas d'erreur
       }
     });

@@ -4,7 +4,7 @@
       <div id="Create-User-column" class="col-md-6">
         <div id="Create-User-box" class="col-md-12">
           <form [formGroup]="registerForm" (ngSubmit)="submit()">
-            <h3 class="text-center text-info">Create User</h3>
+            <h3 class="text-center ">Create User</h3>
             <div class="form-group">
               <label for="userName">Username</label>
               <input type="text" id="userName" formControlName="userName" class="form-control">
@@ -26,5 +26,5 @@
         <option value="admin">Admin</option>
       </select>
     </div>
-    <button type="submit" class="btn btn-primary">Create User</button>
+    <button type="submit" class="btn btn-action">Create User</button>
 </form>

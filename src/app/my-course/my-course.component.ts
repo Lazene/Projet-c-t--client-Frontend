@@ -28,13 +28,8 @@ export class MyCourseComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log('Is authenticated: ', this.authService.isAuthentificated());
-   // this.isLoading = true;
     this.courses$=this.courseService.getAllCourses();
-    console.log('Courses:', this.courses$);
     this.myCourses$=this.studentService.getCoursesByStudent(this.authService.getUserId());
-    console.log('My courses:', this.myCourses$);
-    console.log(this.authService.getUserId());
     this.myCourses$.subscribe(courses => {
       this.enrolledCourseIds.clear();
       courses.forEach(course => this.enrolledCourseIds.add(course.courseId));
@@ -65,10 +60,8 @@ export class MyCourseComponent implements OnInit {
         this.isLoading = false;
       })
     ).subscribe(() => {
-      console.log('Enrollment successful');
-      // Rafraîchir la liste des cours auxquels l'étudiant est inscrit
       this.myCourses$ = this.studentService.getCoursesByStudent(studentId);
-      // Ajoutez également l'ID du cours à l'ensemble des IDs de cours inscrits
+
       this.enrolledCourseIds.add(courseId);
     });
   }

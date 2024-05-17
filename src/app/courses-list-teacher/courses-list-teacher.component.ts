@@ -50,7 +50,7 @@ export class CoursesListTeacherComponent implements OnInit {
       this.courseService.getStudentsByCourse(courseId).pipe(
         catchError(error => {
           console.error(`Failed to load students for course ${courseId}`, error);
-          return of([]); // Retourner un tableau vide en cas d'erreur
+          return of([]); 
         })
       )
     );
@@ -60,7 +60,6 @@ export class CoursesListTeacherComponent implements OnInit {
         this.studentsByCourse[courseId] = results[index];
       });
       this.isLoading = false;
-      console.log("Students loaded for all courses:", this.studentsByCourse);
     });
   }
 }

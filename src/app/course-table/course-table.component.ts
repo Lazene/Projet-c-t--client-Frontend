@@ -17,8 +17,7 @@ export class CourseTableComponent {
   constructor(private courseService: CourseService, private router:Router){
 //objet router pour naviguer entre les pages
     courseService.getAllCourses().subscribe(x=> {
-      this.courses=x
-      console.log(this.courses)
+      this.courses=x;
     })
   }
   ngOnInit(): void {
@@ -59,12 +58,9 @@ export class CourseTableComponent {
     }
   }
   viewCourseDetails(courseId: number ) {
-    console.log(courseId); 
     this.router.navigate(['/course-details', courseId]);
 }
 sort(property: 'courseName' | 'teacherName') {
-  console.log('Sorting by: ', property);
-  console.log('Before sort:', this.courses);
   this.courses = [...this.courses].sort((a, b) => {
     const valueA = a[property].toLowerCase();
     const valueB = b[property].toLowerCase();

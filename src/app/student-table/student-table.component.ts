@@ -18,19 +18,14 @@ export class StudentTableComponent {
   ngOnInit(): void {
    
   this.role = sessionStorage.getItem("role");
-    console.log(this.role);
+ 
     this.loadStudents();
   }
 
   loadStudents(): void {
     this.studentService.getAllStudents().subscribe({
       next: (data) => {
-        console.log(data); // Ajoutez cette ligne
         this.student = this.sortUsers(data);
-        data.forEach(student => {
-          console.log('ID:', student.studentId);
-          console.log('Username:', student.username);
-        });
       },
       error: (error) => {
         console.error('There was an error!', error);

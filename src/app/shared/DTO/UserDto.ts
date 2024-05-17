@@ -3,7 +3,8 @@ class User{
     username : string | undefined;
     password ?: string |undefined;
     salt? : string | undefined;
-    role : string | undefined;  
+    role : string | undefined; 
+
 }
 
 export { User };

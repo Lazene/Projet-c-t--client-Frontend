@@ -1,8 +1,9 @@
 .action-button {
     margin-right: 10px !important;
-    border-radius: 5px !important;
-    background-color: white !important;
-    border: 2px solid rgb(0, 0, 0) !important;
-    color: rgb(0, 0, 0) !important;
+    border: none;
+    background-color: #5c6bc0 !important;
+    border-radius: 4px;
+    color: white;
     padding: 5px 10px !important;
   }
+ 
