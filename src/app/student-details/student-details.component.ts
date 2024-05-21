@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StudentService } from '../services/student.service';
 import { UpdUserDTO } from '../shared/DTO/UserDto';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-student-details',
@@ -15,6 +16,7 @@ export class StudentDetailsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private userService: UserService,
     private studentService: StudentService,
     private fb: FormBuilder,
     private router: Router
@@ -29,17 +31,18 @@ export class StudentDetailsComponent implements OnInit {
     this.studentId = this.route.snapshot.paramMap.get('id');
     if (this.studentId) {
       const idNum = +this.studentId;
-      this.studentService.getStudentById(idNum).subscribe({
+      this.userService.getUserById(idNum).subscribe({      
         next: (student) => {
+          console.log(student);
           this.studentForm.patchValue({
-            username: student.userName,
+            username: student.username,
+            role: student.role
+          });
+        },
       error: (error) => console.error('Error loading the student:', error)
       });
     }
-  })     
-
-        }
-      }
+  }
   
   onSubmit(): void {
     if (this.studentForm.valid) {
