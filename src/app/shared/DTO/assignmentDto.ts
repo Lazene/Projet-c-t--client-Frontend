@@ -3,5 +3,5 @@ export class AssignmentDTO {
   title: string;
   description: string;
   courseId: number;
-  gradeValue?: number;  // Optional property if assignments can have a default grade value
+  gradeValueMax: number;  // Optional property if assignments can have a default grade value
 }

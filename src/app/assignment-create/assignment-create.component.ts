@@ -43,7 +43,7 @@ export class AssignmentCreateComponent implements OnInit {
       title: ['', Validators.required],
       description: ['', Validators.required],
       deadline: ['', Validators.required],
-      ValueMax: ['', [Validators.required, Validators.pattern(/^[0-9]+$/)]]
+      gradeValueMax: ['', [Validators.required, Validators.pattern(/^[0-9]+$/)]]
     });
   }
   
@@ -72,7 +72,7 @@ onSelectCourse(event: Event) {
     this.loadAssignmentsForCourse(this.selectedCourseId);
   } else {
     console.error('Invalid course ID:', this.selectedCourseId);
-    this.assignments$ = of([]); // Réinitialisez les assignments en cas de sélection invalide
+    this.assignments$ = of([]); 
   }
 }
 
@@ -81,7 +81,7 @@ onSelectCourse(event: Event) {
 
 onEdit(assignment: AssignmentDTO) {
   this.isEditing = true;
-  this.currentAssignmentId = assignment.assignmentId; // Assurez-vous que c'est `id` et non `assignmentId`, sauf si votre DTO le définit ainsi.
+  this.currentAssignmentId = assignment.assignmentId; 
   this.assignmentForm.patchValue({
     courseId: assignment.courseId,
     title: assignment.title,
@@ -104,7 +104,7 @@ onSubmit() {
       title: formValue.title,
       description: formValue.description,
       courseId: formValue.courseId,
-      deadline: new Date(formValue.deadline)  // Convertissez la date si nécessaire
+      deadline: new Date(formValue.deadline)  
     };
     this.updateAssignment(updatedAssignment);
   } else {
@@ -112,8 +112,8 @@ onSubmit() {
       title: formValue.title,
       description: formValue.description,
       courseId: formValue.courseId,
-      deadline: new Date(formValue.deadline), // Convertissez la date si nécessaire
-      gradeValueMax: formValue.gradeValueMax // Assurez-vous que cette valeur est gérée
+      deadline: new Date(formValue.deadline), 
+      gradeValueMax: formValue.gradeValueMax 
     };
     this.addAssignment(newAssignment);
   }
